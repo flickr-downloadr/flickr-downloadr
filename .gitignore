@@ -4,3 +4,7 @@ obj
 
 # mstest test results
 TestResults
+*.user
+*.suo
+/FloydPink.Flickr.Downloadr.Tests/TestResult.xml
+/FloydPink.Flickr.Downloadr.Tests/FloydPink.Flickr.Downloadr.Tests.csproj.VisualState.xml
