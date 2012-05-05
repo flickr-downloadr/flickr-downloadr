@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using FloydPink.Flickr.Downloadr.Services;
+using FloydPink.Flickr.Downloadr.OAuth;
 
 namespace FloydPink.Flickr.Downloadr.Tests.ServicesTests
 {
@@ -34,7 +35,7 @@ namespace FloydPink.Flickr.Downloadr.Tests.ServicesTests
         public void WillCallFlickrTestEchoSuccessfully()
         {
             var serviceUrl = FlickrServices.BuildServiceUrl("flickr.test.echo", new Dictionary<string, string>());
-            Assert.IsNotNull((new FlickrServices()).makeFlickrServiceCall(serviceUrl));
+            Assert.IsNotNull((new FlickrServices()).makeAnonymousRequest(serviceUrl));
         }
 
         [Test]
@@ -52,9 +53,31 @@ namespace FloydPink.Flickr.Downloadr.Tests.ServicesTests
         public void WillCallFlickrTestEchoWithDummyParameter()
         {
             var serviceUrl = FlickrServices.BuildServiceUrl("flickr.test.echo", new Dictionary<string, string>() { { "dummyParam", "dummyValue" } });
-            var dictionary = (new FlickrServices()).makeFlickrServiceCall(serviceUrl);
+            var dictionary = (new FlickrServices()).makeAnonymousRequest(serviceUrl);
             Assert.Contains("dummyParam", dictionary.Keys);
-            Assert.AreEqual("dummyValue", FlickrServices.GetValueFromDictionary(dictionary,"dummyParam"));
+            Assert.AreEqual("dummyValue", FlickrServices.GetValueFromDictionary(dictionary, "dummyParam"));
         }
+        [Test]
+        public void WillCallFlickrTestLoginWithAnAuthorizedRequest()
+        {
+            var flickrServices = new FlickrServices();
+            var redirectUrl = flickrServices.OAuthManager.RequestUserAuthorization();
+            //redirect to redirectUrl and get the token
+            string validatorToken = string.Empty;
+            flickrServices.OAuthManager.ProcessUserAuthorization(validatorToken);
+            var dictionary = flickrServices.makeAuthenticatedRequest("flickr.test.login", new Dictionary<string, string>());
+            Assert.Contains("user", dictionary.Keys);
+            //Assert.AreEqual("dummyValue", FlickrServices.GetValueFromDictionary(dictionary, "dummyParam"));
+        }
+
+        //[Test]
+        //public void UnderstandOAuth()
+        //{
+        //    var authManager = new OAuthManager();
+        //    var redirectUrl = authManager.RequestUserAuthorization();
+        //    //redirect to redirectUrl and get the token
+        //    string validatorToken = string.Empty;
+        //    authManager.ProcessUserAuthorization(validatorToken);
+        //}
     }
 }
