@@ -14,7 +14,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
     {
         private DesktopConsumer consumer { get; set; }
         private string RequestToken = string.Empty;
-        private string AccessToken = "72157629603440834-1513bdab86f5f722";
+        private string AccessToken = string.Empty;
 
         private string ConsumerKey { get { return "33fe2dc1389339c4e9cd77e9a90ebabf"; } }
         private string ConsumerSecret { get { return "573233c34efdd943"; } }
@@ -38,7 +38,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 
         public OAuthManager()
         {
-            consumer = new DesktopConsumer(FlickrServiceDescription, new InMemoryTokenManager(ConsumerKey, ConsumerSecret));
+            consumer = new DesktopConsumer(FlickrServiceDescription, new TokenManager(ConsumerKey, ConsumerSecret));
         }
 
         public string RequestUserAuthorization()

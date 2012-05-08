@@ -3,42 +3,11 @@ using DotNetOpenAuth.OAuth.ChannelElements;
 using System.Collections.Generic;
 using DotNetOpenAuth.OpenId.Extensions.OAuth;
 using DotNetOpenAuth.OAuth.Messages;
+using FloydPink.Flickr.Downloadr.Repository;
+using FloydPink.Flickr.Downloadr.Model;
 
 namespace FloydPink.Flickr.Downloadr.OAuth
 {
-    public class TokenManager : IConsumerTokenManager
-    {
-
-        public TokenManager(string consumerKey, string consumerSecret)
-        {
-            this.ConsumerKey = consumerKey;
-            this.ConsumerSecret = consumerSecret;
-        }
-
-        public string ConsumerKey { get; private set; }
-        public string ConsumerSecret { get; private set; }
-
-        public void ExpireRequestTokenAndStoreNewAccessToken(string consumerKey, string requestToken, string accessToken, string accessTokenSecret)
-        {
-            Console.WriteLine("TokenManager.ExpireRequestTokenAndStoreNewAccessToken method should be implemented");
-        }
-
-        public string GetTokenSecret(string token)
-        {
-            return "myTokenSecret";
-        }
-
-        public TokenType GetTokenType(string token)
-        {
-            return token == "requestToken" ? TokenType.RequestToken : TokenType.AccessToken;
-        }
-
-        public void StoreNewRequestToken(DotNetOpenAuth.OAuth.Messages.UnauthorizedTokenRequest request, DotNetOpenAuth.OAuth.Messages.ITokenSecretContainingMessage response)
-        {
-            Console.WriteLine("TokenManager.StoreNewRequestToken method should be implemented");
-        }
-    }
-
     /// <summary>
     /// A token manager that only retains tokens in memory. 
     /// Meant for SHORT TERM USE TOKENS ONLY.
@@ -48,16 +17,16 @@ namespace FloydPink.Flickr.Downloadr.OAuth
     /// where the user only signs in without providing any authorization to access
     /// Twitter APIs except to authenticate, since that access token is only useful once.
     /// </remarks>
-    internal class InMemoryTokenManager : IConsumerTokenManager, IOpenIdOAuthTokenManager
+    internal class TokenManager : IConsumerTokenManager, IOpenIdOAuthTokenManager
     {
         private Dictionary<string, string> tokensAndSecrets = new Dictionary<string, string>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InMemoryTokenManager"/> class.
+        /// Initializes a new instance of the <see cref="TokenManager"/> class.
         /// </summary>
         /// <param name="consumerKey">The consumer key.</param>
         /// <param name="consumerSecret">The consumer secret.</param>
-        public InMemoryTokenManager(string consumerKey, string consumerSecret)
+        public TokenManager(string consumerKey, string consumerSecret)
         {
             if (String.IsNullOrEmpty(consumerKey))
             {
@@ -140,6 +109,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
         {
             this.tokensAndSecrets.Remove(requestToken);
             this.tokensAndSecrets[accessToken] = accessTokenSecret;
+            (new AccessTokenRepository()).Save(new Token(accessToken, accessTokenSecret));
         }
 
         /// <summary>

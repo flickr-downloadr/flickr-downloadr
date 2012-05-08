@@ -34,11 +34,6 @@ namespace FloydPink.Flickr.Downloadr.Services
             return string.Format(AppConstants.FlickrServicesUrlFormat, methodName, parameterString);
         }
 
-        internal static object GetValueFromDictionary(Dictionary<string, object> dictionary, string key)
-        {
-            return ((Dictionary<string, object>)dictionary[key])[AppConstants.FlickrDictionaryContentKey];
-        }
-
         internal dynamic makeAnonymousRequest(string jsonServiceUrl)
         {
             using (var client = new WebClient())

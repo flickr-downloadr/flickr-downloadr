@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CryptogrphyTests\CryptTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryTests\RepositoryTests.cs" />
     <Compile Include="ServicesTests\FlickrServicesTests.cs" />
     <Compile Include="TestsDebugger.cs" />
   </ItemGroup>
