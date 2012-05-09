@@ -35,13 +35,16 @@ namespace FloydPink.Flickr.Downloadr.Tests.RepositoryTests
             token = _repository.Get();
             Assert.AreEqual("token", token.TokenString);
             Assert.AreEqual("secret", token.Secret);
+            _repository.Delete();
         }
 
         [Test]
         public void WillDeleteAndNotGetToken()
         {
+            var token = getNewAccessToken();
+            _repository.Save(token);
             _repository.Delete();
-            var token = _repository.Get();
+            token = _repository.Get();
             Assert.IsEmpty(token.TokenString);
             Assert.IsEmpty(token.Secret);
         }

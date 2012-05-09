@@ -10,7 +10,7 @@ using System.Net;
 
 namespace FloydPink.Flickr.Downloadr.OAuth
 {
-    public class OAuthManager
+    public class OAuthManager : IOAuthManager
     {
         private DesktopConsumer consumer { get; set; }
         private string RequestToken = string.Empty;
@@ -58,7 +58,6 @@ namespace FloydPink.Flickr.Downloadr.OAuth
         {
             return consumer.PrepareAuthorizedRequest(FlickrEndPoint, this.AccessToken, parameters);
         }
-
 
     }
 }
