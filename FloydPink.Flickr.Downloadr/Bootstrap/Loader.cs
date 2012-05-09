@@ -6,6 +6,7 @@ using StructureMap;
 using FloydPink.Flickr.Downloadr.OAuth;
 using FloydPink.Flickr.Downloadr.Repository;
 using FloydPink.Flickr.Downloadr.Presenters;
+using FloydPink.Flickr.Downloadr.OAuth;
 
 namespace FloydPink.Flickr.Downloadr.Bootstrap
 {
@@ -16,6 +17,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
             ObjectFactory.Initialize(initializer =>
                 {
                     initializer.For<IOAuthManager>().Use<OAuthManager>();
+                    initializer.For<IOAuthCallbackManager>().Use<OAuthCallbackManager>();
                     initializer.For<ITokenRepository>().Use<AccessTokenRepository>();
                 });
         }

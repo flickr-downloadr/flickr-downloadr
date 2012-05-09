@@ -52,7 +52,13 @@
     <Compile Include="Bootstrap\Loader.cs" />
     <Compile Include="Cryptography\Crypt.cs" />
     <Compile Include="Extensions\FlickrExtensions.cs" />
+    <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Model\Token.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="OAuth\AuthenticatedEventArgs.cs" />
+    <Compile Include="OAuth\IOAuthCallback.cs" />
+    <Compile Include="OAuth\OAuthCallback.cs" />
+    <Compile Include="OAuth\OAuthCallbackEventArgs.cs" />
     <Compile Include="OAuth\IOAuthManager.cs" />
     <Compile Include="OAuth\OAuthManager.cs" />
     <Compile Include="OAuth\TokenManager.cs" />

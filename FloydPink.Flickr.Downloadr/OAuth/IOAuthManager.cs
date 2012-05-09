@@ -8,8 +8,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 {
     public interface IOAuthManager
     {
-        string RequestUserAuthorization();
-        string ProcessUserAuthorization(string verifier);
+        string BeginAuthorization();
+        event EventHandler<AuthenticatedEventArgs> Authenticated;
         HttpWebRequest PrepareAuthorizedRequest(IDictionary<string, string> parameters);
     }
 }

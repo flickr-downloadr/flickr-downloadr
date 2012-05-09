@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DotNetOpenAuth.OAuth;
-using FloydPink.Flickr.Downloadr.Services;
-using DotNetOpenAuth.Messaging;
-using DotNetOpenAuth.OAuth.ChannelElements;
 using System.Net;
+using DotNetOpenAuth.Messaging;
+using DotNetOpenAuth.OAuth;
+using DotNetOpenAuth.OAuth.ChannelElements;
+using FloydPink.Flickr.Downloadr.OAuth;
+using FloydPink.Flickr.Downloadr.Model;
 
 namespace FloydPink.Flickr.Downloadr.OAuth
 {
     public class OAuthManager : IOAuthManager
     {
-        private DesktopConsumer consumer { get; set; }
+        private IOAuthCallbackManager _callbackManager;
+
+        private DesktopConsumer Consumer { get; set; }
         private string RequestToken = string.Empty;
         private string AccessToken = string.Empty;
 
@@ -36,28 +37,45 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             }
         }
 
-        public OAuthManager()
+        public OAuthManager(IOAuthCallbackManager callbackManager)
         {
-            consumer = new DesktopConsumer(FlickrServiceDescription, new TokenManager(ConsumerKey, ConsumerSecret));
+            _callbackManager = callbackManager;
+            Consumer = new DesktopConsumer(FlickrServiceDescription, new TokenManager(ConsumerKey, ConsumerSecret));
         }
 
-        public string RequestUserAuthorization()
+        public string BeginAuthorization()
         {
-            var requestArgs = new Dictionary<string, string>();
-            return this.consumer.RequestUserAuthorization(requestArgs, null, out this.RequestToken).AbsoluteUri;
+            _callbackManager.OAuthCallbackEvent += new EventHandler<OAuthCallbackEventArgs>(callbackManager_OAuthCallbackEvent);
+            _callbackManager.SetupCallback();
+            var requestArgs = new Dictionary<string, string>() { { "oauth_callback", _callbackManager.ListenerAddress } };
+            return this.Consumer.RequestUserAuthorization(requestArgs, null, out this.RequestToken).AbsoluteUri;
         }
 
-        public string ProcessUserAuthorization(string verifier)
-        {
-            var response = this.consumer.ProcessUserAuthorization(this.RequestToken, verifier);
-            this.AccessToken = response.AccessToken;
-            return response.AccessToken;
-        }
+        public event EventHandler<AuthenticatedEventArgs> Authenticated;
 
         public HttpWebRequest PrepareAuthorizedRequest(IDictionary<string, string> parameters)
         {
-            return consumer.PrepareAuthorizedRequest(FlickrEndPoint, this.AccessToken, parameters);
+            return Consumer.PrepareAuthorizedRequest(FlickrEndPoint, this.AccessToken, parameters);
         }
 
+        private string CompleteAuthorization(string verifier)
+        {
+            var response = this.Consumer.ProcessUserAuthorization(this.RequestToken, verifier);
+            this.AccessToken = response.AccessToken;
+
+            var extraData = response.ExtraData;
+            var authenticatedUser = new User(extraData["fullname"], extraData["username"], extraData["user_nsid"]);
+            Authenticated(this, new AuthenticatedEventArgs(authenticatedUser));
+
+            return response.AccessToken;
+        }
+
+        private void callbackManager_OAuthCallbackEvent(object sender, OAuthCallbackEventArgs e)
+        {
+            if (e.Token == this.RequestToken)
+            {
+                CompleteAuthorization(e.Verifier);
+            }
+        }
     }
 }

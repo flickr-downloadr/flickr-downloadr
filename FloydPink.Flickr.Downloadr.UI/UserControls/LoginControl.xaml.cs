@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using FloydPink.Flickr.Downloadr.Views;
-using FloydPink.Flickr.Downloadr.Presenters;
 using FloydPink.Flickr.Downloadr.Bootstrap;
+using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Presenters;
+using FloydPink.Flickr.Downloadr.Views;
 
 namespace FloydPink.Flickr.Downloadr.UI.UserControls
 {
@@ -24,11 +15,12 @@ namespace FloydPink.Flickr.Downloadr.UI.UserControls
     {
         private LoginPresenter _presenter;
 
-        public string UserName { get; set; }
+        public User User { get; set; }
 
         public LoginControl()
         {
             InitializeComponent();
+            DataContext = User;
             _presenter = Loader.GetPresenter<ILoginView, LoginPresenter>(this);
             _presenter.InitializeScreen();
         }
@@ -36,18 +28,13 @@ namespace FloydPink.Flickr.Downloadr.UI.UserControls
         public void ShowLoggedInControl()
         {
             loggedInCanvas.Visibility = System.Windows.Visibility.Visible;
-            loggedOutCanvas.Visibility = System.Windows.Visibility.Hidden;
+            loggedOutCanvas.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         public void ShowLoggedOutControl()
         {
-            loggedInCanvas.Visibility = System.Windows.Visibility.Hidden;
             loggedOutCanvas.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        public void OpenAuthorizationUrl(string requestAuthUrl)
-        {
-            MessageBox.Show("You're going to be blah blah\r\n" + requestAuthUrl);
+            loggedInCanvas.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
@@ -55,9 +42,9 @@ namespace FloydPink.Flickr.Downloadr.UI.UserControls
             _presenter.LoginButtonClick();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void logoutButton_Click(object sender, RoutedEventArgs e)
         {
-            _presenter.CompleteLoginProcess(textBox1.Text.Trim());
+            _presenter.LogoutButtonClick();
         }
 
     }

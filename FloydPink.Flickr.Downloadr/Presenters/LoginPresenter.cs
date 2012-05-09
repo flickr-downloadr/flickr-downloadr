@@ -5,6 +5,7 @@ using System.Text;
 using FloydPink.Flickr.Downloadr.Views;
 using FloydPink.Flickr.Downloadr.Repository;
 using FloydPink.Flickr.Downloadr.OAuth;
+using System.Diagnostics;
 
 namespace FloydPink.Flickr.Downloadr.Presenters
 {
@@ -35,12 +36,24 @@ namespace FloydPink.Flickr.Downloadr.Presenters
 
         public void LoginButtonClick()
         {
-            _view.OpenAuthorizationUrl(_oAuthManager.RequestUserAuthorization());            
+            _oAuthManager.Authenticated += new EventHandler<AuthenticatedEventArgs>(OAuthManager_Authenticated);
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = _oAuthManager.BeginAuthorization()
+            });
         }
 
-        public void CompleteLoginProcess(string validatorToken)
+        void OAuthManager_Authenticated(object sender, AuthenticatedEventArgs e)
         {
-            _oAuthManager.ProcessUserAuthorization(validatorToken);
+            _view.User = e.AuthenticatedUser;
+            //_view.ShowLoggedInControl();
         }
+
+        public void LogoutButtonClick()
+        {
+            _repository.Delete();
+            _view.ShowLoggedOutControl();
+        }
+
     }
 }
