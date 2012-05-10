@@ -10,7 +10,7 @@ using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth.ChannelElements;
 using FloydPink.Flickr.Downloadr.OAuth;
 using System.IO;
-using FloydPink.Flickr.Downloadr.OAuth;
+using FloydPink.Flickr.Downloadr.Listener;
 
 namespace FloydPink.Flickr.Downloadr.Services
 {
@@ -26,7 +26,7 @@ namespace FloydPink.Flickr.Downloadr.Services
 
         public FlickrServices()
         {
-            OAuthManager = new OAuthManager(new OAuthCallbackManager());
+            OAuthManager = new OAuthManager(new HttpListenerManager());
         }
 
         internal static string BuildServiceUrl(string methodName, Dictionary<string, string> parameters)

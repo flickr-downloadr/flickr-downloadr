@@ -1,20 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net;
+using System.Collections.Specialized;
+using FloydPink.Flickr.Downloadr.Extensions;
 
-namespace FloydPink.Flickr.Downloadr.OAuth
+namespace FloydPink.Flickr.Downloadr.Listener
 {
-    public class OAuthCallbackManager : IOAuthCallbackManager
+    public class HttpListenerManager : IHttpListenerManager
     {
         static Random random = new Random();
 
         public string ListenerAddress { get; private set; }
 
-        public event EventHandler<OAuthCallbackEventArgs> OAuthCallbackEvent;
+        public string ResponseString { get; set; }
 
-        public OAuthCallbackManager()
+        public event EventHandler<HttpListenerCallbackEventArgs> RequestReceived;
+
+        public HttpListenerManager()
         {
         }
 
@@ -24,7 +25,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add(ListenerAddress);
             listener.Start();
-            return listener.BeginGetContext(HttpListener_Callback, listener);
+            return listener.BeginGetContext(HttpListenerCallback, listener);
         }
 
         private string GetNewHttpListenerAddress()
@@ -51,19 +52,16 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             return listenerAddress;
         }
 
-        private void HttpListener_Callback(IAsyncResult result)
+        private void HttpListenerCallback(IAsyncResult result)
         {
             HttpListener listener = (HttpListener)result.AsyncState;
+
             HttpListenerContext context = listener.EndGetContext(result);
             HttpListenerRequest request = context.Request;
-            string token = request.QueryString["oauth_token"];
-            string verifier = request.QueryString["oauth_verifier"];
-
+            NameValueCollection queryStrings = request.QueryString;
+            
             HttpListenerResponse response = context.Response;
-
-            string responseString = "<HTML><BODY>You have been authenticated. Please return to the application. <script language=\"javascript\">window.close();</script></BODY></HTML>";
-            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
-
+            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(ResponseString);
             response.ContentLength64 = buffer.Length;
             System.IO.Stream output = response.OutputStream;
             output.Write(buffer, 0, buffer.Length);
@@ -72,7 +70,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             response.Close();
             listener.Close();
 
-            OAuthCallbackEvent(this, new OAuthCallbackEventArgs(token, verifier));
+            RequestReceived(this, new HttpListenerCallbackEventArgs(queryStrings));
         }
+
     }
 }

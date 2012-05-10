@@ -4,14 +4,17 @@ using System.Net;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth;
 using DotNetOpenAuth.OAuth.ChannelElements;
-using FloydPink.Flickr.Downloadr.OAuth;
+using FloydPink.Flickr.Downloadr.Listener;
 using FloydPink.Flickr.Downloadr.Model;
 
 namespace FloydPink.Flickr.Downloadr.OAuth
 {
     public class OAuthManager : IOAuthManager
     {
-        private IOAuthCallbackManager _callbackManager;
+        private IHttpListenerManager _listenerManager;
+
+        private string responseString = "<html><body>You have been authenticated. Please return to Flickr Downloadr.<br />" +
+            "You could close this window at anytime.</body></html>";
 
         private DesktopConsumer Consumer { get; set; }
         private string RequestToken = string.Empty;
@@ -37,17 +40,18 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             }
         }
 
-        public OAuthManager(IOAuthCallbackManager callbackManager)
+        public OAuthManager(IHttpListenerManager callbackManager)
         {
-            _callbackManager = callbackManager;
+            _listenerManager = callbackManager;
             Consumer = new DesktopConsumer(FlickrServiceDescription, new TokenManager(ConsumerKey, ConsumerSecret));
         }
 
         public string BeginAuthorization()
         {
-            _callbackManager.OAuthCallbackEvent += new EventHandler<OAuthCallbackEventArgs>(callbackManager_OAuthCallbackEvent);
-            _callbackManager.SetupCallback();
-            var requestArgs = new Dictionary<string, string>() { { "oauth_callback", _callbackManager.ListenerAddress } };
+            _listenerManager.RequestReceived += new EventHandler<HttpListenerCallbackEventArgs>(callbackManager_OnRequestReceived);
+            _listenerManager.ResponseString = responseString;
+            _listenerManager.SetupCallback();
+            var requestArgs = new Dictionary<string, string>() { { "oauth_callback", _listenerManager.ListenerAddress } };
             return this.Consumer.RequestUserAuthorization(requestArgs, null, out this.RequestToken).AbsoluteUri;
         }
 
@@ -70,11 +74,13 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             return response.AccessToken;
         }
 
-        private void callbackManager_OAuthCallbackEvent(object sender, OAuthCallbackEventArgs e)
+        private void callbackManager_OnRequestReceived(object sender, HttpListenerCallbackEventArgs e)
         {
-            if (e.Token == this.RequestToken)
+            var token = e.QueryStrings["oauth_token"];
+            var verifier = e.QueryStrings["oauth_verifier"];
+            if (token == this.RequestToken)
             {
-                CompleteAuthorization(e.Verifier);
+                CompleteAuthorization(verifier);
             }
         }
     }

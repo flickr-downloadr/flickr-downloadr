@@ -34,6 +34,9 @@
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\lib\DotNetOpenAuth.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\lib\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\lib\StructureMap.dll</HintPath>
     </Reference>
@@ -56,9 +59,9 @@
     <Compile Include="Model\Token.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="OAuth\AuthenticatedEventArgs.cs" />
-    <Compile Include="OAuth\IOAuthCallback.cs" />
-    <Compile Include="OAuth\OAuthCallback.cs" />
-    <Compile Include="OAuth\OAuthCallbackEventArgs.cs" />
+    <Compile Include="Listener\IHttpListenerManager.cs" />
+    <Compile Include="Listener\HttpListenerManager.cs" />
+    <Compile Include="Listener\HttpListenerCallbackEventArgs.cs" />
     <Compile Include="OAuth\IOAuthManager.cs" />
     <Compile Include="OAuth\OAuthManager.cs" />
     <Compile Include="OAuth\TokenManager.cs" />

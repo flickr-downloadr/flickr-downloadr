@@ -46,7 +46,7 @@ namespace FloydPink.Flickr.Downloadr.Presenters
         void OAuthManager_Authenticated(object sender, AuthenticatedEventArgs e)
         {
             _view.User = e.AuthenticatedUser;
-            //_view.ShowLoggedInControl();
+            _view.ShowLoggedInControl();
         }
 
         public void LogoutButtonClick()

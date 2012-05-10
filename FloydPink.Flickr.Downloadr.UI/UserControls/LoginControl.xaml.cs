@@ -5,6 +5,8 @@ using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presenters;
 using FloydPink.Flickr.Downloadr.Views;
+using FloydPink.Flickr.Downloadr.UI.Extensions;
+using System.Windows.Threading;
 
 namespace FloydPink.Flickr.Downloadr.UI.UserControls
 {
@@ -27,14 +29,14 @@ namespace FloydPink.Flickr.Downloadr.UI.UserControls
 
         public void ShowLoggedInControl()
         {
-            loggedInCanvas.Visibility = System.Windows.Visibility.Visible;
-            loggedOutCanvas.Visibility = System.Windows.Visibility.Collapsed;
+            loggedInCanvas.Dispatch((c) => c.Visibility = Visibility.Visible);
+            loggedOutCanvas.Dispatch((c) => c.Visibility = Visibility.Collapsed);
         }
 
         public void ShowLoggedOutControl()
         {
-            loggedOutCanvas.Visibility = System.Windows.Visibility.Visible;
-            loggedInCanvas.Visibility = System.Windows.Visibility.Collapsed;
+            loggedOutCanvas.Dispatch((c) => c.Visibility = Visibility.Visible);
+            loggedInCanvas.Dispatch((c) => c.Visibility = Visibility.Collapsed);
         }
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
