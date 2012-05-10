@@ -40,9 +40,9 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             }
         }
 
-        public OAuthManager(IHttpListenerManager callbackManager)
+        public OAuthManager(IHttpListenerManager listenerManager)
         {
-            _listenerManager = callbackManager;
+            _listenerManager = listenerManager;
             Consumer = new DesktopConsumer(FlickrServiceDescription, new TokenManager(ConsumerKey, ConsumerSecret));
         }
 
