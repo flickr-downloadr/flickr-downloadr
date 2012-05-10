@@ -51,8 +51,13 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             _listenerManager.RequestReceived += new EventHandler<HttpListenerCallbackEventArgs>(callbackManager_OnRequestReceived);
             _listenerManager.ResponseString = responseString;
             _listenerManager.SetupCallback();
-            var requestArgs = new Dictionary<string, string>() { { "oauth_callback", _listenerManager.ListenerAddress } };
-            return this.Consumer.RequestUserAuthorization(requestArgs, null, out this.RequestToken).AbsoluteUri;
+            var requestArgs = new Dictionary<string, string>() { 
+                { "oauth_callback", _listenerManager.ListenerAddress }
+            };
+            var redirectArgs = new Dictionary<string, string>() { 
+                { "perms", "write" } 
+            };
+            return this.Consumer.RequestUserAuthorization(requestArgs, redirectArgs, out this.RequestToken).AbsoluteUri;
         }
 
         public event EventHandler<AuthenticatedEventArgs> Authenticated;

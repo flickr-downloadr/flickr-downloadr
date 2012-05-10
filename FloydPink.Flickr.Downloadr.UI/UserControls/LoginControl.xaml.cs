@@ -66,7 +66,7 @@ namespace FloydPink.Flickr.Downloadr.UI.UserControls
                 (string.IsNullOrEmpty(user.Username) ? string.Empty : user.Username) :
                 user.Name;
             var welcomeMessage = string.IsNullOrEmpty(userNameString) ? string.Empty : 
-                string.Format("Welcome {0}", userNameString);
+                string.Format("Welcome, {0}!", userNameString);
             welcomeUserLabel.Dispatch((l) => l.Content = string.IsNullOrEmpty(user.UserNSId) ? string.Empty : welcomeMessage);
         }
     }

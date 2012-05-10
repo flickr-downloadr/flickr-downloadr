@@ -15,12 +15,14 @@ namespace FloydPink.Flickr.Downloadr.Presenters
         private readonly ILoginView _view;
         private readonly IOAuthManager _oAuthManager;
         private readonly IRepository<Token> _tokenRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public LoginPresenter(ILoginView view, IOAuthManager oAuthManager, IRepository<Token> tokenRepository)
+        public LoginPresenter(ILoginView view, IOAuthManager oAuthManager, IRepository<Token> tokenRepository, IRepository<User> userRepository)
         {
             _view = view;
             _oAuthManager = oAuthManager;
             _tokenRepository = tokenRepository;
+            _userRepository = userRepository;
         }
 
         public void InitializeScreen()
@@ -31,6 +33,7 @@ namespace FloydPink.Flickr.Downloadr.Presenters
             }
             else
             {
+                _view.User = _userRepository.Get();
                 _view.ShowLoggedInControl();
             }
         }
@@ -47,12 +50,14 @@ namespace FloydPink.Flickr.Downloadr.Presenters
         void OAuthManager_Authenticated(object sender, AuthenticatedEventArgs e)
         {
             _view.User = e.AuthenticatedUser;
+            _userRepository.Save(e.AuthenticatedUser);
             _view.ShowLoggedInControl();
         }
 
         public void LogoutButtonClick()
         {
             _tokenRepository.Delete();
+            _userRepository.Delete();
             _view.ShowLoggedOutControl();
         }
 

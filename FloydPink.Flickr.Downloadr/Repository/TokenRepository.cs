@@ -1,7 +1,5 @@
-﻿using System.IO;
-using FloydPink.Flickr.Downloadr.Extensions;
+﻿using FloydPink.Flickr.Downloadr.Extensions;
 using FloydPink.Flickr.Downloadr.Model;
-using FloydPink.Flickr.Downloadr.Cryptography;
 
 namespace FloydPink.Flickr.Downloadr.Repository
 {
@@ -9,7 +7,7 @@ namespace FloydPink.Flickr.Downloadr.Repository
     {
         internal override string repoFileName
         {
-            get { return "tokens.repo"; }
+            get { return "token.repo"; }
         }
 
         public Token Get()
@@ -17,9 +15,9 @@ namespace FloydPink.Flickr.Downloadr.Repository
             return base.Read().FromJson<Token>();
         }
 
-        public void Save(Token token)
+        public void Save(Token value)
         {
-            base.Write(token.ToJson());
+            base.Write(value.ToJson());
         }
     }
 }

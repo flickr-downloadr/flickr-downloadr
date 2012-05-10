@@ -20,6 +20,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                     initializer.For<IOAuthManager>().Use<OAuthManager>();
                     initializer.For<IHttpListenerManager>().Use<HttpListenerManager>();
                     initializer.For<IRepository<Token>>().Use<TokenRepository>();
+                    initializer.For<IRepository<User>>().Use<UserRepository>();
                 });
         }
 

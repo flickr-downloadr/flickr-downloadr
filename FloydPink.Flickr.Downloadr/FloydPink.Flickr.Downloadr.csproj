@@ -72,6 +72,7 @@
     <Compile Include="Repository\RepositoryBase.cs" />
     <Compile Include="Repository\TokenRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Services\FlickrServices.cs" />
     <Compile Include="Views\IBaseView.cs" />
     <Compile Include="Views\ILoginView.cs" />
