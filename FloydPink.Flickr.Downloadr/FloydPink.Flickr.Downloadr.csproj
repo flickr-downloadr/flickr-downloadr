@@ -68,8 +68,8 @@
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\PresenterBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\AccessTokenRepository.cs" />
-    <Compile Include="Repository\ITokenRepository.cs" />
+    <Compile Include="Repository\TokenRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Services\FlickrServices.cs" />
     <Compile Include="Views\IBaseView.cs" />
     <Compile Include="Views\ILoginView.cs" />

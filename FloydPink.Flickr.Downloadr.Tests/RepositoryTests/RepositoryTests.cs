@@ -11,12 +11,12 @@ namespace FloydPink.Flickr.Downloadr.Tests.RepositoryTests
     [TestFixture]
     public class RepositoryTests
     {
-        private AccessTokenRepository _repository;
+        private TokenRepository _repository;
 
         [TestFixtureSetUp]
         public void SetUp()
         {
-            _repository = new AccessTokenRepository();
+            _repository = new TokenRepository();
         }
 
         [Test]

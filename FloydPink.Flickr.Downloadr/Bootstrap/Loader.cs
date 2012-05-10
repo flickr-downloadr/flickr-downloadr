@@ -7,6 +7,7 @@ using FloydPink.Flickr.Downloadr.OAuth;
 using FloydPink.Flickr.Downloadr.Repository;
 using FloydPink.Flickr.Downloadr.Presenters;
 using FloydPink.Flickr.Downloadr.Listener;
+using FloydPink.Flickr.Downloadr.Model;
 
 namespace FloydPink.Flickr.Downloadr.Bootstrap
 {
@@ -18,7 +19,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                 {
                     initializer.For<IOAuthManager>().Use<OAuthManager>();
                     initializer.For<IHttpListenerManager>().Use<HttpListenerManager>();
-                    initializer.For<ITokenRepository>().Use<AccessTokenRepository>();
+                    initializer.For<IRepository<Token>>().Use<TokenRepository>();
                 });
         }
 

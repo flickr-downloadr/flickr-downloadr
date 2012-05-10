@@ -109,7 +109,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
         {
             this.tokensAndSecrets.Remove(requestToken);
             this.tokensAndSecrets[accessToken] = accessTokenSecret;
-            (new AccessTokenRepository()).Save(new Token(accessToken, accessTokenSecret));
+            (new TokenRepository()).Save(new Token(accessToken, accessTokenSecret));
         }
 
         /// <summary>

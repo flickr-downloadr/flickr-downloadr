@@ -4,7 +4,7 @@ using FloydPink.Flickr.Downloadr.Cryptography;
 
 namespace FloydPink.Flickr.Downloadr.Repository
 {
-    public class AccessTokenRepository : ITokenRepository
+    public class TokenRepository : IRepository<Token>
     {
         private readonly string tokenFileName = "tokens.dat";
         private readonly string cryptKey = "SomeEncryPtionKey123";

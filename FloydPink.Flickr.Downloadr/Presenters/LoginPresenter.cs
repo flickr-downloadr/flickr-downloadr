@@ -6,6 +6,7 @@ using FloydPink.Flickr.Downloadr.Views;
 using FloydPink.Flickr.Downloadr.Repository;
 using FloydPink.Flickr.Downloadr.OAuth;
 using System.Diagnostics;
+using FloydPink.Flickr.Downloadr.Model;
 
 namespace FloydPink.Flickr.Downloadr.Presenters
 {
@@ -13,18 +14,18 @@ namespace FloydPink.Flickr.Downloadr.Presenters
     {
         private readonly ILoginView _view;
         private readonly IOAuthManager _oAuthManager;
-        private readonly ITokenRepository _repository;
+        private readonly IRepository<Token> _tokenRepository;
 
-        public LoginPresenter(ILoginView view, IOAuthManager oAuthManager, ITokenRepository repository)
+        public LoginPresenter(ILoginView view, IOAuthManager oAuthManager, IRepository<Token> tokenRepository)
         {
             _view = view;
             _oAuthManager = oAuthManager;
-            _repository = repository;
+            _tokenRepository = tokenRepository;
         }
 
         public void InitializeScreen()
         {
-            if (string.IsNullOrEmpty(_repository.Get().TokenString))
+            if (string.IsNullOrEmpty(_tokenRepository.Get().TokenString))
             {
                 _view.ShowLoggedOutControl();
             }
@@ -51,7 +52,7 @@ namespace FloydPink.Flickr.Downloadr.Presenters
 
         public void LogoutButtonClick()
         {
-            _repository.Delete();
+            _tokenRepository.Delete();
             _view.ShowLoggedOutControl();
         }
 
