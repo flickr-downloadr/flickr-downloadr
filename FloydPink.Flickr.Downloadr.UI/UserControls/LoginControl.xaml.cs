@@ -52,12 +52,12 @@ namespace FloydPink.Flickr.Downloadr.UI.UserControls
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
-            _presenter.LoginButtonClick();
+            _presenter.Login();
         }
 
         private void logoutButton_Click(object sender, RoutedEventArgs e)
         {
-            _presenter.LogoutButtonClick();
+            _presenter.Logout();
         }
 
         private void setWelcomeLabel(User user)

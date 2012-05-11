@@ -38,10 +38,14 @@ namespace FloydPink.Flickr.Downloadr.Presenters
                     _view.User = user;
                     _view.ShowLoggedInControl();
                 }
+                else
+                {
+                    Logout();
+                }
             }
         }
 
-        public void LoginButtonClick()
+        public void Login()
         {
             _oAuthManager.Authenticated += new EventHandler<AuthenticatedEventArgs>(OAuthManager_Authenticated);
             Process.Start(new ProcessStartInfo()
@@ -57,7 +61,7 @@ namespace FloydPink.Flickr.Downloadr.Presenters
             _view.ShowLoggedInControl();
         }
 
-        public void LogoutButtonClick()
+        public void Logout()
         {
             _tokenRepository.Delete();
             _userRepository.Delete();
