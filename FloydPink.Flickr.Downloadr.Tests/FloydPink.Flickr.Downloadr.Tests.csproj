@@ -50,7 +50,6 @@
     <Compile Include="ExtensionTests\JsonExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryTests\RepositoryTests.cs" />
-    <Compile Include="ServicesTests\FlickrServicesTests.cs" />
     <Compile Include="TestsDebugger.cs" />
   </ItemGroup>
   <ItemGroup>

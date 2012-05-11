@@ -1,55 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Web.Script.Serialization;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth;
 using DotNetOpenAuth.OAuth.ChannelElements;
 using FloydPink.Flickr.Downloadr.Listener;
 using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Bootstrap;
 
 namespace FloydPink.Flickr.Downloadr.OAuth
 {
     public class OAuthManager : IOAuthManager
     {
         private IHttpListenerManager _listenerManager;
+        private DesktopConsumer _consumer;
+        private MessageReceivingEndpoint _serviceEndPoint;
 
-        private string responseString = "<html><body>You have been authenticated. Please return to Flickr Downloadr.<br />" +
-            "You could close this window at anytime.</body></html>";
+        private Dictionary<string, string> defaultParameters = new Dictionary<string, string>() 
+        { 
+            { "nojsoncallback", "1" },
+            { "format", "json" }
+        };
 
-        private DesktopConsumer Consumer { get; set; }
         private string RequestToken = string.Empty;
-        private string AccessToken = string.Empty;
 
-        private string ConsumerKey { get { return "33fe2dc1389339c4e9cd77e9a90ebabf"; } }
-        private string ConsumerSecret { get { return "573233c34efdd943"; } }
+        public string AccessToken { get; set; }
 
-        private MessageReceivingEndpoint FlickrEndPoint = new MessageReceivingEndpoint("http://api.flickr.com/services/rest", HttpDeliveryMethods.PostRequest);
-        private ServiceProviderDescription FlickrServiceDescription
-        {
-            get
-            {
-                return new ServiceProviderDescription
-                {
-                    ProtocolVersion = DotNetOpenAuth.OAuth.ProtocolVersion.V10a,
-                    RequestTokenEndpoint = new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/request_token", HttpDeliveryMethods.PostRequest),
-                    UserAuthorizationEndpoint = new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/authorize", HttpDeliveryMethods.GetRequest),
-                    AccessTokenEndpoint = new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/access_token", HttpDeliveryMethods.GetRequest),
-                    TamperProtectionElements = new ITamperProtectionChannelBindingElement[] { new HmacSha1SigningBindingElement() }
-                };
+        public event EventHandler<AuthenticatedEventArgs> Authenticated;
 
-            }
-        }
-
-        public OAuthManager(IHttpListenerManager listenerManager)
+        public OAuthManager(IHttpListenerManager listenerManager, DesktopConsumer consumer, MessageReceivingEndpoint serviceEndPoint)
         {
             _listenerManager = listenerManager;
-            Consumer = new DesktopConsumer(FlickrServiceDescription, new TokenManager(ConsumerKey, ConsumerSecret));
+            _consumer = consumer;
+            _serviceEndPoint = serviceEndPoint;
         }
 
         public string BeginAuthorization()
         {
             _listenerManager.RequestReceived += new EventHandler<HttpListenerCallbackEventArgs>(callbackManager_OnRequestReceived);
-            _listenerManager.ResponseString = responseString;
+            _listenerManager.ResponseString = AppConstants.AuthenticatedMessage;
             _listenerManager.SetupCallback();
             var requestArgs = new Dictionary<string, string>() { 
                 { "oauth_callback", _listenerManager.ListenerAddress }
@@ -57,19 +48,33 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             var redirectArgs = new Dictionary<string, string>() { 
                 { "perms", "write" } 
             };
-            return this.Consumer.RequestUserAuthorization(requestArgs, redirectArgs, out this.RequestToken).AbsoluteUri;
+            return _consumer.RequestUserAuthorization(requestArgs, redirectArgs, out this.RequestToken).AbsoluteUri;
         }
-
-        public event EventHandler<AuthenticatedEventArgs> Authenticated;
 
         public HttpWebRequest PrepareAuthorizedRequest(IDictionary<string, string> parameters)
         {
-            return Consumer.PrepareAuthorizedRequest(FlickrEndPoint, this.AccessToken, parameters);
+            return _consumer.PrepareAuthorizedRequest(_serviceEndPoint, this.AccessToken, parameters);
+        }
+
+        public dynamic MakeAuthenticatedRequest(string methodName, IDictionary<string, string> parameters = null)
+        {
+            parameters = parameters ?? new Dictionary<string, string>();
+            var allParameters = new Dictionary<string, string>(parameters);
+            foreach (var kvp in defaultParameters)
+                allParameters.Add(kvp.Key, kvp.Value);
+            allParameters.Add("method", methodName);
+
+            var request = PrepareAuthorizedRequest(allParameters);
+            var response = (HttpWebResponse)request.GetResponse();
+            using (var reader = new StreamReader(response.GetResponseStream()))
+            {
+                return (new JavaScriptSerializer()).Deserialize<dynamic>(reader.ReadToEnd());
+            }
         }
 
         private string CompleteAuthorization(string verifier)
         {
-            var response = this.Consumer.ProcessUserAuthorization(this.RequestToken, verifier);
+            var response = _consumer.ProcessUserAuthorization(this.RequestToken, verifier);
             this.AccessToken = response.AccessToken;
 
             var extraData = response.ExtraData;

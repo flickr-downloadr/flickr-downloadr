@@ -54,7 +54,7 @@
     <Compile Include="AppConstants.cs" />
     <Compile Include="Bootstrap\Loader.cs" />
     <Compile Include="Cryptography\Crypt.cs" />
-    <Compile Include="Extensions\FlickrExtensions.cs" />
+    <Compile Include="Extensions\JsonDictionaryExtensions.cs" />
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Model\Token.cs" />
@@ -73,7 +73,6 @@
     <Compile Include="Repository\TokenRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
-    <Compile Include="Services\FlickrServices.cs" />
     <Compile Include="Views\IBaseView.cs" />
     <Compile Include="Views\ILoginView.cs" />
   </ItemGroup>

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FloydPink.Flickr.Downloadr.Views;
-using FloydPink.Flickr.Downloadr.Repository;
-using FloydPink.Flickr.Downloadr.OAuth;
 using System.Diagnostics;
+using FloydPink.Flickr.Downloadr.Extensions;
 using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.OAuth;
+using FloydPink.Flickr.Downloadr.Repository;
+using FloydPink.Flickr.Downloadr.Views;
 
 namespace FloydPink.Flickr.Downloadr.Presenters
 {
@@ -27,14 +26,18 @@ namespace FloydPink.Flickr.Downloadr.Presenters
 
         public void InitializeScreen()
         {
-            if (string.IsNullOrEmpty(_tokenRepository.Get().TokenString))
+            var token = _tokenRepository.Get();
+            var user = _userRepository.Get();
+            _view.ShowLoggedOutControl();
+            if (!string.IsNullOrEmpty(token.TokenString))
             {
-                _view.ShowLoggedOutControl();
-            }
-            else
-            {
-                _view.User = _userRepository.Get();
-                _view.ShowLoggedInControl();
+                _oAuthManager.AccessToken = token.TokenString;
+                var testLogin = (Dictionary<string, object>)_oAuthManager.MakeAuthenticatedRequest("flickr.test.login");
+                if ((string)testLogin.GetValueFromDictionary("user", "id") == user.UserNSId)
+                {
+                    _view.User = user;
+                    _view.ShowLoggedInControl();
+                }
             }
         }
 
