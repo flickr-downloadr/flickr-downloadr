@@ -1,20 +1,16 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presenters;
-using FloydPink.Flickr.Downloadr.Views;
-using FloydPink.Flickr.Downloadr.Extensions;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
-using System.Windows.Threading;
+using FloydPink.Flickr.Downloadr.Views;
 
-namespace FloydPink.Flickr.Downloadr.UI.UserControls
+namespace FloydPink.Flickr.Downloadr.UI
 {
     /// <summary>
-    /// Interaction logic for LoginControl.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class LoginControl : UserControl, ILoginView
+    public partial class MainWindow : Window, ILoginView
     {
         private User _user;
         private LoginPresenter _presenter;
@@ -29,7 +25,7 @@ namespace FloydPink.Flickr.Downloadr.UI.UserControls
             }
         }
 
-        public LoginControl()
+        public MainWindow()
         {
             InitializeComponent();
             User = new User();
@@ -69,5 +65,6 @@ namespace FloydPink.Flickr.Downloadr.UI.UserControls
                 string.Format("Welcome, {0}!", userNameString);
             welcomeUserLabel.Dispatch((l) => l.Content = string.IsNullOrEmpty(user.UserNSId) ? string.Empty : welcomeMessage);
         }
+
     }
 }
