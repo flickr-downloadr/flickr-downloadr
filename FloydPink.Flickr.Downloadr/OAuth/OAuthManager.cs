@@ -46,7 +46,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
                 { "oauth_callback", _listenerManager.ListenerAddress }
             };
             var redirectArgs = new Dictionary<string, string>() { 
-                { "perms", "write" } 
+                { "perms", "read" } 
             };
             return _consumer.RequestUserAuthorization(requestArgs, redirectArgs, out this.RequestToken).AbsoluteUri;
         }

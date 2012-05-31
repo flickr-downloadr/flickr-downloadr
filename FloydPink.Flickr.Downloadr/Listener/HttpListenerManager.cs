@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Net;
 using System.Collections.Specialized;
-using FloydPink.Flickr.Downloadr.Extensions;
+using System.Net;
 
 namespace FloydPink.Flickr.Downloadr.Listener
 {
