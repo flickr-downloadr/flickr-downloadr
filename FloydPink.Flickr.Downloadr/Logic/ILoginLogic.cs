@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using FloydPink.Flickr.Downloadr.Model;
 
 namespace FloydPink.Flickr.Downloadr.Logic
 {
     public interface ILoginLogic
     {
-        void Login();
+        void Login(Action<User> applyUser);
         void Logout();
+        bool IsUserLoggedIn(Action<User> applyUser);
     }
 }

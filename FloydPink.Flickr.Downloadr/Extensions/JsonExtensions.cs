@@ -1,5 +1,4 @@
-﻿using System.Web.Helpers;
-using System.Web.Script.Serialization;
+﻿using System.Web.Script.Serialization;
 
 namespace FloydPink.Flickr.Downloadr.Extensions
 {
