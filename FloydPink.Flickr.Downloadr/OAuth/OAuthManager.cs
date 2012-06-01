@@ -5,10 +5,8 @@ using System.Net;
 using System.Web.Script.Serialization;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth;
-using DotNetOpenAuth.OAuth.ChannelElements;
 using FloydPink.Flickr.Downloadr.Listener;
 using FloydPink.Flickr.Downloadr.Model;
-using FloydPink.Flickr.Downloadr.Bootstrap;
 
 namespace FloydPink.Flickr.Downloadr.OAuth
 {

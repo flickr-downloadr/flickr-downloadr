@@ -1,10 +1,9 @@
 ﻿using System;
-using DotNetOpenAuth.OAuth.ChannelElements;
 using System.Collections.Generic;
-using DotNetOpenAuth.OpenId.Extensions.OAuth;
+using DotNetOpenAuth.OAuth.ChannelElements;
 using DotNetOpenAuth.OAuth.Messages;
-using FloydPink.Flickr.Downloadr.Repository;
 using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Repository;
 
 namespace FloydPink.Flickr.Downloadr.OAuth
 {
