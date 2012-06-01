@@ -16,7 +16,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            Loader.Load();
+            Bootstrapper.Load();
         }
     }
 }

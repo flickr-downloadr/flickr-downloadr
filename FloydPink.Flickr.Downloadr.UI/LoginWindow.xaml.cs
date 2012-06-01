@@ -30,7 +30,7 @@ namespace FloydPink.Flickr.Downloadr.UI
             InitializeComponent();
             User = new User();
 
-            _presenter = Loader.GetPresenter<ILoginView, LoginPresenter>(this);
+            _presenter = Bootstrapper.GetPresenter<ILoginView, LoginPresenter>(this);
             _presenter.InitializeScreen();
         }
 

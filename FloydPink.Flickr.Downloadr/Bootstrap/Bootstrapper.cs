@@ -1,16 +1,17 @@
-﻿using FloydPink.Flickr.Downloadr.Listener;
+﻿using DotNetOpenAuth.Messaging;
+using DotNetOpenAuth.OAuth;
+using DotNetOpenAuth.OAuth.ChannelElements;
+using FloydPink.Flickr.Downloadr.Listener;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.OAuth;
 using FloydPink.Flickr.Downloadr.Presenters;
 using FloydPink.Flickr.Downloadr.Repository;
 using StructureMap;
-using DotNetOpenAuth.OAuth.ChannelElements;
-using DotNetOpenAuth.OAuth;
-using DotNetOpenAuth.Messaging;
+using FloydPink.Flickr.Downloadr.Logic;
 
 namespace FloydPink.Flickr.Downloadr.Bootstrap
 {
-    public static class Loader
+    public static class Bootstrapper
     {
         private static string ConsumerKey = "33fe2dc1389339c4e9cd77e9a90ebabf";
         private static string ConsumerSecret = "573233c34efdd943";
@@ -30,6 +31,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
         {
             ObjectFactory.Initialize(initializer =>
                 {
+                    initializer.For<ILoginLogic>().Use<LoginLogic>();
                     initializer.For<IOAuthManager>().Use<OAuthManager>().
                         Ctor<MessageReceivingEndpoint>("serviceEndPoint").Is(FlickrServiceEndPoint);
                     initializer.For<DesktopConsumer>().Use<DesktopConsumer>().

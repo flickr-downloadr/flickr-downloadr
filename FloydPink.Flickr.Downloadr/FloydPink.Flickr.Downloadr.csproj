@@ -52,11 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConstants.cs" />
-    <Compile Include="Bootstrap\Loader.cs" />
+    <Compile Include="Bootstrap\Bootstrapper.cs" />
     <Compile Include="Cryptography\Crypt.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
+    <Compile Include="Logic\ILoginLogic.cs" />
+    <Compile Include="Logic\LoginLogic.cs" />
     <Compile Include="Model\Token.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="OAuth\AuthenticatedEventArgs.cs" />
