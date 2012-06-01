@@ -4,7 +4,7 @@
         Title="Flickr Downloadr" ResizeMode="CanResize" WindowStartupLocation="CenterOwner" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         d:DesignHeight="317" d:DesignWidth="507" SizeToContent="WidthAndHeight" 
         xmlns:local="clr-namespace:FloydPink.Flickr.Downloadr.UI"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}" Icon="/FloydPink.Flickr.Downloadr.UI;component/Images/icon.png">
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" Icon="/flickr%20downloadr;component/Images/icon.png">
 
     <Grid Height="287" Width="495">
         <Canvas Height="273" HorizontalAlignment="Left" Margin="1,1,0,0" VerticalAlignment="Top" Width="488" Name="loggedInCanvas" Visibility="Visible">
@@ -17,6 +17,6 @@
             <Label Canvas.Left="53" Canvas.Top="107" Content="Welcome to Flickr Downloadr. Click Login to continue." Height="33" Name="welcomeLabel" Width="394" FontSize="16" />
             <Button Canvas.Left="168" Canvas.Top="182" Content="Login" Height="38" Name="loginButton" Width="141" FontSize="16" Click="loginButton_Click" />
         </Canvas>
-        <Image Height="106" Name="logo" Stretch="Uniform" Width="314" Source="/FloydPink.Flickr.Downloadr.UI;component/Images/logo-Small.png" Canvas.Left="90" Canvas.Top="-1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="90,17,90,0" />
+        <Image Height="106" Name="logo" Stretch="Uniform" Width="314" Canvas.Left="90" Canvas.Top="-1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="90,17,90,0" Source="/flickr%20downloadr;component/Images/logo-Small.png" />
     </Grid>
 </Window>
