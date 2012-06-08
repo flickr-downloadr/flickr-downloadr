@@ -5,7 +5,7 @@ namespace FloydPink.Flickr.Downloadr.Repository
 {
     public class UserRepository : RepositoryBase, IRepository<User>
     {
-        internal override string repoFileName
+        internal override string RepoFileName
         {
             get { return "user.repo"; }
         }

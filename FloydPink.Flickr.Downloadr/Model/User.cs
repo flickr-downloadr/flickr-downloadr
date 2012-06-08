@@ -9,20 +9,20 @@ namespace FloydPink.Flickr.Downloadr.Model
 
         private string _name;
         private string _userName;
-        private string _userNSId;
+        private string _userNsId;
 
         public User()
         {
             _name = string.Empty;
             _userName = string.Empty;
-            _userNSId = string.Empty;
+            _userNsId = string.Empty;
         }
 
-        public User(string name, string userName, string userNSId)
+        public User(string name, string userName, string userNsId)
         {
             _name = name;
             _userName = userName;
-            _userNSId = userNSId;
+            _userNsId = userNsId;
         }
 
         public string Name
@@ -30,8 +30,8 @@ namespace FloydPink.Flickr.Downloadr.Model
             get { return _name; }
             set
             {
-                this._name = value;
-                this.PropertyChanged.Notify(() => this.Name);
+                _name = value;
+                PropertyChanged.Notify(() => this.Name);
             }
         }
         public string Username
@@ -39,17 +39,17 @@ namespace FloydPink.Flickr.Downloadr.Model
             get { return _userName; }
             set
             {
-                this._userName = value;
-                this.PropertyChanged.Notify(() => this.Username);
+                _userName = value;
+                PropertyChanged.Notify(() => this.Username);
             }
         }
-        public string UserNSId
+        public string UserNsId
         {
-            get { return _userNSId; }
+            get { return _userNsId; }
             set
             {
-                this._userNSId = value;
-                this.PropertyChanged.Notify(() => this.UserNSId);
+                _userNsId = value;
+                PropertyChanged.Notify(() => this.UserNsId);
             }
         }
     }

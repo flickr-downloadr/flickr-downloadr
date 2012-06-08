@@ -4,14 +4,14 @@
     {
         public Token()
         {
-            this.TokenString = string.Empty;
-            this.Secret = string.Empty;
+            TokenString = string.Empty;
+            Secret = string.Empty;
         }
 
         public Token(string token, string secret)
         {
-            this.TokenString = token;
-            this.Secret = secret;
+            TokenString = token;
+            Secret = secret;
         }
 
         public string TokenString { get; set; }

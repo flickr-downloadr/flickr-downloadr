@@ -5,7 +5,7 @@ namespace FloydPink.Flickr.Downloadr.Repository
 {
     public class TokenRepository : RepositoryBase, IRepository<Token>
     {
-        internal override string repoFileName
+        internal override string RepoFileName
         {
             get { return "token.repo"; }
         }

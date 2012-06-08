@@ -16,7 +16,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
         private static string ConsumerKey = "33fe2dc1389339c4e9cd77e9a90ebabf";
         private static string ConsumerSecret = "573233c34efdd943";
 
-        private static ServiceProviderDescription FlickrServiceDescription = new ServiceProviderDescription
+        private static readonly ServiceProviderDescription FlickrServiceDescription = new ServiceProviderDescription
                 {
                     ProtocolVersion = DotNetOpenAuth.OAuth.ProtocolVersion.V10a,
                     RequestTokenEndpoint = new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/request_token", HttpDeliveryMethods.PostRequest),
@@ -25,7 +25,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                     TamperProtectionElements = new ITamperProtectionChannelBindingElement[] { new HmacSha1SigningBindingElement() }
                 };
 
-        private static MessageReceivingEndpoint FlickrServiceEndPoint = new MessageReceivingEndpoint("http://api.flickr.com/services/rest", HttpDeliveryMethods.PostRequest);
+        private static readonly MessageReceivingEndpoint FlickrServiceEndPoint = new MessageReceivingEndpoint("http://api.flickr.com/services/rest", HttpDeliveryMethods.PostRequest);
 
         public static void Load()
         {

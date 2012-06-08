@@ -9,7 +9,7 @@ namespace FloydPink.Flickr.Downloadr.Listener
 
         public HttpListenerCallbackEventArgs(NameValueCollection queryStrings)
         {
-            this.QueryStrings = queryStrings;
+            QueryStrings = queryStrings;
         }
     }
 }

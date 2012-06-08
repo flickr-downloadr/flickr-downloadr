@@ -6,7 +6,7 @@ namespace FloydPink.Flickr.Downloadr.Listener
 {
     public class HttpListenerManager : IHttpListenerManager
     {
-        static Random random = new Random();
+        static readonly Random Random = new Random();
 
         public string ListenerAddress { get; private set; }
 
@@ -14,14 +14,10 @@ namespace FloydPink.Flickr.Downloadr.Listener
 
         public event EventHandler<HttpListenerCallbackEventArgs> RequestReceived;
 
-        public HttpListenerManager()
-        {
-        }
-
         public IAsyncResult SetupCallback()
         {
-            this.ListenerAddress = GetNewHttpListenerAddress();
-            HttpListener listener = new HttpListener();
+            ListenerAddress = GetNewHttpListenerAddress();
+            var listener = new HttpListener();
             listener.Prefixes.Add(ListenerAddress);
             listener.Start();
             return listener.BeginGetContext(HttpListenerCallback, listener);
@@ -33,7 +29,7 @@ namespace FloydPink.Flickr.Downloadr.Listener
             while (true)
             {
                 var listener = new HttpListener();
-                int randomPortNumber = random.Next(1025, 65535);
+                int randomPortNumber = Random.Next(1025, 65535);
                 listenerAddress = string.Format("http://localhost:{0}/", randomPortNumber);
                 listener.Prefixes.Add(listenerAddress);
                 try
@@ -53,7 +49,7 @@ namespace FloydPink.Flickr.Downloadr.Listener
 
         private void HttpListenerCallback(IAsyncResult result)
         {
-            HttpListener listener = (HttpListener)result.AsyncState;
+            var listener = (HttpListener)result.AsyncState;
 
             HttpListenerContext context = listener.EndGetContext(result);
             HttpListenerRequest request = context.Request;

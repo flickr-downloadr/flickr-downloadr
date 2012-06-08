@@ -12,17 +12,17 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 {
     public class OAuthManager : IOAuthManager
     {
-        private IHttpListenerManager _listenerManager;
-        private DesktopConsumer _consumer;
-        private MessageReceivingEndpoint _serviceEndPoint;
+        private readonly IHttpListenerManager _listenerManager;
+        private readonly DesktopConsumer _consumer;
+        private readonly MessageReceivingEndpoint _serviceEndPoint;
 
-        private Dictionary<string, string> defaultParameters = new Dictionary<string, string>() 
+        private readonly Dictionary<string, string> _defaultParameters = new Dictionary<string, string>() 
         { 
             { "nojsoncallback", "1" },
             { "format", "json" }
         };
 
-        private string RequestToken = string.Empty;
+        private string _requestToken = string.Empty;
 
         public string AccessToken { get; set; }
 
@@ -46,19 +46,19 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             var redirectArgs = new Dictionary<string, string>() { 
                 { "perms", "read" } 
             };
-            return _consumer.RequestUserAuthorization(requestArgs, redirectArgs, out this.RequestToken).AbsoluteUri;
+            return _consumer.RequestUserAuthorization(requestArgs, redirectArgs, out _requestToken).AbsoluteUri;
         }
 
         public HttpWebRequest PrepareAuthorizedRequest(IDictionary<string, string> parameters)
         {
-            return _consumer.PrepareAuthorizedRequest(_serviceEndPoint, this.AccessToken, parameters);
+            return _consumer.PrepareAuthorizedRequest(_serviceEndPoint, AccessToken, parameters);
         }
 
         public dynamic MakeAuthenticatedRequest(string methodName, IDictionary<string, string> parameters = null)
         {
             parameters = parameters ?? new Dictionary<string, string>();
             var allParameters = new Dictionary<string, string>(parameters);
-            foreach (var kvp in defaultParameters)
+            foreach (var kvp in _defaultParameters)
                 allParameters.Add(kvp.Key, kvp.Value);
             allParameters.Add("method", methodName);
 
@@ -72,8 +72,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 
         private string CompleteAuthorization(string verifier)
         {
-            var response = _consumer.ProcessUserAuthorization(this.RequestToken, verifier);
-            this.AccessToken = response.AccessToken;
+            var response = _consumer.ProcessUserAuthorization(_requestToken, verifier);
+            AccessToken = response.AccessToken;
 
             var extraData = response.ExtraData;
             var authenticatedUser = new User(extraData["fullname"], extraData["username"], extraData["user_nsid"]);
@@ -86,7 +86,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
         {
             var token = e.QueryStrings["oauth_token"];
             var verifier = e.QueryStrings["oauth_verifier"];
-            if (token == this.RequestToken)
+            if (token == _requestToken)
             {
                 CompleteAuthorization(verifier);
             }

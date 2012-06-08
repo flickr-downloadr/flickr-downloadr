@@ -4,6 +4,9 @@ obj
 
 # mstest test results
 TestResults
+
+# other things
+_ReSharper.*
 *.user
 *.suo
 /FloydPink.Flickr.Downloadr.Tests/TestResult.xml

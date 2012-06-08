@@ -25,7 +25,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
         public void Login(Action<User> applyUser)
         {
             _applyUser = applyUser;
-            _oAuthManager.Authenticated += new EventHandler<AuthenticatedEventArgs>(OAuthManager_Authenticated);
+            _oAuthManager.Authenticated += new EventHandler<AuthenticatedEventArgs>(OAuthManagerAuthenticated);
             Process.Start(new ProcessStartInfo()
             {
                 FileName = _oAuthManager.BeginAuthorization()
@@ -49,7 +49,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
 
             _oAuthManager.AccessToken = token.TokenString;
             var testLogin = (Dictionary<string, object>)_oAuthManager.MakeAuthenticatedRequest("flickr.test.login");
-            var userIsLoggedIn = (string)testLogin.GetValueFromDictionary("user", "id") == user.UserNSId;
+            var userIsLoggedIn = (string)testLogin.GetValueFromDictionary("user", "id") == user.UserNsId;
 
             if (userIsLoggedIn)
             {
@@ -58,7 +58,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
             return userIsLoggedIn;
         }
 
-        void OAuthManager_Authenticated(object sender, AuthenticatedEventArgs e)
+        void OAuthManagerAuthenticated(object sender, AuthenticatedEventArgs e)
         {
             _userRepository.Save(e.AuthenticatedUser);
             _applyUser(e.AuthenticatedUser);

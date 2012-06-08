@@ -8,7 +8,7 @@ namespace FloydPink.Flickr.Downloadr.Cryptography
     // code from stackoverflow.com/a/2791259/218882
     public class Crypt
     {
-        private static byte[] _salt = Encoding.ASCII.GetBytes("o6806642kbM7c5");
+        private static readonly byte[] Salt = Encoding.ASCII.GetBytes("o6806642kbM7c5");
 
         /// <summary>
         /// Encrypt the given string using AES.  The string can be decrypted using 
@@ -29,7 +29,7 @@ namespace FloydPink.Flickr.Downloadr.Cryptography
             try
             {
                 // generate the key from the shared secret and the salt
-                Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(sharedSecret, _salt);
+                var key = new Rfc2898DeriveBytes(sharedSecret, Salt);
 
                 // Create a RijndaelManaged object
                 aesAlg = new RijndaelManaged();
@@ -39,14 +39,14 @@ namespace FloydPink.Flickr.Downloadr.Cryptography
                 ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 
                 // Create the streams used for encryption.
-                using (MemoryStream msEncrypt = new MemoryStream())
+                using (var msEncrypt = new MemoryStream())
                 {
                     // prepend the IV
                     msEncrypt.Write(BitConverter.GetBytes(aesAlg.IV.Length), 0, sizeof(int));
                     msEncrypt.Write(aesAlg.IV, 0, aesAlg.IV.Length);
-                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
                     {
-                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                        using (var swEncrypt = new StreamWriter(csEncrypt))
                         {
                             //Write all data to the stream.
                             swEncrypt.Write(plainText);
@@ -90,11 +90,11 @@ namespace FloydPink.Flickr.Downloadr.Cryptography
             try
             {
                 // generate the key from the shared secret and the salt
-                Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(sharedSecret, _salt);
+                var key = new Rfc2898DeriveBytes(sharedSecret, Salt);
 
                 // Create the streams used for decryption.                
                 byte[] bytes = Convert.FromBase64String(cipherText);
-                using (MemoryStream msDecrypt = new MemoryStream(bytes))
+                using (var msDecrypt = new MemoryStream(bytes))
                 {
                     // Create a RijndaelManaged object
                     // with the specified key and IV.
@@ -104,9 +104,9 @@ namespace FloydPink.Flickr.Downloadr.Cryptography
                     aesAlg.IV = ReadByteArray(msDecrypt);
                     // Create a decrytor to perform the stream transform.
                     ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
                     {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                        using (var srDecrypt = new StreamReader(csDecrypt))
 
                             // Read the decrypted bytes from the decrypting stream
                             // and place them in a string.
@@ -126,13 +126,13 @@ namespace FloydPink.Flickr.Downloadr.Cryptography
 
         private static byte[] ReadByteArray(Stream s)
         {
-            byte[] rawLength = new byte[sizeof(int)];
+            var rawLength = new byte[sizeof(int)];
             if (s.Read(rawLength, 0, rawLength.Length) != rawLength.Length)
             {
                 throw new SystemException("Stream did not contain properly formatted byte array");
             }
 
-            byte[] buffer = new byte[BitConverter.ToInt32(rawLength, 0)];
+            var buffer = new byte[BitConverter.ToInt32(rawLength, 0)];
             if (s.Read(buffer, 0, buffer.Length) != buffer.Length)
             {
                 throw new SystemException("Did not read byte array properly");

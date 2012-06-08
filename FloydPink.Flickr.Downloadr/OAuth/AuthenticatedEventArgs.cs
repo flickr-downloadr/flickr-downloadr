@@ -9,7 +9,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 
         public AuthenticatedEventArgs(User user)
         {
-            this.AuthenticatedUser = user;
+            AuthenticatedUser = user;
         }
     }
 }

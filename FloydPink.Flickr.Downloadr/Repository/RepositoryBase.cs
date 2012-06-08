@@ -5,29 +5,29 @@ namespace FloydPink.Flickr.Downloadr.Repository
 {
     public abstract class RepositoryBase
     {
-        internal abstract string repoFileName { get; }
-        protected readonly string cryptKey = "SomeEncryPtionKey123";
+        internal abstract string RepoFileName { get; }
+        protected readonly string CryptKey = "SomeEncryPtionKey123";
 
         public void Delete()
         {
-            if (File.Exists(repoFileName))
+            if (File.Exists(RepoFileName))
             {
-                File.Delete(repoFileName);
+                File.Delete(RepoFileName);
             }
         }
 
         protected string Read()
         {
-            if (File.Exists(repoFileName))
+            if (File.Exists(RepoFileName))
             {
-                return Crypt.Decrypt(File.ReadAllText(repoFileName),cryptKey);
+                return Crypt.Decrypt(File.ReadAllText(RepoFileName),CryptKey);
             }
             return string.Empty;
         }
 
         protected void Write(string fileContent)
         {
-            File.WriteAllText(repoFileName, Crypt.Encrypt(fileContent, cryptKey));
+            File.WriteAllText(RepoFileName, Crypt.Encrypt(fileContent, CryptKey));
         }
 
     }

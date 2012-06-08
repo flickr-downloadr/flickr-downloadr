@@ -37,7 +37,7 @@ namespace FloydPink.Flickr.Downloadr.Tests.ExtensionTests
             var user = userAsJson.FromJson<User>();
             Assert.AreEqual("name", user.Name);
             Assert.AreEqual("username", user.Username);
-            Assert.AreEqual("usernsid", user.UserNSId);
+            Assert.AreEqual("usernsid", user.UserNsId);
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace FloydPink.Flickr.Downloadr.Tests.ExtensionTests
             Assert.IsNotNull(user);
             Assert.AreEqual(string.Empty, user.Name);
             Assert.AreEqual(string.Empty, user.Username);
-            Assert.AreEqual(string.Empty, user.UserNSId);
+            Assert.AreEqual(string.Empty, user.UserNsId);
         }
 
     }
