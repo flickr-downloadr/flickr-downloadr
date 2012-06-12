@@ -43,21 +43,27 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppConstants.cs" />
     <Compile Include="Bootstrap\Bootstrapper.cs" />
+    <Compile Include="Constants\AppConstants.cs" />
+    <Compile Include="Constants\Methods.cs" />
+    <Compile Include="Constants\ParameterNames.cs" />
     <Compile Include="Cryptography\Crypt.cs" />
+    <Compile Include="Enums\SafeSearch.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
+    <Compile Include="Logic\BrowserLogic.cs" />
+    <Compile Include="Logic\IBrowserLogic.cs" />
     <Compile Include="Logic\ILoginLogic.cs" />
     <Compile Include="Logic\LoginLogic.cs" />
+    <Compile Include="Model\Photo.cs" />
     <Compile Include="Model\Token.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserInfo.cs" />
     <Compile Include="OAuth\AuthenticatedEventArgs.cs" />
     <Compile Include="Listener\IHttpListenerManager.cs" />
     <Compile Include="Listener\HttpListenerManager.cs" />

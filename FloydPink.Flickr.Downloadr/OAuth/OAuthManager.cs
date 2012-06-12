@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Script.Serialization;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth;
+using FloydPink.Flickr.Downloadr.Constants;
 using FloydPink.Flickr.Downloadr.Listener;
 using FloydPink.Flickr.Downloadr.Model;
 
@@ -18,8 +19,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 
         private readonly Dictionary<string, string> _defaultParameters = new Dictionary<string, string>() 
         { 
-            { "nojsoncallback", "1" },
-            { "format", "json" }
+            { ParameterNames.NoJsonCallback, "1" },
+            { ParameterNames.Format, "json" }
         };
 
         private string _requestToken = string.Empty;
@@ -37,14 +38,14 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 
         public string BeginAuthorization()
         {
-            _listenerManager.RequestReceived += new EventHandler<HttpListenerCallbackEventArgs>(callbackManager_OnRequestReceived);
+            _listenerManager.RequestReceived += callbackManager_OnRequestReceived;
             _listenerManager.ResponseString = AppConstants.AuthenticatedMessage;
             _listenerManager.SetupCallback();
             var requestArgs = new Dictionary<string, string>() { 
-                { "oauth_callback", _listenerManager.ListenerAddress }
+                { ParameterNames.OAuthCallback, _listenerManager.ListenerAddress }
             };
             var redirectArgs = new Dictionary<string, string>() { 
-                { "perms", "read" } 
+                { ParameterNames.Permissions, "read" } 
             };
             return _consumer.RequestUserAuthorization(requestArgs, redirectArgs, out _requestToken).AbsoluteUri;
         }
@@ -60,7 +61,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             var allParameters = new Dictionary<string, string>(parameters);
             foreach (var kvp in _defaultParameters)
                 allParameters.Add(kvp.Key, kvp.Value);
-            allParameters.Add("method", methodName);
+            allParameters.Add(ParameterNames.Method, methodName);
 
             var request = PrepareAuthorizedRequest(allParameters);
             var response = (HttpWebResponse)request.GetResponse();

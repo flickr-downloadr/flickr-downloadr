@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Web.Script.Serialization;
 using FloydPink.Flickr.Downloadr.Extensions;
 
 namespace FloydPink.Flickr.Downloadr.Model
@@ -10,6 +11,8 @@ namespace FloydPink.Flickr.Downloadr.Model
         private string _name;
         private string _userName;
         private string _userNsId;
+        [ScriptIgnore]
+        private UserInfo _info;
 
         public User()
         {
@@ -34,6 +37,7 @@ namespace FloydPink.Flickr.Downloadr.Model
                 PropertyChanged.Notify(() => this.Name);
             }
         }
+
         public string Username
         {
             get { return _userName; }
@@ -43,6 +47,7 @@ namespace FloydPink.Flickr.Downloadr.Model
                 PropertyChanged.Notify(() => this.Username);
             }
         }
+
         public string UserNsId
         {
             get { return _userNsId; }
@@ -51,6 +56,18 @@ namespace FloydPink.Flickr.Downloadr.Model
                 _userNsId = value;
                 PropertyChanged.Notify(() => this.UserNsId);
             }
+        }
+
+        [ScriptIgnore]
+        public UserInfo Info
+        {
+            get { return _info; }
+            set
+            {
+                _info = value;
+                PropertyChanged.Notify(() => this.Info);
+            }
+
         }
     }
 }

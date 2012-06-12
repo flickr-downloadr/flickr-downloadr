@@ -27,7 +27,7 @@ namespace FloydPink.Flickr.Downloadr.Tests.ExtensionTests
         public void WillConvertUserInstanceToJson()
         {
             var user = new User("name", "username", "usernsid");
-            var userAsJson = "{\"Name\":\"name\",\"Username\":\"username\",\"UserNSId\":\"usernsid\"}";
+            var userAsJson = "{\"Name\":\"name\",\"Username\":\"username\",\"UserNsId\":\"usernsid\"}";
             Assert.AreEqual(userAsJson, user.ToJson());
         }
         [Test]

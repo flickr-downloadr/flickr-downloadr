@@ -8,6 +8,7 @@ namespace FloydPink.Flickr.Downloadr.Extensions
         {
             return (new JavaScriptSerializer()).Serialize(value);
         }
+
         public static T FromJson<T>(this string json) where T : new()
         {
             if (string.IsNullOrEmpty(json))
