@@ -6,7 +6,7 @@ namespace FloydPink.Flickr.Downloadr.Listener
 {
     public class HttpListenerManager : IHttpListenerManager
     {
-        static readonly Random Random = new Random();
+        private static readonly Random Random = new Random();
 
         public string ListenerAddress { get; private set; }
 
@@ -49,12 +49,12 @@ namespace FloydPink.Flickr.Downloadr.Listener
 
         private void HttpListenerCallback(IAsyncResult result)
         {
-            var listener = (HttpListener)result.AsyncState;
+            var listener = (HttpListener) result.AsyncState;
 
             HttpListenerContext context = listener.EndGetContext(result);
             HttpListenerRequest request = context.Request;
             NameValueCollection queryStrings = request.QueryString;
-            
+
             HttpListenerResponse response = context.Response;
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(ResponseString);
             response.ContentLength64 = buffer.Length;
@@ -67,6 +67,5 @@ namespace FloydPink.Flickr.Downloadr.Listener
 
             RequestReceived(this, new HttpListenerCallbackEventArgs(queryStrings));
         }
-
     }
 }

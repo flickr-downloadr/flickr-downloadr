@@ -11,8 +11,7 @@ namespace FloydPink.Flickr.Downloadr.Model
         private string _name;
         private string _userName;
         private string _userNsId;
-        [ScriptIgnore]
-        private UserInfo _info;
+        [ScriptIgnore] private UserInfo _info;
 
         public User()
         {
@@ -67,7 +66,6 @@ namespace FloydPink.Flickr.Downloadr.Model
                 _info = value;
                 PropertyChanged.Notify(() => this.Info);
             }
-
         }
     }
 }

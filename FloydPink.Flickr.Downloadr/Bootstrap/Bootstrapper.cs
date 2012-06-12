@@ -27,29 +27,32 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                     TamperProtectionElements = new ITamperProtectionChannelBindingElement[] { new HmacSha1SigningBindingElement() }
                 };
 
-        private static readonly MessageReceivingEndpoint FlickrServiceEndPoint = new MessageReceivingEndpoint("http://api.flickr.com/services/rest", HttpDeliveryMethods.PostRequest);
+        private static readonly MessageReceivingEndpoint FlickrServiceEndPoint =
+            new MessageReceivingEndpoint("http://api.flickr.com/services/rest", HttpDeliveryMethods.PostRequest);
 
         public static void Load()
         {
             ObjectFactory.Initialize(initializer =>
-                {
-                    initializer.For<ILoginLogic>().Use<LoginLogic>();
-                    initializer.For<IBrowserLogic>().Use<BrowserLogic>().
-                        Ctor<int>("defaultPerPageCount").Is(DefaultPerPageCount);
-                    
-                    initializer.For<IOAuthManager>().Singleton().Use<OAuthManager>().
-                        Ctor<MessageReceivingEndpoint>("serviceEndPoint").Is(FlickrServiceEndPoint);
-                    initializer.For<DesktopConsumer>().Use<DesktopConsumer>().
-                        Ctor<ServiceProviderDescription>("serviceDescription").Is(FlickrServiceDescription);
-                    initializer.For<IConsumerTokenManager>().Use<TokenManager>().
-                        Ctor<string>("consumerKey").Is(ConsumerKey).
-                        Ctor<string>("consumerSecret").Is(ConsumerSecret);
-                    
-                    initializer.For<IHttpListenerManager>().Use<HttpListenerManager>();
-                    
-                    initializer.For<IRepository<Token>>().Use<TokenRepository>();
-                    initializer.For<IRepository<User>>().Use<UserRepository>();
-                });
+                                         {
+                                             initializer.For<ILoginLogic>().Use<LoginLogic>();
+                                             initializer.For<IBrowserLogic>().Use<BrowserLogic>().
+                                                 Ctor<int>("defaultPerPageCount").Is(DefaultPerPageCount);
+
+                                             initializer.For<IOAuthManager>().Singleton().Use<OAuthManager>().
+                                                 Ctor<MessageReceivingEndpoint>("serviceEndPoint").Is(
+                                                     FlickrServiceEndPoint);
+                                             initializer.For<DesktopConsumer>().Use<DesktopConsumer>().
+                                                 Ctor<ServiceProviderDescription>("serviceDescription").Is(
+                                                     FlickrServiceDescription);
+                                             initializer.For<IConsumerTokenManager>().Use<TokenManager>().
+                                                 Ctor<string>("consumerKey").Is(ConsumerKey).
+                                                 Ctor<string>("consumerSecret").Is(ConsumerSecret);
+
+                                             initializer.For<IHttpListenerManager>().Use<HttpListenerManager>();
+
+                                             initializer.For<IRepository<Token>>().Use<TokenRepository>();
+                                             initializer.For<IRepository<User>>().Use<UserRepository>();
+                                         });
         }
 
         public static T GetInstance<T>()

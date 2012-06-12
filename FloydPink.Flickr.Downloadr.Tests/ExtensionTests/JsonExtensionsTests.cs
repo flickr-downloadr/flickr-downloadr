@@ -14,6 +14,7 @@ namespace FloydPink.Flickr.Downloadr.Tests.ExtensionTests
             var tokenJson = "{\"TokenString\":\"token\",\"Secret\":\"secret\"}";
             Assert.AreEqual(tokenJson, token.ToJson());
         }
+
         [Test]
         public void WillConvertJsonToInstance()
         {
@@ -30,6 +31,7 @@ namespace FloydPink.Flickr.Downloadr.Tests.ExtensionTests
             var userAsJson = "{\"Name\":\"name\",\"Username\":\"username\",\"UserNsId\":\"usernsid\"}";
             Assert.AreEqual(userAsJson, user.ToJson());
         }
+
         [Test]
         public void WillConvertJsonToUserInstance()
         {
@@ -50,6 +52,5 @@ namespace FloydPink.Flickr.Downloadr.Tests.ExtensionTests
             Assert.AreEqual(string.Empty, user.Username);
             Assert.AreEqual(string.Empty, user.UserNsId);
         }
-
     }
 }

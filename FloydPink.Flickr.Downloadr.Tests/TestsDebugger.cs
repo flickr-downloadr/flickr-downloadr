@@ -5,7 +5,7 @@ namespace FloydPink.Flickr.Downloadr.Tests
 {
     public static class TestsDebugger
     {
-        static void Main()
+        private static void Main()
         {
             try
             {
@@ -26,8 +26,11 @@ namespace FloydPink.Flickr.Downloadr.Tests
                  */
                 const string nUnitPath = "nunit-console.exe";
                 var asmName = AssemblyName.GetAssemblyName(nUnitPath);
-                AppDomain.CurrentDomain.ExecuteAssemblyByName(asmName, new[] { Assembly.GetExecutingAssembly().Location, 
-                    "/framework:4.0" });
+                AppDomain.CurrentDomain.ExecuteAssemblyByName(asmName, new[]
+                                                                           {
+                                                                               Assembly.GetExecutingAssembly().Location,
+                                                                               "/framework:4.0"
+                                                                           });
             }
             catch (Exception ex)
             {

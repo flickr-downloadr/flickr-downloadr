@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Media.Imaging;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presenters;
@@ -58,13 +60,19 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void SetWelcomeLabel(User user)
         {
-            var userNameString = string.IsNullOrEmpty(user.Name) ?
-                (string.IsNullOrEmpty(user.Username) ? string.Empty : user.Username) :
-                user.Name;
-            var welcomeMessage = string.IsNullOrEmpty(userNameString) ? string.Empty : 
-                string.Format("Welcome, {0}!", userNameString);
-            welcomeUserLabel.Dispatch((l) => l.Content = string.IsNullOrEmpty(user.UserNsId) ? string.Empty : welcomeMessage);
+            var userNameString = string.IsNullOrEmpty(user.Name)
+                                     ? (string.IsNullOrEmpty(user.Username) ? string.Empty : user.Username)
+                                     : user.Name;
+            var welcomeMessage = string.IsNullOrEmpty(userNameString)
+                                     ? string.Empty
+                                     : string.Format("Welcome, {0}!", userNameString);
+            welcomeUserLabel.Dispatch(
+                (l) => l.Content = string.IsNullOrEmpty(user.UserNsId) ? string.Empty : welcomeMessage);
+            if (user.Info != null)
+            {
+                var buddyIconUri = new Uri(user.Info.BuddyIconUrl, UriKind.Absolute);
+                buddyIcon.Dispatch((i) => i.Source = new BitmapImage(buddyIconUri));
+            }
         }
-
     }
 }

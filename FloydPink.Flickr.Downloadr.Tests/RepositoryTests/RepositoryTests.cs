@@ -49,6 +49,5 @@ namespace FloydPink.Flickr.Downloadr.Tests.RepositoryTests
         {
             return new Token("token", "secret");
         }
-
     }
 }

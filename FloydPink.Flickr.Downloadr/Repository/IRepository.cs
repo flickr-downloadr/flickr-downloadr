@@ -1,6 +1,6 @@
 ﻿namespace FloydPink.Flickr.Downloadr.Repository
 {
-    public interface IRepository<T> 
+    public interface IRepository<T>
     {
         T Get();
         void Save(T value);

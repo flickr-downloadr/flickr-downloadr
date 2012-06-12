@@ -12,7 +12,8 @@
         private readonly bool _isFamily;
         private readonly bool _isFriend;
 
-        public Photo(string id, string owner, string secret, string server, int farm, string title, bool isPublic, bool isFamily, bool isFriend)
+        public Photo(string id, string owner, string secret, string server, int farm, string title, bool isPublic,
+                     bool isFamily, bool isFriend)
         {
             _id = id;
             _owner = owner;

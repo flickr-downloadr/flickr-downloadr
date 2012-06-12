@@ -20,7 +20,7 @@ namespace FloydPink.Flickr.Downloadr.Repository
         {
             if (File.Exists(RepoFileName))
             {
-                return Crypt.Decrypt(File.ReadAllText(RepoFileName),CryptKey);
+                return Crypt.Decrypt(File.ReadAllText(RepoFileName), CryptKey);
             }
             return string.Empty;
         }
@@ -29,6 +29,5 @@ namespace FloydPink.Flickr.Downloadr.Repository
         {
             File.WriteAllText(RepoFileName, Crypt.Encrypt(fileContent, CryptKey));
         }
-
     }
 }

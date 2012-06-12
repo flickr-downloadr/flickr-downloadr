@@ -16,7 +16,8 @@ namespace FloydPink.Flickr.Downloadr.Logic
         private readonly IRepository<User> _userRepository;
         private Action<User> _applyUser;
 
-        public LoginLogic(IOAuthManager oAuthManager, IRepository<Token> tokenRepository, IRepository<User> userRepository)
+        public LoginLogic(IOAuthManager oAuthManager, IRepository<Token> tokenRepository,
+                          IRepository<User> userRepository)
         {
             _oAuthManager = oAuthManager;
             _tokenRepository = tokenRepository;
@@ -28,9 +29,9 @@ namespace FloydPink.Flickr.Downloadr.Logic
             _applyUser = applyUser;
             _oAuthManager.Authenticated += OAuthManagerAuthenticated;
             Process.Start(new ProcessStartInfo()
-            {
-                FileName = _oAuthManager.BeginAuthorization()
-            });
+                              {
+                                  FileName = _oAuthManager.BeginAuthorization()
+                              });
         }
 
         public void Logout()
@@ -50,8 +51,8 @@ namespace FloydPink.Flickr.Downloadr.Logic
             }
 
             _oAuthManager.AccessToken = token.TokenString;
-            var testLogin = (Dictionary<string, object>)_oAuthManager.MakeAuthenticatedRequest(Methods.TestLogin);
-            var userIsLoggedIn = (string)testLogin.GetValueFromDictionary("user", "id") == user.UserNsId;
+            var testLogin = (Dictionary<string, object>) _oAuthManager.MakeAuthenticatedRequest(Methods.TestLogin);
+            var userIsLoggedIn = (string) testLogin.GetValueFromDictionary("user", "id") == user.UserNsId;
 
             if (userIsLoggedIn)
             {
@@ -60,7 +61,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
             return userIsLoggedIn;
         }
 
-        void OAuthManagerAuthenticated(object sender, AuthenticatedEventArgs e)
+        private void OAuthManagerAuthenticated(object sender, AuthenticatedEventArgs e)
         {
             User authenticatedUser = e.AuthenticatedUser;
             _userRepository.Save(authenticatedUser);
@@ -73,19 +74,27 @@ namespace FloydPink.Flickr.Downloadr.Logic
                                  {
                                      {ParameterNames.UserId, authenticatedUser.UserNsId}
                                  };
-            var userInfo = (Dictionary<string, object>)_oAuthManager.MakeAuthenticatedRequest(Methods.PeopleGetInfo, exraParams)["person"];
+            var userInfo =
+                (Dictionary<string, object>)
+                _oAuthManager.MakeAuthenticatedRequest(Methods.PeopleGetInfo, exraParams)["person"];
             authenticatedUser.Info = new UserInfo
                                          {
                                              Id = authenticatedUser.UserNsId,
                                              IsPro = Convert.ToBoolean(userInfo["ispro"]),
                                              IconServer = userInfo["iconserver"].ToString(),
                                              IconFarm = Convert.ToInt32(userInfo["iconfarm"]),
-                                             PathAlias = userInfo["path_alias"].ToString(),
+                                             PathAlias =
+                                                 userInfo["path_alias"] == null
+                                                     ? string.Empty
+                                                     : userInfo["path_alias"].ToString(),
                                              Description = userInfo.GetValueFromDictionary("description").ToString(),
                                              PhotosUrl = userInfo.GetValueFromDictionary("photosurl").ToString(),
                                              ProfileUrl = userInfo.GetValueFromDictionary("profileurl").ToString(),
                                              MobileUrl = userInfo.GetValueFromDictionary("mobileurl").ToString(),
-                                             PhotosCount = Convert.ToInt32(((Dictionary<string, object>)userInfo["photos"]).GetValueFromDictionary("count"))
+                                             PhotosCount =
+                                                 Convert.ToInt32(
+                                                     ((Dictionary<string, object>) userInfo["photos"]).
+                                                         GetValueFromDictionary("count"))
                                          };
             _applyUser(authenticatedUser);
         }

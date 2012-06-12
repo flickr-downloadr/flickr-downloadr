@@ -9,7 +9,9 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 {
     internal class TokenManager : IConsumerTokenManager
     {
-        private readonly Dictionary<string, Tuple<string, TokenType>> _tokens = new Dictionary<string, Tuple<string, TokenType>>();
+        private readonly Dictionary<string, Tuple<string, TokenType>> _tokens =
+            new Dictionary<string, Tuple<string, TokenType>>();
+
         private readonly IRepository<Token> _tokenRepository;
 
         public TokenManager(string consumerKey, string consumerSecret, IRepository<Token> tokenRepository)
@@ -18,7 +20,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             {
                 throw new ArgumentNullException("consumerKey");
             }
-            
+
             _tokenRepository = tokenRepository;
 
             ConsumerKey = consumerKey;
@@ -37,7 +39,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 
         #region ITokenManager Members
 
-        public void ExpireRequestTokenAndStoreNewAccessToken(string consumerKey, string requestToken, string accessToken, string accessTokenSecret)
+        public void ExpireRequestTokenAndStoreNewAccessToken(string consumerKey, string requestToken, string accessToken,
+                                                             string accessTokenSecret)
         {
             _tokens.Remove(requestToken);
             _tokens[accessToken] = new Tuple<string, TokenType>(accessTokenSecret, TokenType.AccessToken);
@@ -69,6 +72,5 @@ namespace FloydPink.Flickr.Downloadr.OAuth
                 _tokens[token.TokenString] = new Tuple<string, TokenType>(token.Secret, TokenType.AccessToken);
             }
         }
-
     }
 }

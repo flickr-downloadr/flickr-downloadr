@@ -8,7 +8,7 @@ namespace FloydPink.Flickr.Downloadr.Presenters
     {
         private readonly ILoginView _view;
         private readonly ILoginLogic _logic;
-        
+
         public LoginPresenter(ILoginView view, ILoginLogic logic)
         {
             _view = view;
@@ -35,11 +35,10 @@ namespace FloydPink.Flickr.Downloadr.Presenters
             _view.ShowLoggedOutControl();
         }
 
-        void ApplyUser(User user)
+        private void ApplyUser(User user)
         {
             _view.User = user;
             _view.ShowLoggedInControl();
         }
-
     }
 }

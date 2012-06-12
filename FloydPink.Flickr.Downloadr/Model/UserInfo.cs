@@ -16,13 +16,15 @@ namespace FloydPink.Flickr.Downloadr.Model
         public string ProfileUrl { get; set; }
         public string MobileUrl { get; set; }
         public int PhotosCount { get; set; }
+
         public string BuddyIconUrl
         {
             get
             {
-                return Convert.ToInt32(IconServer) > 0 ?
-                    string.Format(AppConstants.BuddyIconUrlFormat, IconFarm.ToString(CultureInfo.InvariantCulture), IconServer, Id) :
-                    AppConstants.DefaultBuddyIconUrl;
+                return Convert.ToInt32(IconServer) > 0
+                           ? string.Format(AppConstants.BuddyIconUrlFormat,
+                                           IconFarm.ToString(CultureInfo.InvariantCulture), IconServer, Id)
+                           : AppConstants.DefaultBuddyIconUrl;
             }
         }
     }

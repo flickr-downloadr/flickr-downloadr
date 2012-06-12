@@ -23,8 +23,8 @@ namespace FloydPink.Flickr.Downloadr.Cryptography
             if (string.IsNullOrEmpty(sharedSecret))
                 throw new ArgumentNullException("sharedSecret");
 
-            string outStr = null;                       // Encrypted string to return
-            RijndaelManaged aesAlg = null;              // RijndaelManaged object used to encrypt the data.
+            string outStr = null; // Encrypted string to return
+            RijndaelManaged aesAlg = null; // RijndaelManaged object used to encrypt the data.
 
             try
             {
@@ -33,7 +33,7 @@ namespace FloydPink.Flickr.Downloadr.Cryptography
 
                 // Create a RijndaelManaged object
                 aesAlg = new RijndaelManaged();
-                aesAlg.Key = key.GetBytes(aesAlg.KeySize / 8);
+                aesAlg.Key = key.GetBytes(aesAlg.KeySize/8);
 
                 // Create a decrytor to perform the stream transform.
                 ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
@@ -42,7 +42,7 @@ namespace FloydPink.Flickr.Downloadr.Cryptography
                 using (var msEncrypt = new MemoryStream())
                 {
                     // prepend the IV
-                    msEncrypt.Write(BitConverter.GetBytes(aesAlg.IV.Length), 0, sizeof(int));
+                    msEncrypt.Write(BitConverter.GetBytes(aesAlg.IV.Length), 0, sizeof (int));
                     msEncrypt.Write(aesAlg.IV, 0, aesAlg.IV.Length);
                     using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
                     {
@@ -99,7 +99,7 @@ namespace FloydPink.Flickr.Downloadr.Cryptography
                     // Create a RijndaelManaged object
                     // with the specified key and IV.
                     aesAlg = new RijndaelManaged();
-                    aesAlg.Key = key.GetBytes(aesAlg.KeySize / 8);
+                    aesAlg.Key = key.GetBytes(aesAlg.KeySize/8);
                     // Get the initialization vector from the encrypted stream
                     aesAlg.IV = ReadByteArray(msDecrypt);
                     // Create a decrytor to perform the stream transform.
@@ -126,7 +126,7 @@ namespace FloydPink.Flickr.Downloadr.Cryptography
 
         private static byte[] ReadByteArray(Stream s)
         {
-            var rawLength = new byte[sizeof(int)];
+            var rawLength = new byte[sizeof (int)];
             if (s.Read(rawLength, 0, rawLength.Length) != rawLength.Length)
             {
                 throw new SystemException("Stream did not contain properly formatted byte array");

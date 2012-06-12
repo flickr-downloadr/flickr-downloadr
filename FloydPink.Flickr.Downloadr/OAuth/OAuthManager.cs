@@ -17,11 +17,11 @@ namespace FloydPink.Flickr.Downloadr.OAuth
         private readonly DesktopConsumer _consumer;
         private readonly MessageReceivingEndpoint _serviceEndPoint;
 
-        private readonly Dictionary<string, string> _defaultParameters = new Dictionary<string, string>() 
-        { 
-            { ParameterNames.NoJsonCallback, "1" },
-            { ParameterNames.Format, "json" }
-        };
+        private readonly Dictionary<string, string> _defaultParameters = new Dictionary<string, string>()
+                                                                             {
+                                                                                 {ParameterNames.NoJsonCallback, "1"},
+                                                                                 {ParameterNames.Format, "json"}
+                                                                             };
 
         private string _requestToken = string.Empty;
 
@@ -29,7 +29,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 
         public event EventHandler<AuthenticatedEventArgs> Authenticated;
 
-        public OAuthManager(IHttpListenerManager listenerManager, DesktopConsumer consumer, MessageReceivingEndpoint serviceEndPoint)
+        public OAuthManager(IHttpListenerManager listenerManager, DesktopConsumer consumer,
+                            MessageReceivingEndpoint serviceEndPoint)
         {
             _listenerManager = listenerManager;
             _consumer = consumer;
@@ -41,12 +42,14 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             _listenerManager.RequestReceived += callbackManager_OnRequestReceived;
             _listenerManager.ResponseString = AppConstants.AuthenticatedMessage;
             _listenerManager.SetupCallback();
-            var requestArgs = new Dictionary<string, string>() { 
-                { ParameterNames.OAuthCallback, _listenerManager.ListenerAddress }
-            };
-            var redirectArgs = new Dictionary<string, string>() { 
-                { ParameterNames.Permissions, "read" } 
-            };
+            var requestArgs = new Dictionary<string, string>()
+                                  {
+                                      {ParameterNames.OAuthCallback, _listenerManager.ListenerAddress}
+                                  };
+            var redirectArgs = new Dictionary<string, string>()
+                                   {
+                                       {ParameterNames.Permissions, "read"}
+                                   };
             return _consumer.RequestUserAuthorization(requestArgs, redirectArgs, out _requestToken).AbsoluteUri;
         }
 
@@ -64,7 +67,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             allParameters.Add(ParameterNames.Method, methodName);
 
             var request = PrepareAuthorizedRequest(allParameters);
-            var response = (HttpWebResponse)request.GetResponse();
+            var response = (HttpWebResponse) request.GetResponse();
             using (var reader = new StreamReader(response.GetResponseStream()))
             {
                 return (new JavaScriptSerializer()).Deserialize<dynamic>(reader.ReadToEnd());
