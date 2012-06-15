@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+﻿using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Repository;
-using FloydPink.Flickr.Downloadr.Model;
+using NUnit.Framework;
 
 namespace FloydPink.Flickr.Downloadr.Tests.RepositoryTests
 {

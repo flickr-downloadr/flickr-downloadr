@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FloydPink.Flickr.Downloadr.Constants;
 using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Model.Constants;
 
 namespace FloydPink.Flickr.Downloadr.Extensions
 {

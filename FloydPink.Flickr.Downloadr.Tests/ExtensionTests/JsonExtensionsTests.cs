@@ -1,5 +1,5 @@
-﻿using FloydPink.Flickr.Downloadr.Extensions;
-using FloydPink.Flickr.Downloadr.Model;
+﻿using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Repository.Extensions;
 using NUnit.Framework;
 
 namespace FloydPink.Flickr.Downloadr.Tests.ExtensionTests

@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using FloydPink.Flickr.Downloadr.Cryptography;
+﻿using FloydPink.Flickr.Downloadr.Repository.Cryptography;
+using NUnit.Framework;
 
 namespace FloydPink.Flickr.Downloadr.Tests.CryptogrphyTests
 {

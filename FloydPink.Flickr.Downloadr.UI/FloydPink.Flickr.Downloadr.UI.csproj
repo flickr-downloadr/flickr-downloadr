@@ -145,6 +145,14 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FloydPink.Flickr.Downloadr.Bootstrap\FloydPink.Flickr.Downloadr.Bootstrap.csproj">
+      <Project>{BAFF663C-0B67-4FF5-899E-5F96D543C60B}</Project>
+      <Name>FloydPink.Flickr.Downloadr.Bootstrap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FloydPink.Flickr.Downloadr.Model\FloydPink.Flickr.Downloadr.Model.csproj">
+      <Project>{D19B00F8-600E-46AC-AB3F-F4CE1BB1D651}</Project>
+      <Name>FloydPink.Flickr.Downloadr.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FloydPink.Flickr.Downloadr\FloydPink.Flickr.Downloadr.csproj">
       <Project>{65F01787-97D7-44D0-8708-A70211C4EA2A}</Project>
       <Name>FloydPink.Flickr.Downloadr</Name>

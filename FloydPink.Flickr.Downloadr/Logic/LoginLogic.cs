@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using FloydPink.Flickr.Downloadr.Constants;
 using FloydPink.Flickr.Downloadr.Extensions;
 using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Model.Constants;
 using FloydPink.Flickr.Downloadr.OAuth;
 using FloydPink.Flickr.Downloadr.Repository;
 
