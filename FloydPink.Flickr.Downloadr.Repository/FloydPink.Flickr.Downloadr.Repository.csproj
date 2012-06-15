@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cryptography\Crypt.cs" />
+    <Compile Include="Helpers\Crypt.cs" />
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

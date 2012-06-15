@@ -4,7 +4,7 @@ using System.Linq;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Model.Constants;
 
-namespace FloydPink.Flickr.Downloadr.Extensions
+namespace FloydPink.Flickr.Downloadr.Logic.Extensions
 {
     public static class DictionaryExtensions
     {

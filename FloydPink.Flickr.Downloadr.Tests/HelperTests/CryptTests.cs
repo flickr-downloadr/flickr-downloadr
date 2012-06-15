@@ -1,7 +1,7 @@
-﻿using FloydPink.Flickr.Downloadr.Repository.Cryptography;
+﻿using FloydPink.Flickr.Downloadr.Repository.Helpers;
 using NUnit.Framework;
 
-namespace FloydPink.Flickr.Downloadr.Tests.CryptogrphyTests
+namespace FloydPink.Flickr.Downloadr.Tests.HelperTests
 {
     [TestFixture]
     public class CryptTests

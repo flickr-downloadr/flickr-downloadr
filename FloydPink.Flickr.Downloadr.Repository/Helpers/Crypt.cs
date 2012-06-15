@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace FloydPink.Flickr.Downloadr.Repository.Cryptography
+namespace FloydPink.Flickr.Downloadr.Repository.Helpers
 {
     // code from stackoverflow.com/a/2791259/218882
     public class Crypt

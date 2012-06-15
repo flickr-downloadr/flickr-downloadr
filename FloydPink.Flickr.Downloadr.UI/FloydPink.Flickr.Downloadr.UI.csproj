@@ -153,9 +153,13 @@
       <Project>{D19B00F8-600E-46AC-AB3F-F4CE1BB1D651}</Project>
       <Name>FloydPink.Flickr.Downloadr.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FloydPink.Flickr.Downloadr\FloydPink.Flickr.Downloadr.csproj">
+    <ProjectReference Include="..\FloydPink.Flickr.Downloadr.Presentation\FloydPink.Flickr.Downloadr.Presentation.csproj">
+      <Project>{9C0A5C0A-C495-4A92-BFFC-32F165136140}</Project>
+      <Name>FloydPink.Flickr.Downloadr.Presentation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FloydPink.Flickr.Downloadr\FloydPink.Flickr.Downloadr.Logic.csproj">
       <Project>{65F01787-97D7-44D0-8708-A70211C4EA2A}</Project>
-      <Name>FloydPink.Flickr.Downloadr</Name>
+      <Name>FloydPink.Flickr.Downloadr.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

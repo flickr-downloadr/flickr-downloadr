@@ -1,6 +1,6 @@
-﻿using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Model;
 
-namespace FloydPink.Flickr.Downloadr.Views
+namespace FloydPink.Flickr.Downloadr.Presentation.Views
 {
     public interface ILoginView : IBaseView
     {

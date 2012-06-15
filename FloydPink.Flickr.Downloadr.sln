@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr", "FloydPink.Flickr.Downloadr\FloydPink.Flickr.Downloadr.csproj", "{65F01787-97D7-44D0-8708-A70211C4EA2A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.Logic", "FloydPink.Flickr.Downloadr\FloydPink.Flickr.Downloadr.Logic.csproj", "{65F01787-97D7-44D0-8708-A70211C4EA2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.Tests", "FloydPink.Flickr.Downloadr.Tests\FloydPink.Flickr.Downloadr.Tests.csproj", "{42C70914-9EBB-4E67-AD18-4A2F131044C4}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.Repository", "FloydPink.Flickr.Downloadr.Repository\FloydPink.Flickr.Downloadr.Repository.csproj", "{E347AA45-9512-4661-8EA4-DFDD2ACD42E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.Bootstrap", "FloydPink.Flickr.Downloadr.Bootstrap\FloydPink.Flickr.Downloadr.Bootstrap.csproj", "{BAFF663C-0B67-4FF5-899E-5F96D543C60B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.Presentation", "FloydPink.Flickr.Downloadr.Presentation\FloydPink.Flickr.Downloadr.Presentation.csproj", "{9C0A5C0A-C495-4A92-BFFC-32F165136140}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,16 @@ Global
 		{BAFF663C-0B67-4FF5-899E-5F96D543C60B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BAFF663C-0B67-4FF5-899E-5F96D543C60B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BAFF663C-0B67-4FF5-899E-5F96D543C60B}.Release|x86.ActiveCfg = Release|Any CPU
+		{9C0A5C0A-C495-4A92-BFFC-32F165136140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C0A5C0A-C495-4A92-BFFC-32F165136140}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C0A5C0A-C495-4A92-BFFC-32F165136140}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9C0A5C0A-C495-4A92-BFFC-32F165136140}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9C0A5C0A-C495-4A92-BFFC-32F165136140}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9C0A5C0A-C495-4A92-BFFC-32F165136140}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C0A5C0A-C495-4A92-BFFC-32F165136140}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C0A5C0A-C495-4A92-BFFC-32F165136140}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9C0A5C0A-C495-4A92-BFFC-32F165136140}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9C0A5C0A-C495-4A92-BFFC-32F165136140}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

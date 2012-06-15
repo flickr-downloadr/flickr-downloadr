@@ -5,7 +5,7 @@ using FloydPink.Flickr.Downloadr.Logic;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.OAuth;
 using FloydPink.Flickr.Downloadr.OAuth.Listener;
-using FloydPink.Flickr.Downloadr.Presenters;
+using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Repository;
 using StructureMap;
 

@@ -3,9 +3,9 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
-using FloydPink.Flickr.Downloadr.Presenters;
+using FloydPink.Flickr.Downloadr.Presentation;
+using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
-using FloydPink.Flickr.Downloadr.Views;
 
 namespace FloydPink.Flickr.Downloadr.UI
 {

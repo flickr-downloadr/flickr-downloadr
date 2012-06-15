@@ -1,5 +1,5 @@
 using System.IO;
-using FloydPink.Flickr.Downloadr.Repository.Cryptography;
+using FloydPink.Flickr.Downloadr.Repository.Helpers;
 
 namespace FloydPink.Flickr.Downloadr.Repository
 {

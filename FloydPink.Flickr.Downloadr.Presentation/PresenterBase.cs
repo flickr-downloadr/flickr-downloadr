@@ -1,4 +1,4 @@
-﻿namespace FloydPink.Flickr.Downloadr.Presenters
+namespace FloydPink.Flickr.Downloadr.Presentation
 {
     public abstract class PresenterBase
     {

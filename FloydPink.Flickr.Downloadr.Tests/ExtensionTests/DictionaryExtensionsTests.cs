@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using FloydPink.Flickr.Downloadr.Extensions;
+using FloydPink.Flickr.Downloadr.Logic.Extensions;
 using NUnit.Framework;
 
 namespace FloydPink.Flickr.Downloadr.Tests.ExtensionTests

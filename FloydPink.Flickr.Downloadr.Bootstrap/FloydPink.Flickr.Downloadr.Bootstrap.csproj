@@ -58,13 +58,17 @@
       <Project>{3F6823DD-CED6-4C91-8171-DFE5B89CA441}</Project>
       <Name>FloydPink.Flickr.Downloadr.OAuth</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FloydPink.Flickr.Downloadr.Presentation\FloydPink.Flickr.Downloadr.Presentation.csproj">
+      <Project>{9C0A5C0A-C495-4A92-BFFC-32F165136140}</Project>
+      <Name>FloydPink.Flickr.Downloadr.Presentation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FloydPink.Flickr.Downloadr.Repository\FloydPink.Flickr.Downloadr.Repository.csproj">
       <Project>{E347AA45-9512-4661-8EA4-DFDD2ACD42E7}</Project>
       <Name>FloydPink.Flickr.Downloadr.Repository</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FloydPink.Flickr.Downloadr\FloydPink.Flickr.Downloadr.csproj">
+    <ProjectReference Include="..\FloydPink.Flickr.Downloadr\FloydPink.Flickr.Downloadr.Logic.csproj">
       <Project>{65F01787-97D7-44D0-8708-A70211C4EA2A}</Project>
-      <Name>FloydPink.Flickr.Downloadr</Name>
+      <Name>FloydPink.Flickr.Downloadr.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
