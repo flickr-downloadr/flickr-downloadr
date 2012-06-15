@@ -59,6 +59,10 @@
       <Project>{BAFF663C-0B67-4FF5-899E-5F96D543C60B}</Project>
       <Name>FloydPink.Flickr.Downloadr.Bootstrap</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FloydPink.Flickr.Downloadr.Logic\FloydPink.Flickr.Downloadr.Logic.csproj">
+      <Project>{65F01787-97D7-44D0-8708-A70211C4EA2A}</Project>
+      <Name>FloydPink.Flickr.Downloadr.Logic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FloydPink.Flickr.Downloadr.Model\FloydPink.Flickr.Downloadr.Model.csproj">
       <Project>{D19B00F8-600E-46AC-AB3F-F4CE1BB1D651}</Project>
       <Name>FloydPink.Flickr.Downloadr.Model</Name>
@@ -74,10 +78,6 @@
     <ProjectReference Include="..\FloydPink.Flickr.Downloadr.Repository\FloydPink.Flickr.Downloadr.Repository.csproj">
       <Project>{E347AA45-9512-4661-8EA4-DFDD2ACD42E7}</Project>
       <Name>FloydPink.Flickr.Downloadr.Repository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FloydPink.Flickr.Downloadr\FloydPink.Flickr.Downloadr.Logic.csproj">
-      <Project>{65F01787-97D7-44D0-8708-A70211C4EA2A}</Project>
-      <Name>FloydPink.Flickr.Downloadr.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
