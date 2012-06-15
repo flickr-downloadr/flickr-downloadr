@@ -10,6 +10,8 @@ namespace FloydPink.Flickr.Downloadr.Repository
             get { return "token.repo"; }
         }
 
+        #region IRepository<Token> Members
+
         public Token Get()
         {
             return base.Read().FromJson<Token>();
@@ -19,5 +21,7 @@ namespace FloydPink.Flickr.Downloadr.Repository
         {
             base.Write(value.ToJson());
         }
+
+        #endregion
     }
 }

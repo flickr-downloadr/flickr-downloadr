@@ -6,8 +6,8 @@ namespace FloydPink.Flickr.Downloadr.Presenters
 {
     public class LoginPresenter : PresenterBase
     {
-        private readonly ILoginView _view;
         private readonly ILoginLogic _logic;
+        private readonly ILoginView _view;
 
         public LoginPresenter(ILoginView view, ILoginLogic logic)
         {

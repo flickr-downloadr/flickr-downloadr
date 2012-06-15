@@ -22,7 +22,7 @@ namespace FloydPink.Flickr.Downloadr.Extensions
         public static IEnumerable<Photo> GetPhotosFromDictionary(this Dictionary<string, object> dictionary)
         {
             var photos = new List<Photo>();
-            var photoDictionary =
+            IEnumerable<Dictionary<string, object>> photoDictionary =
                 ((IEnumerable<object>) dictionary.GetValueFromDictionary("photos", "photo")).Cast
                     <Dictionary<string, object>>();
             photos.AddRange(photoDictionary.Select(BuildPhoto));

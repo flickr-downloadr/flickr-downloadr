@@ -23,7 +23,7 @@ namespace FloydPink.Flickr.Downloadr.Model
             {
                 return Convert.ToInt32(IconServer) > 0
                            ? string.Format(AppConstants.BuddyIconUrlFormat,
-                                           (object) IconFarm.ToString(CultureInfo.InvariantCulture), IconServer, Id)
+                                           IconFarm.ToString(CultureInfo.InvariantCulture), IconServer, Id)
                            : AppConstants.DefaultBuddyIconUrl;
             }
         }

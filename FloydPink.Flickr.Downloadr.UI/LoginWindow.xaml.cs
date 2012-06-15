@@ -14,8 +14,19 @@ namespace FloydPink.Flickr.Downloadr.UI
     /// </summary>
     public partial class LoginWindow : Window, ILoginView
     {
-        private User _user;
         private readonly LoginPresenter _presenter;
+        private User _user;
+
+        public LoginWindow()
+        {
+            InitializeComponent();
+            User = new User();
+
+            _presenter = Bootstrapper.GetPresenter<ILoginView, LoginPresenter>(this);
+            _presenter.InitializeScreen();
+        }
+
+        #region ILoginView Members
 
         public User User
         {
@@ -25,15 +36,6 @@ namespace FloydPink.Flickr.Downloadr.UI
                 _user = value;
                 SetWelcomeLabel(value);
             }
-        }
-
-        public LoginWindow()
-        {
-            InitializeComponent();
-            User = new User();
-
-            _presenter = Bootstrapper.GetPresenter<ILoginView, LoginPresenter>(this);
-            _presenter.InitializeScreen();
         }
 
         public void ShowLoggedInControl()
@@ -48,6 +50,8 @@ namespace FloydPink.Flickr.Downloadr.UI
             loggedInCanvas.Dispatch((c) => c.Visibility = Visibility.Collapsed);
         }
 
+        #endregion
+
         private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
             _presenter.Login();
@@ -60,12 +64,12 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void SetWelcomeLabel(User user)
         {
-            var userNameString = string.IsNullOrEmpty(user.Name)
-                                     ? (string.IsNullOrEmpty(user.Username) ? string.Empty : user.Username)
-                                     : user.Name;
-            var welcomeMessage = string.IsNullOrEmpty(userNameString)
-                                     ? string.Empty
-                                     : string.Format("Welcome, {0}!", userNameString);
+            string userNameString = string.IsNullOrEmpty(user.Name)
+                                        ? (string.IsNullOrEmpty(user.Username) ? string.Empty : user.Username)
+                                        : user.Name;
+            string welcomeMessage = string.IsNullOrEmpty(userNameString)
+                                        ? string.Empty
+                                        : string.Format("Welcome, {0}!", userNameString);
             welcomeUserLabel.Dispatch(
                 (l) => l.Content = string.IsNullOrEmpty(user.UserNsId) ? string.Empty : welcomeMessage);
             if (user.Info != null)

@@ -5,8 +5,8 @@ namespace FloydPink.Flickr.Downloadr.Repository
 {
     public abstract class RepositoryBase
     {
-        internal abstract string RepoFileName { get; }
         protected readonly string CryptKey = "SomeEncryPtionKey123";
+        internal abstract string RepoFileName { get; }
 
         public void Delete()
         {

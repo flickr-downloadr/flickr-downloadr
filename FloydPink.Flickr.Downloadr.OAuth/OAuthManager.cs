@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Script.Serialization;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth;
+using DotNetOpenAuth.OAuth.Messages;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Model.Constants;
 using FloydPink.Flickr.Downloadr.OAuth.Listener;
@@ -13,21 +14,18 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 {
     public class OAuthManager : IOAuthManager
     {
-        private readonly IHttpListenerManager _listenerManager;
         private readonly DesktopConsumer _consumer;
-        private readonly MessageReceivingEndpoint _serviceEndPoint;
 
-        private readonly Dictionary<string, string> _defaultParameters = new Dictionary<string, string>()
+        private readonly Dictionary<string, string> _defaultParameters = new Dictionary<string, string>
                                                                              {
                                                                                  {ParameterNames.NoJsonCallback, "1"},
                                                                                  {ParameterNames.Format, "json"}
                                                                              };
 
+        private readonly IHttpListenerManager _listenerManager;
+        private readonly MessageReceivingEndpoint _serviceEndPoint;
+
         private string _requestToken = string.Empty;
-
-        public string AccessToken { get; set; }
-
-        public event EventHandler<AuthenticatedEventArgs> Authenticated;
 
         public OAuthManager(IHttpListenerManager listenerManager, DesktopConsumer consumer,
                             MessageReceivingEndpoint serviceEndPoint)
@@ -37,16 +35,22 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             _serviceEndPoint = serviceEndPoint;
         }
 
+        #region IOAuthManager Members
+
+        public string AccessToken { get; set; }
+
+        public event EventHandler<AuthenticatedEventArgs> Authenticated;
+
         public string BeginAuthorization()
         {
             _listenerManager.RequestReceived += callbackManager_OnRequestReceived;
             _listenerManager.ResponseString = AppConstants.AuthenticatedMessage;
             _listenerManager.SetupCallback();
-            var requestArgs = new Dictionary<string, string>()
+            var requestArgs = new Dictionary<string, string>
                                   {
                                       {ParameterNames.OAuthCallback, _listenerManager.ListenerAddress}
                                   };
-            var redirectArgs = new Dictionary<string, string>()
+            var redirectArgs = new Dictionary<string, string>
                                    {
                                        {ParameterNames.Permissions, "read"}
                                    };
@@ -66,7 +70,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
                 allParameters.Add(kvp.Key, kvp.Value);
             allParameters.Add(ParameterNames.Method, methodName);
 
-            var request = PrepareAuthorizedRequest(allParameters);
+            HttpWebRequest request = PrepareAuthorizedRequest(allParameters);
             var response = (HttpWebResponse) request.GetResponse();
             using (var reader = new StreamReader(response.GetResponseStream()))
             {
@@ -74,12 +78,14 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             }
         }
 
+        #endregion
+
         private string CompleteAuthorization(string verifier)
         {
-            var response = _consumer.ProcessUserAuthorization(_requestToken, verifier);
+            AuthorizedTokenResponse response = _consumer.ProcessUserAuthorization(_requestToken, verifier);
             AccessToken = response.AccessToken;
 
-            var extraData = response.ExtraData;
+            IDictionary<string, string> extraData = response.ExtraData;
             var authenticatedUser = new User(extraData["fullname"], extraData["username"], extraData["user_nsid"]);
             Authenticated(this, new AuthenticatedEventArgs(authenticatedUser));
 
@@ -88,8 +94,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 
         private void callbackManager_OnRequestReceived(object sender, HttpListenerCallbackEventArgs e)
         {
-            var token = e.QueryStrings["oauth_token"];
-            var verifier = e.QueryStrings["oauth_verifier"];
+            string token = e.QueryStrings["oauth_token"];
+            string verifier = e.QueryStrings["oauth_verifier"];
             if (token == _requestToken)
             {
                 CompleteAuthorization(verifier);

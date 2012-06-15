@@ -15,10 +15,26 @@ namespace FloydPink.Flickr.Downloadr.Tests.RepositoryTests
             _repository = new TokenRepository();
         }
 
+        private Token getNewAccessToken()
+        {
+            return new Token("token", "secret");
+        }
+
+        [Test]
+        public void WillDeleteAndNotGetToken()
+        {
+            Token token = getNewAccessToken();
+            _repository.Save(token);
+            _repository.Delete();
+            token = _repository.Get();
+            Assert.IsEmpty(token.TokenString);
+            Assert.IsEmpty(token.Secret);
+        }
+
         [Test]
         public void WillNotGetTokenWhenNoFileExists()
         {
-            var token = _repository.Get();
+            Token token = _repository.Get();
             Assert.IsEmpty(token.TokenString);
             Assert.IsEmpty(token.Secret);
         }
@@ -26,28 +42,12 @@ namespace FloydPink.Flickr.Downloadr.Tests.RepositoryTests
         [Test]
         public void WillSaveAndGetToken()
         {
-            var token = getNewAccessToken();
+            Token token = getNewAccessToken();
             _repository.Save(token);
             token = _repository.Get();
             Assert.AreEqual("token", token.TokenString);
             Assert.AreEqual("secret", token.Secret);
             _repository.Delete();
-        }
-
-        [Test]
-        public void WillDeleteAndNotGetToken()
-        {
-            var token = getNewAccessToken();
-            _repository.Save(token);
-            _repository.Delete();
-            token = _repository.Get();
-            Assert.IsEmpty(token.TokenString);
-            Assert.IsEmpty(token.Secret);
-        }
-
-        private Token getNewAccessToken()
-        {
-            return new Token("token", "secret");
         }
     }
 }

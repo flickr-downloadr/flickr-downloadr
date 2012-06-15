@@ -5,11 +5,11 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 {
     public class AuthenticatedEventArgs : EventArgs
     {
-        public User AuthenticatedUser { get; private set; }
-
         public AuthenticatedEventArgs(User user)
         {
             AuthenticatedUser = user;
         }
+
+        public User AuthenticatedUser { get; private set; }
     }
 }

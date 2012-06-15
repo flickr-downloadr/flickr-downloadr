@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Specialized;
+using System.IO;
 using System.Net;
+using System.Text;
 
 namespace FloydPink.Flickr.Downloadr.OAuth.Listener
 {
     public class HttpListenerManager : IHttpListenerManager
     {
         private static readonly Random Random = new Random();
+
+        #region IHttpListenerManager Members
 
         public string ListenerAddress { get; private set; }
 
@@ -22,6 +26,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
             listener.Start();
             return listener.BeginGetContext(HttpListenerCallback, listener);
         }
+
+        #endregion
 
         private string GetNewHttpListenerAddress()
         {
@@ -56,9 +62,9 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
             NameValueCollection queryStrings = request.QueryString;
 
             HttpListenerResponse response = context.Response;
-            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(ResponseString);
+            byte[] buffer = Encoding.UTF8.GetBytes(ResponseString);
             response.ContentLength64 = buffer.Length;
-            System.IO.Stream output = response.OutputStream;
+            Stream output = response.OutputStream;
             output.Write(buffer, 0, buffer.Length);
             output.Close();
 

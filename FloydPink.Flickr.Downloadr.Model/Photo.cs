@@ -2,15 +2,15 @@ namespace FloydPink.Flickr.Downloadr.Model
 {
     public class Photo
     {
+        private readonly int _farm;
         private readonly string _id;
+        private readonly bool _isFamily;
+        private readonly bool _isFriend;
+        private readonly bool _isPublic;
         private readonly string _owner;
         private readonly string _secret;
         private readonly string _server;
-        private readonly int _farm;
         private readonly string _title;
-        private readonly bool _isPublic;
-        private readonly bool _isFamily;
-        private readonly bool _isFriend;
 
         public Photo(string id, string owner, string secret, string server, int farm, string title, bool isPublic,
                      bool isFamily, bool isFriend)

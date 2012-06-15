@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Logic;
 using FloydPink.Flickr.Downloadr.Model;
@@ -9,6 +10,20 @@ namespace FloydPink.Flickr.Downloadr.Tests.LogicTests
     [TestFixture]
     public class BrowserLogicTests
     {
+        #region Setup/Teardown
+
+        [SetUp]
+        public void SetupTest()
+        {
+            // do everything to take us to the browser window...
+            if (!_loginLogic.IsUserLoggedIn(ApplyLoggedInUser))
+            {
+                _loginLogic.Login(ApplyLoggedInUser);
+            }
+        }
+
+        #endregion
+
         private ILoginLogic _loginLogic;
         private IBrowserLogic _logic;
         private User _user;
@@ -22,35 +37,10 @@ namespace FloydPink.Flickr.Downloadr.Tests.LogicTests
             _logic = Bootstrapper.GetInstance<IBrowserLogic>();
         }
 
-        [SetUp]
-        public void SetupTest()
-        {
-            // do everything to take us to the browser window...
-            if (!_loginLogic.IsUserLoggedIn(ApplyLoggedInUser))
-            {
-                _loginLogic.Login(ApplyLoggedInUser);
-            }
-        }
-
         private void ApplyLoggedInUser(User user)
         {
             _user = user;
             _asynchronouslyLoggedIn = true;
-        }
-
-        [Test]
-        public void ProofOfConceptFor_AsynchronousTesting()
-        {
-            WaitTillLoggedIn();
-            Assert.IsNotNull(_user);
-        }
-
-        [Test]
-        public void GetPublicPhotos_WillGetPublicPhotos()
-        {
-            WaitTillLoggedIn();
-            var photos = _logic.GetPublicPhotos(_user);
-            Assert.IsNotNull(photos);
         }
 
         private void WaitTillLoggedIn()
@@ -59,6 +49,21 @@ namespace FloydPink.Flickr.Downloadr.Tests.LogicTests
             {
                 Thread.Sleep(1000);
             }
+        }
+
+        [Test]
+        public void GetPublicPhotos_WillGetPublicPhotos()
+        {
+            WaitTillLoggedIn();
+            IEnumerable<Photo> photos = _logic.GetPublicPhotos(_user);
+            Assert.IsNotNull(photos);
+        }
+
+        [Test]
+        public void ProofOfConceptFor_AsynchronousTesting()
+        {
+            WaitTillLoggedIn();
+            Assert.IsNotNull(_user);
         }
     }
 }

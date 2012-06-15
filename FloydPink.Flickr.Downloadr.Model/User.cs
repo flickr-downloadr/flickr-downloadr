@@ -6,12 +6,10 @@ namespace FloydPink.Flickr.Downloadr.Model
 {
     public class User : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        [ScriptIgnore] private UserInfo _info;
         private string _name;
         private string _userName;
         private string _userNsId;
-        [ScriptIgnore] private UserInfo _info;
 
         public User()
         {
@@ -33,7 +31,7 @@ namespace FloydPink.Flickr.Downloadr.Model
             set
             {
                 _name = value;
-                PropertyChanged.Notify(() => this.Name);
+                PropertyChanged.Notify(() => Name);
             }
         }
 
@@ -43,7 +41,7 @@ namespace FloydPink.Flickr.Downloadr.Model
             set
             {
                 _userName = value;
-                PropertyChanged.Notify(() => this.Username);
+                PropertyChanged.Notify(() => Username);
             }
         }
 
@@ -53,7 +51,7 @@ namespace FloydPink.Flickr.Downloadr.Model
             set
             {
                 _userNsId = value;
-                PropertyChanged.Notify(() => this.UserNsId);
+                PropertyChanged.Notify(() => UserNsId);
             }
         }
 
@@ -64,8 +62,14 @@ namespace FloydPink.Flickr.Downloadr.Model
             set
             {
                 _info = value;
-                PropertyChanged.Notify(() => this.Info);
+                PropertyChanged.Notify(() => Info);
             }
         }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
     }
 }
