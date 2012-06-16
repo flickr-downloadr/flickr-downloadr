@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="FlickrDownloadr" default="runTests">
+<project name="FlickrDownloadr" default="unitTestsOnly">
 
 	<property name="project.name" value="FlickrDownloadr" />
 	<property name="project.build.type" value="Release" />
@@ -17,10 +17,11 @@
 	<!-- Test references -->
 	<property name="nunit.dir" value="${build.tools.dir}\nunit\NUnit-2.6.0.12051\bin" dynamic="true" />	
 	<property name="unittests.assembly" value="${bin.dir}\FloydPink.Flickr.Downloadr.UnitTests.exe" />
-	<property name="boundarycrossingtests.assembly" value="" />
+	<property name="boundarycrossingtests.assembly" value="${bin.dir}\FloydPink.Flickr.Downloadr.BoundaryCrossingTests.exe" />
 	
 	<!-- Build Targets -->
-	<target name="runTests" depends="cleanBin, createBin, compilesolution, unitTests"/>
+	<target name="unitTestsOnly" depends="cleanBin, createBin, compilesolution, unitTests"/>
+	<target name="allTests" depends="cleanBin, createBin, compilesolution, unitTests, boundarycrossingTests"/>
 
 	<target name="cleanBin" unless="${target::has-executed('cleanBin')}">
 		<echo message="Clean bin directory" />
@@ -43,6 +44,12 @@
 	<target name="unitTests">
 		<echo message="Running FloydPink.Flickr.Downloadr.UnitTests..." />
 		<property name="nunittest.testassemblypath" value="${unittests.assembly}" dynamic="true" />
+		<call target="nunittest" />
+	</target>
+	
+	<target name="boundarycrossingTests">
+		<echo message="Running FloydPink.Flickr.Downloadr.BoundaryCrossingTests..." />
+		<property name="nunittest.testassemblypath" value="${boundarycrossingtests.assembly}" dynamic="true" />
 		<call target="nunittest" />
 	</target>
 	

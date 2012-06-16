@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.UnitTests", "FloydPink.Flickr.Downloadr.UnitTests\FloydPink.Flickr.Downloadr.UnitTests.csproj", "{42C70914-9EBB-4E67-AD18-4A2F131044C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.BoundaryCrossingTests", "FloydPink.Flickr.Downloadr.BoundaryCrossingTests\FloydPink.Flickr.Downloadr.BoundaryCrossingTests.csproj", "{48CD526C-9284-4E43-BFDA-449B5DCA2B68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,16 @@ Global
 		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|x86.ActiveCfg = Release|Any CPU
+		{48CD526C-9284-4E43-BFDA-449B5DCA2B68}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{48CD526C-9284-4E43-BFDA-449B5DCA2B68}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{48CD526C-9284-4E43-BFDA-449B5DCA2B68}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{48CD526C-9284-4E43-BFDA-449B5DCA2B68}.Debug|x86.ActiveCfg = Debug|x86
+		{48CD526C-9284-4E43-BFDA-449B5DCA2B68}.Debug|x86.Build.0 = Debug|x86
+		{48CD526C-9284-4E43-BFDA-449B5DCA2B68}.Release|Any CPU.ActiveCfg = Release|x86
+		{48CD526C-9284-4E43-BFDA-449B5DCA2B68}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{48CD526C-9284-4E43-BFDA-449B5DCA2B68}.Release|Mixed Platforms.Build.0 = Release|x86
+		{48CD526C-9284-4E43-BFDA-449B5DCA2B68}.Release|x86.ActiveCfg = Release|x86
+		{48CD526C-9284-4E43-BFDA-449B5DCA2B68}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

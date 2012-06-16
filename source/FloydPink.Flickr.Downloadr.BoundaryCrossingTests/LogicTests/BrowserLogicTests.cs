@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Logic;
 using FloydPink.Flickr.Downloadr.Model;
 using NUnit.Framework;
 
-namespace FloydPink.Flickr.Downloadr.UnitTests.LogicTests
+namespace FloydPink.Flickr.Downloadr.BoundaryCrossingTests.LogicTests
 {
     [TestFixture]
     public class BrowserLogicTests
