@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.Tests", "FloydPink.Flickr.Downloadr.Tests\FloydPink.Flickr.Downloadr.Tests.csproj", "{42C70914-9EBB-4E67-AD18-4A2F131044C4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.UI", "FloydPink.Flickr.Downloadr.UI\FloydPink.Flickr.Downloadr.UI.csproj", "{A9FCFEFF-7079-4957-801E-74EA04D56674}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.OAuth", "FloydPink.Flickr.Downloadr.OAuth\FloydPink.Flickr.Downloadr.OAuth.csproj", "{3F6823DD-CED6-4C91-8171-DFE5B89CA441}"
@@ -17,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.Logic", "FloydPink.Flickr.Downloadr.Logic\FloydPink.Flickr.Downloadr.Logic.csproj", "{65F01787-97D7-44D0-8708-A70211C4EA2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.UnitTests", "FloydPink.Flickr.Downloadr.UnitTests\FloydPink.Flickr.Downloadr.UnitTests.csproj", "{42C70914-9EBB-4E67-AD18-4A2F131044C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,16 +27,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|x86.ActiveCfg = Release|Any CPU
 		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Debug|Mixed Platforms.Build.0 = Debug|x86
@@ -107,6 +97,16 @@ Global
 		{65F01787-97D7-44D0-8708-A70211C4EA2A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{65F01787-97D7-44D0-8708-A70211C4EA2A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{65F01787-97D7-44D0-8708-A70211C4EA2A}.Release|x86.ActiveCfg = Release|Any CPU
+		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{42C70914-9EBB-4E67-AD18-4A2F131044C4}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

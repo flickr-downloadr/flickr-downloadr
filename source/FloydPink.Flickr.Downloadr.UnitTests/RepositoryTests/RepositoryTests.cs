@@ -2,7 +2,7 @@
 using FloydPink.Flickr.Downloadr.Repository;
 using NUnit.Framework;
 
-namespace FloydPink.Flickr.Downloadr.Tests.RepositoryTests
+namespace FloydPink.Flickr.Downloadr.UnitTests.RepositoryTests
 {
     [TestFixture]
     public class RepositoryTests

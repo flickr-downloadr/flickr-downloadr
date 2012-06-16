@@ -2,7 +2,7 @@
 using FloydPink.Flickr.Downloadr.Logic.Extensions;
 using NUnit.Framework;
 
-namespace FloydPink.Flickr.Downloadr.Tests.ExtensionTests
+namespace FloydPink.Flickr.Downloadr.UnitTests.ExtensionTests
 {
     [TestFixture]
     public class DictionaryExtensionsTests

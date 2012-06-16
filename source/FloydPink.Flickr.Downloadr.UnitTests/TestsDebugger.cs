@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace FloydPink.Flickr.Downloadr.Tests
+namespace FloydPink.Flickr.Downloadr.UnitTests
 {
     public static class TestsDebugger
     {

@@ -8,8 +8,8 @@
     <ProjectGuid>{42C70914-9EBB-4E67-AD18-4A2F131044C4}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FloydPink.Flickr.Downloadr.Tests</RootNamespace>
-    <AssemblyName>FloydPink.Flickr.Downloadr.Tests</AssemblyName>
+    <RootNamespace>FloydPink.Flickr.Downloadr.UnitTests</RootNamespace>
+    <AssemblyName>FloydPink.Flickr.Downloadr.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>FloydPink.Flickr.Downloadr.Tests.TestsDebugger</StartupObject>
+    <StartupObject>FloydPink.Flickr.Downloadr.UnitTests.TestsDebugger</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">

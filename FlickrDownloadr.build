@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="FlickrDownloadr" default="runTests">
+
+	<property name="project.name" value="FlickrDownloadr" />
+	<property name="project.build.type" value="Release" />
+
+	<!-- Compilation settings -->
+	<property name="flickrdownloadr.solution" value="FloydPink.Flickr.Downloadr.sln"/>
+	
+	<!-- Folder references -->
+	<property name="working.dir" value="${path::get-full-path('.')}"/>
+	<property name="build.tools.dir" value="${working.dir}\build" />
+	<property name="source.directory" value="${working.dir}\source" />
+	<property name="bin.dir" value="${working.dir}\source\bin\${project.build.type}" />
+	<property name="nunit.results.dir" value="${working.dir}\source\bin\NUnit" />
+
+	<!-- Test references -->
+	<property name="nunit.dir" value="${build.tools.dir}\nunit\NUnit-2.6.0.12051\bin" dynamic="true" />	
+	<property name="unittests.assembly" value="${bin.dir}\FloydPink.Flickr.Downloadr.UnitTests.exe" />
+	<property name="boundarycrossingtests.assembly" value="" />
+	
+	<!-- Build Targets -->
+	<target name="runTests" depends="cleanBin, createBin, compilesolution, unitTests"/>
+
+	<target name="cleanBin" unless="${target::has-executed('cleanBin')}">
+		<echo message="Clean bin directory" />
+		<delete dir="${bin.dir}" failonerror="false"  if="${directory::exists(bin.dir)}"/>
+	</target>
+	
+	<target name="createBin" unless="${target::has-executed('createBin')}">
+		<echo message="Create bin directory" />
+		<mkdir dir="${bin.dir}" failonerror="true" unless="${directory::exists(bin.dir)}"/>
+		<mkdir dir="${nunit.results.dir}" failonerror="true" unless="${directory::exists(nunit.results.dir)}"/>
+	</target>
+
+	<target name="compilesolution">
+		<echo message="Compiling Solution:" />
+
+		<exec program="msbuild.exe"  basedir="C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319"
+			  commandline='"${source.directory}\${flickrdownloadr.solution}" /t:Rebuild /v:m /m' workingdir="." />
+	</target>
+
+	<target name="unitTests">
+		<echo message="Running FloydPink.Flickr.Downloadr.UnitTests..." />
+		<property name="nunittest.testassemblypath" value="${unittests.assembly}" dynamic="true" />
+		<call target="nunittest" />
+	</target>
+	
+	<target name="nunittest">
+		<property name="nunittest.output.file.name" value="${path::get-file-name-without-extension(nunittest.testassemblypath)}.xml"/>
+		<exec program="${nunit.dir}\nunit-console.exe">
+			<arg value="&quot;${nunittest.testassemblypath}&quot; /xml=&quot;${nunit.results.dir}\${nunittest.output.file.name}&quot;"/>
+		</exec>		
+	</target>
+
+</project>

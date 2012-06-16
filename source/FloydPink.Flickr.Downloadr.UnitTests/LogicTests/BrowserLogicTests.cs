@@ -5,7 +5,7 @@ using FloydPink.Flickr.Downloadr.Logic;
 using FloydPink.Flickr.Downloadr.Model;
 using NUnit.Framework;
 
-namespace FloydPink.Flickr.Downloadr.Tests.LogicTests
+namespace FloydPink.Flickr.Downloadr.UnitTests.LogicTests
 {
     [TestFixture]
     public class BrowserLogicTests

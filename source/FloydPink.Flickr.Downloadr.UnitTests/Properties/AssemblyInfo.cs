@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("FloydPink.Flickr.Downloadr.Tests")]
+[assembly: AssemblyTitle("FloydPink.Flickr.Downloadr.UnitTests")]
 [assembly: AssemblyDescription("A desktop application for windows that would help download all (or selected) photos from the user's photostream (in one of the selected sizes) along with the tags, titles and descriptions.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("floydpink")]

@@ -4,7 +4,7 @@ using FloydPink.Flickr.Downloadr.Repository;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace FloydPink.Flickr.Downloadr.Tests.LogicTests
+namespace FloydPink.Flickr.Downloadr.UnitTests.LogicTests
 {
     [TestFixture]
     public class LoginLogicTests
