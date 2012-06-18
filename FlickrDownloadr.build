@@ -38,7 +38,7 @@
 		<echo message="Compiling Solution:" />
 
 		<exec program="msbuild.exe"  basedir="C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319"
-			  commandline='"${source.directory}\${flickrdownloadr.solution}" /t:Rebuild /v:m /m' workingdir="." />
+			  commandline='"${source.directory}\${flickrdownloadr.solution}" /p:Platform="Any CPU" /t:Rebuild /v:m /m' workingdir="." />
 	</target>
 
 	<target name="unitTests">
