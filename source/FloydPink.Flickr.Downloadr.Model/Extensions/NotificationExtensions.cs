@@ -5,6 +5,7 @@ using System.Reflection;
 
 namespace FloydPink.Flickr.Downloadr.Model.Extensions
 {
+    // http://stackoverflow.com/a/527840/218882
     public static class NotificationExtensions
     {
         #region Delegates
