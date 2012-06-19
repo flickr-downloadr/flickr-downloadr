@@ -49,7 +49,7 @@ namespace FloydPink.Flickr.Downloadr.UnitTests.ExtensionTests
         public void WillConvertUserInstanceToJson()
         {
             var user = new User("name", "username", "usernsid");
-            string userAsJson = "{\"Name\":\"name\",\"Username\":\"username\",\"UserNsId\":\"usernsid\"}";
+            string userAsJson = "{\"Name\":\"name\",\"Username\":\"username\",\"UserNsId\":\"usernsid\",\"WelcomeMessage\":\"Welcome, name!\"}";
             Assert.AreEqual(userAsJson, user.ToJson());
         }
     }
