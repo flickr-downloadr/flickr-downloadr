@@ -6,7 +6,8 @@ namespace FloydPink.Flickr.Downloadr.Model
 {
     public class User : INotifyPropertyChanged
     {
-        [ScriptIgnore] private UserInfo _info;
+        [ScriptIgnore]
+        private UserInfo _info;
         private string _name;
         private string _userName;
         private string _userNsId;
@@ -63,6 +64,20 @@ namespace FloydPink.Flickr.Downloadr.Model
             {
                 _info = value;
                 PropertyChanged.Notify(() => Info);
+            }
+        }
+
+        public string WelcomeMessage
+        {
+            get
+            {
+                var userNameString = string.IsNullOrEmpty(Name)
+                                            ? (string.IsNullOrEmpty(Username) ? string.Empty : Username)
+                                            : Name;
+                return string.IsNullOrEmpty(userNameString)
+                                            ? string.Empty
+                                            : string.Format("Welcome, {0}!", userNameString);
+
             }
         }
 

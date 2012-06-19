@@ -6,6 +6,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
     {
         string ListenerAddress { get; }
         string ResponseString { get; set; }
+        bool RequestReceivedHandlerExists { get; }
         IAsyncResult SetupCallback();
         event EventHandler<HttpListenerCallbackEventArgs> RequestReceived;
     }

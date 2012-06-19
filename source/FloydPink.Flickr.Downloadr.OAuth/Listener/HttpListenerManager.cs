@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
@@ -10,6 +11,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
     {
         private static readonly Random Random = new Random();
 
+        private static readonly List<string> _activeListeners = new List<string>();
+
         #region IHttpListenerManager Members
 
         public string ListenerAddress { get; private set; }
@@ -18,9 +21,26 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
 
         public event EventHandler<HttpListenerCallbackEventArgs> RequestReceived;
 
+        public bool RequestReceivedHandlerExists
+        {
+            get
+            {
+                int count = 0;
+                EventHandler<HttpListenerCallbackEventArgs> eventHandler = RequestReceived;
+                if (eventHandler != null)
+                {
+                    count = eventHandler.GetInvocationList().Length;
+                }
+                return count != 0;
+            }
+        }
+
         public IAsyncResult SetupCallback()
         {
             ListenerAddress = GetNewHttpListenerAddress();
+
+            KillAnyExistingListeners();
+
             var listener = new HttpListener();
             listener.Prefixes.Add(ListenerAddress);
             listener.Start();
@@ -28,6 +48,20 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
         }
 
         #endregion
+
+        private void KillAnyExistingListeners()
+        {
+            if (_activeListeners.Count != 0)
+            {
+                var staleListener = new HttpListener();
+                staleListener.Prefixes.Add(_activeListeners[0]);
+                staleListener.Stop();
+                staleListener.Close();
+                _activeListeners.Clear();
+            }
+
+            _activeListeners.Add(ListenerAddress);
+        }
 
         private string GetNewHttpListenerAddress()
         {

@@ -43,7 +43,10 @@ namespace FloydPink.Flickr.Downloadr.OAuth
 
         public string BeginAuthorization()
         {
-            _listenerManager.RequestReceived += callbackManager_OnRequestReceived;
+            if (!_listenerManager.RequestReceivedHandlerExists)
+            {
+                _listenerManager.RequestReceived += callbackManager_OnRequestReceived;
+            }
             _listenerManager.ResponseString = AppConstants.AuthenticatedMessage;
             _listenerManager.SetupCallback();
             var requestArgs = new Dictionary<string, string>

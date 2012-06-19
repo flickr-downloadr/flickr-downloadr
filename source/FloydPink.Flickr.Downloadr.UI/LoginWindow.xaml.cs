@@ -20,6 +20,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         public LoginWindow()
         {
             InitializeComponent();
+
             User = new User();
 
             _presenter = Bootstrapper.GetPresenter<ILoginView, LoginPresenter>(this);
@@ -64,14 +65,8 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void SetWelcomeLabel(User user)
         {
-            string userNameString = string.IsNullOrEmpty(user.Name)
-                                        ? (string.IsNullOrEmpty(user.Username) ? string.Empty : user.Username)
-                                        : user.Name;
-            string welcomeMessage = string.IsNullOrEmpty(userNameString)
-                                        ? string.Empty
-                                        : string.Format("Welcome, {0}!", userNameString);
             welcomeUserLabel.Dispatch(
-                (l) => l.Content = string.IsNullOrEmpty(user.UserNsId) ? string.Empty : welcomeMessage);
+                (l) => l.Content = string.IsNullOrEmpty(user.UserNsId) ? string.Empty : user.WelcomeMessage);
             if (user.Info != null)
             {
                 var buddyIconUri = new Uri(user.Info.BuddyIconUrl, UriKind.Absolute);
