@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using FloydPink.Flickr.Downloadr.Logic.Extensions;
+using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Model.Constants;
 using FloydPink.Flickr.Downloadr.Model.Enums;

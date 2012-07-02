@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using FloydPink.Flickr.Downloadr.Bootstrap;
-using FloydPink.Flickr.Downloadr.Logic;
+using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
 using NUnit.Framework;
 

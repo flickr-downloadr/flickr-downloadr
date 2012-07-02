@@ -2,6 +2,7 @@ using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth;
 using DotNetOpenAuth.OAuth.ChannelElements;
 using FloydPink.Flickr.Downloadr.Logic;
+using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.OAuth;
 using FloydPink.Flickr.Downloadr.OAuth.Listener;

@@ -39,8 +39,8 @@
   <ItemGroup>
     <Compile Include="BrowserLogic.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
-    <Compile Include="IBrowserLogic.cs" />
-    <Compile Include="ILoginLogic.cs" />
+    <Compile Include="Interfaces\IBrowserLogic.cs" />
+    <Compile Include="Interfaces\ILoginLogic.cs" />
     <Compile Include="LoginLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

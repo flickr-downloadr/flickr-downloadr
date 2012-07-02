@@ -1,4 +1,4 @@
-using FloydPink.Flickr.Downloadr.Logic;
+using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 
