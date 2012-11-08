@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.UI", "FloydPink.Flickr.Downloadr.UI\FloydPink.Flickr.Downloadr.UI.csproj", "{A9FCFEFF-7079-4957-801E-74EA04D56674}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.OAuth", "FloydPink.Flickr.Downloadr.OAuth\FloydPink.Flickr.Downloadr.OAuth.csproj", "{3F6823DD-CED6-4C91-8171-DFE5B89CA441}"
@@ -29,14 +29,14 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Debug|Any CPU.Build.0 = Debug|x86
+		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Debug|x86.ActiveCfg = Debug|x86
 		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Debug|x86.Build.0 = Debug|x86
-		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Release|Any CPU.ActiveCfg = Release|x86
-		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Release|Any CPU.Build.0 = Release|x86
+		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Release|Mixed Platforms.Build.0 = Release|x86
 		{A9FCFEFF-7079-4957-801E-74EA04D56674}.Release|x86.ActiveCfg = Release|x86
