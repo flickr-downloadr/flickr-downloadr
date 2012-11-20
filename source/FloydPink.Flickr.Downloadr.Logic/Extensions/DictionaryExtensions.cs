@@ -13,20 +13,25 @@ namespace FloydPink.Flickr.Downloadr.Logic.Extensions
         {
             if (dictionary.ContainsKey(key))
             {
-                var subDictionary = (Dictionary<string, object>) dictionary[key];
+                var subDictionary = (Dictionary<string, object>)dictionary[key];
                 return subDictionary.ContainsKey(subKey) ? subDictionary[subKey] : null;
             }
             return null;
         }
 
-        public static IEnumerable<Photo> GetPhotosFromDictionary(this Dictionary<string, object> dictionary)
+        public static PhotosResponse GetPhotosResponseFromDictionary(this Dictionary<string, object> dictionary)
         {
             var photos = new List<Photo>();
-            IEnumerable<Dictionary<string, object>> photoDictionary =
-                ((IEnumerable<object>) dictionary.GetValueFromDictionary("photos", "photo")).Cast
-                    <Dictionary<string, object>>();
+            var photoDictionary = ((IEnumerable<object>)dictionary.GetValueFromDictionary("photos", "photo")).
+                Cast<Dictionary<string, object>>();
             photos.AddRange(photoDictionary.Select(BuildPhoto));
-            return photos;
+
+            return new PhotosResponse(
+                Convert.ToInt32(dictionary.GetValueFromDictionary("photos", "page")),
+                Convert.ToInt32(dictionary.GetValueFromDictionary("photos", "pages")),
+                Convert.ToInt32(dictionary.GetValueFromDictionary("photos", "perpage")),
+                Convert.ToInt32(dictionary.GetValueFromDictionary("photos", "total")),
+                photos);
         }
 
         private static Photo BuildPhoto(Dictionary<string, object> dictionary)

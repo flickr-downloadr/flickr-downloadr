@@ -124,7 +124,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BrowserWindow.xaml.cs">
+      <DependentUpon>BrowserWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\DispatcherExtensions.cs" />
+    <Page Include="BrowserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

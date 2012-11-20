@@ -43,10 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrowserPresenter.cs" />
     <Compile Include="LoginPresenter.cs" />
     <Compile Include="PresenterBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\IBaseView.cs" />
+    <Compile Include="Views\IBrowserView.cs" />
     <Compile Include="Views\ILoginView.cs" />
   </ItemGroup>
   <ItemGroup>

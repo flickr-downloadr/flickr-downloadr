@@ -1,3 +1,7 @@
+using System.Globalization;
+using FloydPink.Flickr.Downloadr.Model.Constants;
+using FloydPink.Flickr.Downloadr.Model.Enums;
+
 namespace FloydPink.Flickr.Downloadr.Model
 {
     public class Photo
@@ -24,6 +28,11 @@ namespace FloydPink.Flickr.Downloadr.Model
             _isPublic = isPublic;
             _isFamily = isFamily;
             _isFriend = isFriend;
+        }
+
+        private string getPhotoUrl(string photoFormat)
+        {
+            return string.Format(AppConstants.PhotoUrlFormat, Farm.ToString(CultureInfo.InvariantCulture), Server, Id, Secret, photoFormat, "jpg");
         }
 
         public string Id
@@ -69,6 +78,22 @@ namespace FloydPink.Flickr.Downloadr.Model
         public bool IsFriend
         {
             get { return _isFriend; }
+        }
+
+        public string LargeSquare150X150Url
+        {
+            get
+            {
+                return getPhotoUrl(PhotoFormat.LargeSquare150X150);
+            }
+        }
+
+        public string Small320Url
+        {
+            get
+            {
+                return getPhotoUrl(PhotoFormat.Small320);
+            }
         }
     }
 }

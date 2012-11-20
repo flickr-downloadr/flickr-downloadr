@@ -55,8 +55,8 @@ namespace FloydPink.Flickr.Downloadr.BoundaryCrossingTests.LogicTests
         public void GetPublicPhotos_WillGetPublicPhotos()
         {
             WaitTillLoggedIn();
-            IEnumerable<Photo> photos = _logic.GetPublicPhotos(_user);
-            Assert.IsNotNull(photos);
+            var photosResponse = _logic.GetPublicPhotos(_user);
+            Assert.IsNotNull(photosResponse.Photos);
         }
 
         [Test]

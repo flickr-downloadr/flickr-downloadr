@@ -22,7 +22,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
 
         #region IBrowserLogic Members
 
-        public IEnumerable<Photo> GetPublicPhotos(User user, int page)
+        public PhotosResponse GetPublicPhotos(User user, int page = 1)
         {
             var extraParams = new Dictionary<string, string>
                                   {
@@ -37,7 +37,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
             var publicPhotosResponse =
                 (Dictionary<string, object>)
                 _oAuthManager.MakeAuthenticatedRequest(Methods.PeopleGetPublicPhotos, extraParams);
-            return publicPhotosResponse.GetPhotosFromDictionary();
+            return publicPhotosResponse.GetPhotosResponseFromDictionary();
         }
 
         #endregion

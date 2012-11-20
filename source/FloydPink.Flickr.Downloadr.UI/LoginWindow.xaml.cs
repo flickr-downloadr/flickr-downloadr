@@ -73,5 +73,12 @@ namespace FloydPink.Flickr.Downloadr.UI
                 buddyIcon.Dispatch((i) => i.Source = new BitmapImage(buddyIconUri));
             }
         }
+
+        private void ContinueButtonClick(object sender, RoutedEventArgs e)
+        {
+            var browserWindow = new BrowserWindow(User);
+            browserWindow.Show();
+            this.Close();
+        }
     }
 }

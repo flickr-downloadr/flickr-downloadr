@@ -5,6 +5,6 @@ namespace FloydPink.Flickr.Downloadr.Logic.Interfaces
 {
     public interface IBrowserLogic
     {
-        IEnumerable<Photo> GetPublicPhotos(User user, int page = 1);
+        PhotosResponse GetPublicPhotos(User user, int page = 1);
     }
 }
