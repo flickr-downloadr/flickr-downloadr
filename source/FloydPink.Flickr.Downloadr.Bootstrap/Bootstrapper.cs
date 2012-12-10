@@ -18,6 +18,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
         private static string ConsumerSecret = "573233c34efdd943";
 
         private static int DefaultPerPageCount = 200;
+        private static string DefaultDownloadLocation = ".";
 
         private static readonly ServiceProviderDescription FlickrServiceDescription = new ServiceProviderDescription
                 {
@@ -38,6 +39,8 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                                              initializer.For<ILoginLogic>().Use<LoginLogic>();
                                              initializer.For<IBrowserLogic>().Use<BrowserLogic>().
                                                  Ctor<int>("defaultPerPageCount").Is(DefaultPerPageCount);
+                                             initializer.For<IDownloadLogic>().Use<DownloadLogic>().
+                                                         Ctor<string>("downloadLocation").Is(DefaultDownloadLocation);
 
                                              initializer.For<IOAuthManager>().Singleton().Use<OAuthManager>().
                                                  Ctor<MessageReceivingEndpoint>("serviceEndPoint").Is(

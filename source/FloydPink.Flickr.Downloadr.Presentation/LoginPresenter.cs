@@ -17,6 +17,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
 
         public async void InitializeScreen()
         {
+            _view.ShowSpinner(true);
             _view.ShowLoggedOutControl();
             if (! await _logic.IsUserLoggedInAsync(ApplyUser))
             {
@@ -26,18 +27,21 @@ namespace FloydPink.Flickr.Downloadr.Presentation
 
         public void Login()
         {
+            _view.ShowSpinner(true);
             _logic.Login(ApplyUser);
         }
 
         public void Logout()
         {
             _logic.Logout();
+            _view.ShowSpinner(false);
             _view.ShowLoggedOutControl();
         }
 
         private void ApplyUser(User user)
         {
             _view.User = user;
+            _view.ShowSpinner(false);
             _view.ShowLoggedInControl();
         }
     }

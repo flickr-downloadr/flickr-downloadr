@@ -18,10 +18,15 @@ namespace FloydPink.Flickr.Downloadr.UI
         private User _user;
 
         public LoginWindow()
+            : this(new User())
+        {
+        }
+
+        public LoginWindow(User user)
         {
             InitializeComponent();
 
-            User = new User();
+            User = user;
 
             _presenter = Bootstrapper.GetPresenter<ILoginView, LoginPresenter>(this);
             _presenter.InitializeScreen();
@@ -79,6 +84,12 @@ namespace FloydPink.Flickr.Downloadr.UI
             var browserWindow = new BrowserWindow(User);
             browserWindow.Show();
             Close();
+        }
+
+        public void ShowSpinner(bool show)
+        {
+            var visibility = show ? Visibility.Visible : Visibility.Collapsed;
+            Spinner.Dispatch((s) => s.Visibility = visibility);
         }
     }
 }

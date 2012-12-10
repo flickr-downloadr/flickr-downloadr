@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         ResizeMode="CanResize" WindowStartupLocation="CenterOwner" mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="360" d:DesignWidth="576"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls" d:DesignHeight="360" d:DesignWidth="576"
         Title="Flickr Downloadr > Photo Browser" Icon="/flickr%20downloadr;component/Images/icon.png">
 
     <Window.Resources>
@@ -30,8 +31,31 @@
     </Window.Resources>
 
     <Grid>
-        <ListBox x:Name="PhotoList" ItemsSource="{Binding}" ItemTemplate="{DynamicResource PhotoListDataTemplate}"
-                 ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}">
-        </ListBox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ListBox Grid.Row="0" Grid.ColumnSpan="2" x:Name="PhotoList" ItemsSource="{Binding}"
+                     ItemTemplate="{DynamicResource PhotoListDataTemplate}"
+                     ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}" SelectionMode="Multiple">
+            </ListBox>
+            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="Back" Width="60" Height="28"
+                        Margin="5,0,0,0" Click="BackButtonClick" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Download Selected" Width="120" Height="28"
+                        Margin="0,0,5,0" Click="DownloadSelectedButtonClick" />
+                <Button Content="Download All" Width="120" Height="28" Margin="0,6,5,6" Click="DownloadAllButtonClick" />
+            </StackPanel>
+        </Grid>
+        <AdornerDecorator Name="Spinner" Visibility="Collapsed">
+            <controls:Spinner></controls:Spinner>
+        </AdornerDecorator>
     </Grid>
 </Window>

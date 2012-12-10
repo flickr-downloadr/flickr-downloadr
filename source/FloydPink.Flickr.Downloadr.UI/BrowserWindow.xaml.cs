@@ -4,6 +4,7 @@ using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
+using FloydPink.Flickr.Downloadr.UI.Extensions;
 
 namespace FloydPink.Flickr.Downloadr.UI
 {
@@ -36,5 +37,27 @@ namespace FloydPink.Flickr.Downloadr.UI
             }
         }
 
+        private void DownloadSelectedButtonClick(object sender, RoutedEventArgs e)
+        {
+            _presenter.DownloadSelected();
+        }
+
+        public void ShowSpinner(bool show)
+        {
+            var visibility = show ? Visibility.Visible : Visibility.Collapsed;
+            Spinner.Dispatch((s) => s.Visibility = visibility);
+        }
+
+        private void DownloadAllButtonClick(object sender, RoutedEventArgs e)
+        {
+            _presenter.DownloadAll();
+        }
+
+        private void BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            var loginWindow = new LoginWindow {User = User};
+            loginWindow.Show();
+            Close();
+        }
     }
 }
