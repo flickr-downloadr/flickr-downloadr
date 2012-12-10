@@ -1,5 +1,5 @@
-﻿using FloydPink.Flickr.Downloadr.Model;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using FloydPink.Flickr.Downloadr.Model;
 
 namespace FloydPink.Flickr.Downloadr.Presentation.Views
 {

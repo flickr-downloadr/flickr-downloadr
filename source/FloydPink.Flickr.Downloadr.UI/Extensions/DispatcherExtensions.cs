@@ -11,7 +11,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Extensions
             if (source.Dispatcher.CheckAccess())
                 return func();
 
-            return (TResult) source.Dispatcher.Invoke(func);
+            return source.Dispatcher.Invoke(func);
         }
 
         public static TResult Dispatch<T, TResult>(this T source, Func<T, TResult> func) where T : DispatcherObject

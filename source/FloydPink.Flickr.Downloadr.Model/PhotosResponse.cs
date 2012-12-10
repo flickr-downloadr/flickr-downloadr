@@ -7,8 +7,8 @@ namespace FloydPink.Flickr.Downloadr.Model
         private readonly int _page;
         private readonly int _pages;
         private readonly int _perPage;
-        private readonly int _total;
         private readonly IEnumerable<Photo> _photos;
+        private readonly int _total;
 
         public PhotosResponse(int page, int pages, int perPage, int total, IEnumerable<Photo> photos)
         {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 using FloydPink.Flickr.Downloadr.Logic.Extensions;
 using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
@@ -22,22 +23,26 @@ namespace FloydPink.Flickr.Downloadr.Logic
 
         #region IBrowserLogic Members
 
-        public PhotosResponse GetPublicPhotos(User user, int page = 1)
+        public async Task<PhotosResponse> GetPublicPhotosAsync(User user, int page = 1)
         {
-            var extraParams = new Dictionary<string, string>
-                                  {
-                                      {ParameterNames.UserId, user.UserNsId},
-                                      {ParameterNames.SafeSearch, SafeSearch.Safe},
-                                      {
-                                          ParameterNames.PerPage,
-                                          _defaultPerPageCount.ToString(CultureInfo.InvariantCulture)
-                                          },
-                                      {ParameterNames.Page, page.ToString(CultureInfo.InvariantCulture)}
-                                  };
-            var publicPhotosResponse =
-                (Dictionary<string, object>)
-                _oAuthManager.MakeAuthenticatedRequest(Methods.PeopleGetPublicPhotos, extraParams);
+            var publicPhotosResponse = (Dictionary<string, object>)
+                                       await _oAuthManager.MakeAuthenticatedRequestAsync(Methods.PeopleGetPublicPhotos,
+                                                                                         FormatExtraParams(user, page));
             return publicPhotosResponse.GetPhotosResponseFromDictionary();
+        }
+
+        private Dictionary<string, string> FormatExtraParams(User user, int page)
+        {
+            return new Dictionary<string, string>
+                       {
+                           {ParameterNames.UserId, user.UserNsId},
+                           {ParameterNames.SafeSearch, SafeSearch.Safe},
+                           {
+                               ParameterNames.PerPage,
+                               _defaultPerPageCount.ToString(CultureInfo.InvariantCulture)
+                           },
+                           {ParameterNames.Page, page.ToString(CultureInfo.InvariantCulture)}
+                       };
         }
 
         #endregion

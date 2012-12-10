@@ -15,10 +15,10 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             _logic = logic;
         }
 
-        public void InitializeScreen()
+        public async void InitializeScreen()
         {
             _view.ShowLoggedOutControl();
-            if (!_logic.IsUserLoggedIn(ApplyUser))
+            if (! await _logic.IsUserLoggedInAsync(ApplyUser))
             {
                 Logout();
             }

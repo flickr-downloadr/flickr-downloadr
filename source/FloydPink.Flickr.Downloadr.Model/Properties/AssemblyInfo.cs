@@ -6,7 +6,10 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("FloydPink.Flickr.Downloadr.Model")]
-[assembly: AssemblyDescription("A desktop application for windows that would help download all (or selected) photos from the user's photostream (in one of the selected sizes) along with the tags, titles and descriptions.")]
+[assembly:
+    AssemblyDescription(
+        "A desktop application for windows that would help download all (or selected) photos from the user's photostream (in one of the selected sizes) along with the tags, titles and descriptions."
+        )]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("floydpink")]
 [assembly: AssemblyProduct("flickrDownloadr")]

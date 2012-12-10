@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using FloydPink.Flickr.Downloadr.Model;
 
 namespace FloydPink.Flickr.Downloadr.Logic.Interfaces
@@ -7,6 +8,6 @@ namespace FloydPink.Flickr.Downloadr.Logic.Interfaces
     {
         void Login(Action<User> applyUser);
         void Logout();
-        bool IsUserLoggedIn(Action<User> applyUser);
+        Task<bool> IsUserLoggedInAsync(Action<User> applyUser);
     }
 }

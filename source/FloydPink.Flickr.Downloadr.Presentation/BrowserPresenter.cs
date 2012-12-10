@@ -16,9 +16,9 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             _view = view;
         }
 
-        public void InitializeScreen()
+        public async void InitializeScreen()
         {
-            var photosResponse = _logic.GetPublicPhotos(_view.User);
+            PhotosResponse photosResponse = await _logic.GetPublicPhotosAsync(_view.User);
             _view.Photos = new ObservableCollection<Photo>(photosResponse.Photos);
         }
     }

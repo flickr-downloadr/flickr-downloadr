@@ -30,11 +30,6 @@ namespace FloydPink.Flickr.Downloadr.Model
             _isFriend = isFriend;
         }
 
-        private string getPhotoUrl(string photoFormat)
-        {
-            return string.Format(AppConstants.PhotoUrlFormat, Farm.ToString(CultureInfo.InvariantCulture), Server, Id, Secret, photoFormat, "jpg");
-        }
-
         public string Id
         {
             get { return _id; }
@@ -82,18 +77,18 @@ namespace FloydPink.Flickr.Downloadr.Model
 
         public string LargeSquare150X150Url
         {
-            get
-            {
-                return getPhotoUrl(PhotoFormat.LargeSquare150X150);
-            }
+            get { return getPhotoUrl(PhotoFormat.LargeSquare150X150); }
         }
 
         public string Small320Url
         {
-            get
-            {
-                return getPhotoUrl(PhotoFormat.Small320);
-            }
+            get { return getPhotoUrl(PhotoFormat.Small320); }
+        }
+
+        private string getPhotoUrl(string photoFormat)
+        {
+            return string.Format(AppConstants.PhotoUrlFormat, Farm.ToString(CultureInfo.InvariantCulture), Server, Id,
+                                 Secret, photoFormat, "jpg");
         }
     }
 }

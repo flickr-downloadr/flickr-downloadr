@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using FloydPink.Flickr.Downloadr.Logic.Extensions;
 using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
@@ -43,7 +44,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
             _userRepository.Delete();
         }
 
-        public bool IsUserLoggedIn(Action<User> applyUser)
+        public async Task<bool> IsUserLoggedInAsync(Action<User> applyUser)
         {
             _applyUser = applyUser;
             Token token = _tokenRepository.Get();
@@ -54,8 +55,9 @@ namespace FloydPink.Flickr.Downloadr.Logic
             }
 
             _oAuthManager.AccessToken = token.TokenString;
-            var testLogin = (Dictionary<string, object>) _oAuthManager.MakeAuthenticatedRequest(Methods.TestLogin);
-            bool userIsLoggedIn = (string) testLogin.GetValueFromDictionary("user", "id") == user.UserNsId;
+            var testLogin =
+                (Dictionary<string, object>)await _oAuthManager.MakeAuthenticatedRequestAsync(Methods.TestLogin);
+            bool userIsLoggedIn = (string)testLogin.GetValueFromDictionary("user", "id") == user.UserNsId;
 
             if (userIsLoggedIn)
             {
@@ -73,15 +75,14 @@ namespace FloydPink.Flickr.Downloadr.Logic
             CallApplyUser(authenticatedUser);
         }
 
-        private void CallApplyUser(User authenticatedUser)
+        private async void CallApplyUser(User authenticatedUser)
         {
             var exraParams = new Dictionary<string, string>
                                  {
                                      {ParameterNames.UserId, authenticatedUser.UserNsId}
                                  };
-            var userInfo =
-                (Dictionary<string, object>)
-                _oAuthManager.MakeAuthenticatedRequest(Methods.PeopleGetInfo, exraParams)["person"];
+            var userInfo = (Dictionary<string, object>)
+                (await _oAuthManager.MakeAuthenticatedRequestAsync(Methods.PeopleGetInfo, exraParams))["person"];
             authenticatedUser.Info = new UserInfo
                                          {
                                              Id = authenticatedUser.UserNsId,
@@ -98,7 +99,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
                                              MobileUrl = userInfo.GetValueFromDictionary("mobileurl").ToString(),
                                              PhotosCount =
                                                  Convert.ToInt32(
-                                                     ((Dictionary<string, object>) userInfo["photos"]).
+                                                     ((Dictionary<string, object>)userInfo["photos"]).
                                                          GetValueFromDictionary("count"))
                                          };
             _applyUser(authenticatedUser);

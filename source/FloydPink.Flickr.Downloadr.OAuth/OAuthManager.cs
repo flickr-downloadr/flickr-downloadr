@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth;
@@ -65,20 +66,26 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             return _consumer.PrepareAuthorizedRequest(_serviceEndPoint, AccessToken, parameters);
         }
 
-        public dynamic MakeAuthenticatedRequest(string methodName, IDictionary<string, string> parameters = null)
+        public async Task<dynamic> MakeAuthenticatedRequestAsync(string methodName,
+                                                                 IDictionary<string, string> parameters = null)
+        {
+            HttpWebRequest request = PrepareAuthorizedRequest(AddRequestParameters(methodName, parameters));
+            var response = (HttpWebResponse) await request.GetResponseAsync();
+            using (var reader = new StreamReader(response.GetResponseStream()))
+            {
+                return (new JavaScriptSerializer()).Deserialize<dynamic>(reader.ReadToEnd());
+            }
+        }
+
+        private Dictionary<string, string> AddRequestParameters(string methodName,
+                                                                IDictionary<string, string> parameters = null)
         {
             parameters = parameters ?? new Dictionary<string, string>();
             var allParameters = new Dictionary<string, string>(parameters);
             foreach (var kvp in _defaultParameters)
                 allParameters.Add(kvp.Key, kvp.Value);
             allParameters.Add(ParameterNames.Method, methodName);
-
-            HttpWebRequest request = PrepareAuthorizedRequest(allParameters);
-            var response = (HttpWebResponse) request.GetResponse();
-            using (var reader = new StreamReader(response.GetResponseStream()))
-            {
-                return (new JavaScriptSerializer()).Deserialize<dynamic>(reader.ReadToEnd());
-            }
+            return allParameters;
         }
 
         #endregion

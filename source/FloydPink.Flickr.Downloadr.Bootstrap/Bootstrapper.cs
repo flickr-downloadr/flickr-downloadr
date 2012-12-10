@@ -17,7 +17,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
         private static string ConsumerKey = "33fe2dc1389339c4e9cd77e9a90ebabf";
         private static string ConsumerSecret = "573233c34efdd943";
 
-        private static int DefaultPerPageCount = 15;
+        private static int DefaultPerPageCount = 200;
 
         private static readonly ServiceProviderDescription FlickrServiceDescription = new ServiceProviderDescription
                 {

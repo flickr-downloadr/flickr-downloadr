@@ -13,7 +13,7 @@ namespace FloydPink.Flickr.Downloadr.Logic.Extensions
         {
             if (dictionary.ContainsKey(key))
             {
-                var subDictionary = (Dictionary<string, object>)dictionary[key];
+                var subDictionary = (Dictionary<string, object>) dictionary[key];
                 return subDictionary.ContainsKey(subKey) ? subDictionary[subKey] : null;
             }
             return null;
@@ -22,8 +22,9 @@ namespace FloydPink.Flickr.Downloadr.Logic.Extensions
         public static PhotosResponse GetPhotosResponseFromDictionary(this Dictionary<string, object> dictionary)
         {
             var photos = new List<Photo>();
-            var photoDictionary = ((IEnumerable<object>)dictionary.GetValueFromDictionary("photos", "photo")).
-                Cast<Dictionary<string, object>>();
+            IEnumerable<Dictionary<string, object>> photoDictionary =
+                ((IEnumerable<object>) dictionary.GetValueFromDictionary("photos", "photo")).
+                    Cast<Dictionary<string, object>>();
             photos.AddRange(photoDictionary.Select(BuildPhoto));
 
             return new PhotosResponse(

@@ -11,7 +11,7 @@ namespace FloydPink.Flickr.Downloadr.Model.Extensions
         #region Delegates
 
         /// <summary>
-        /// A property changed handler without the property name.
+        ///     A property changed handler without the property name.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sender">The object that raised the event.</param>
@@ -20,7 +20,7 @@ namespace FloydPink.Flickr.Downloadr.Model.Extensions
         #endregion
 
         /// <summary>
-        /// Notifies listeners about a change.
+        ///     Notifies listeners about a change.
         /// </summary>
         /// <param name="EventHandler">The event to raise.</param>
         /// <param name="Property">The property that changed.</param>
@@ -57,7 +57,7 @@ namespace FloydPink.Flickr.Downloadr.Model.Extensions
 
 
         /// <summary>
-        /// Subscribe to changes in an object implementing INotifiyPropertyChanged.
+        ///     Subscribe to changes in an object implementing INotifiyPropertyChanged.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="ObjectThatNotifies">The object you are interested in.</param>

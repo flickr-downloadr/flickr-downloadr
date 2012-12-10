@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Logic.Interfaces;
@@ -10,19 +9,15 @@ namespace FloydPink.Flickr.Downloadr.BoundaryCrossingTests.LogicTests
     [TestFixture]
     public class BrowserLogicTests
     {
-        #region Setup/Teardown
-
         [SetUp]
-        public void SetupTest()
+        public async void SetupTest()
         {
             // do everything to take us to the browser window...
-            if (!_loginLogic.IsUserLoggedIn(ApplyLoggedInUser))
+            if (! (await _loginLogic.IsUserLoggedInAsync(ApplyLoggedInUser)))
             {
                 _loginLogic.Login(ApplyLoggedInUser);
             }
         }
-
-        #endregion
 
         private ILoginLogic _loginLogic;
         private IBrowserLogic _logic;
@@ -52,10 +47,10 @@ namespace FloydPink.Flickr.Downloadr.BoundaryCrossingTests.LogicTests
         }
 
         [Test]
-        public void GetPublicPhotos_WillGetPublicPhotos()
+        public async void GetPublicPhotos_WillGetPublicPhotos()
         {
             WaitTillLoggedIn();
-            var photosResponse = _logic.GetPublicPhotos(_user);
+            PhotosResponse photosResponse = await _logic.GetPublicPhotosAsync(_user);
             Assert.IsNotNull(photosResponse.Photos);
         }
 

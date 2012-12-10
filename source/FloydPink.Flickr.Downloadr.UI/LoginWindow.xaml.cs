@@ -10,7 +10,7 @@ using FloydPink.Flickr.Downloadr.UI.Extensions;
 namespace FloydPink.Flickr.Downloadr.UI
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    ///     Interaction logic for LoginWindow.xaml
     /// </summary>
     public partial class LoginWindow : Window, ILoginView
     {
@@ -78,7 +78,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         {
             var browserWindow = new BrowserWindow(User);
             browserWindow.Show();
-            this.Close();
+            Close();
         }
     }
 }
