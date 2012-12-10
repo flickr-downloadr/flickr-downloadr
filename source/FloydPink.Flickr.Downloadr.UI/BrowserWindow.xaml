@@ -1,7 +1,6 @@
 ﻿<Window x:Class="FloydPink.Flickr.Downloadr.UI.BrowserWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:FloydPink.Flickr.Downloadr.UI"
         ResizeMode="CanResize" WindowStartupLocation="CenterOwner" mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="360" d:DesignWidth="576"
@@ -34,20 +33,5 @@
         <ListBox x:Name="PhotoList" ItemsSource="{Binding}" ItemTemplate="{DynamicResource PhotoListDataTemplate}"
                  ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}">
         </ListBox>
-        <!--        <Button Height="23" HorizontalAlignment="Left" Margin="18,0,0,16" Name="btnFirst"  -->
-        <!--                VerticalAlignment="Bottom" Width="75" Click="btnFirst_Click">First</Button>-->
-        <!--        <Button Height="23" HorizontalAlignment="Left" Margin="115,0,0,16" Name="btnPrev"  -->
-        <!--                VerticalAlignment="Bottom" Width="75" Click="btnPrev_Click">Previous</Button>-->
-        <!--        <Button Height="23" Margin="213,0,269,16" Name="btnNext"  -->
-        <!--                VerticalAlignment="Bottom" Click="btnNext_Click">Next</Button>-->
-        <!--        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,167,16" Name="btnLast"  -->
-        <!--                VerticalAlignment="Bottom" Width="75" Click="btnLast_Click">Last</Button>-->
-        <!---->
-        <!--        <TextBlock Height="21" Margin="442,0,93,18" Name="tbCurrentPage"  -->
-        <!--                   VerticalAlignment="Bottom" />-->
-        <!--        <TextBlock Height="21" HorizontalAlignment="Right" Margin="0,0,67,17" Name="textBlock3"  -->
-        <!--                   VerticalAlignment="Bottom" Width="20" Text="/"/>-->
-        <!--        <TextBlock Height="21" HorizontalAlignment="Right" Margin="0,0,45,18" Name="tbTotalPage"  -->
-        <!--                   VerticalAlignment="Bottom" Width="28" />-->
     </Grid>
 </Window>
