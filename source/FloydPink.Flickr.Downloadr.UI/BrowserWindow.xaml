@@ -4,7 +4,8 @@
         ResizeMode="CanResize" WindowStartupLocation="CenterOwner" mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls" d:DesignHeight="360" d:DesignWidth="576"
+        xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls"
+        xmlns:behaviors="clr-namespace:FloydPink.Flickr.Downloadr.UI.Behaviors" d:DesignHeight="360" d:DesignWidth="576"
         Title="Flickr Downloadr > Photo Browser" Icon="/flickr%20downloadr;component/Images/icon.png">
 
     <Window.Resources>
@@ -41,14 +42,27 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <ListBox Grid.Row="0" Grid.ColumnSpan="2" x:Name="PhotoList" ItemsSource="{Binding}"
-                     ItemTemplate="{DynamicResource PhotoListDataTemplate}"
+                     ItemTemplate="{DynamicResource PhotoListDataTemplate}" behaviors:ScrollToTopBehavior.ScrollToTop="True"
                      ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}" SelectionMode="Multiple">
             </ListBox>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button Content="Back" Width="60" Height="28"
                         Margin="5,0,0,0" Click="BackButtonClick" />
-                <Button Name="TogglePhotos" Content="All Photos" Width="100" Height="28"
-                        Margin="5,0,0,0" Click="TogglePhotosButtonClick" />
+                <ToggleButton Margin="5,0,0,0" Width="145" Height="28" Click="TogglePhotosButtonClick">
+                    <ToggleButton.Style>
+                        <Style TargetType="{x:Type ToggleButton}">
+                            <Setter Property="Content" Value="Show All Photos"/>
+                            <Setter Property="ToolTip" Value="Now showing only public photos"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Content" Value="Show Only Public Photos"/>
+                                    <Setter Property="ToolTip" Value="Now showing all photos including private ones"/>
+                                    <Setter Property="Foreground" Value="Blue"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Download Selected" Width="120" Height="28"

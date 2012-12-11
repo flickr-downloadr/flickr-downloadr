@@ -19,7 +19,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         public async void InitializeScreen()
         {
             _view.ShowSpinner(true);
-            var photosResponse = await _logic.GetAllPhotosAsync(_view.User);
+            var photosResponse = await _logic.GetPublicPhotosAsync(_view.User);
             _view.Photos = new ObservableCollection<Photo>(photosResponse.Photos);
             _view.ShowSpinner(false);
         }
@@ -38,10 +38,14 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             _view.ShowSpinner(false);
         }
 
-        public void TogglePhotos()
+        public async void TogglePhotos(bool showAllPhotos)
         {
-            //            var publicPhotosMode = _view.TogglePhotosButtonCaption == "All Photos";
-            //            _view.TogglePhotosButtonCaption = publicPhotosMode ? "Only Public Photos" : "All Photos";
+            _view.ShowSpinner(true);
+            _view.Photos = new ObservableCollection<Photo>();
+            var photosResponse = await (showAllPhotos ?
+                _logic.GetAllPhotosAsync(_view.User) : _logic.GetPublicPhotosAsync(_view.User));
+            _view.Photos = new ObservableCollection<Photo>(photosResponse.Photos);
+            _view.ShowSpinner(false);
         }
     }
 }

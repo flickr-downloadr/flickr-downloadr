@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presentation;
@@ -20,14 +21,12 @@ namespace FloydPink.Flickr.Downloadr.UI
         {
             InitializeComponent();
             User = user;
-            TogglePhotosButtonCaption = TogglePhotos.Content.ToString();
 
             _presenter = Bootstrapper.GetPresenter<IBrowserView, BrowserPresenter>(this);
             _presenter.InitializeScreen();
         }
 
         public User User { get; set; }
-        public string TogglePhotosButtonCaption { get; set; }
 
         public ObservableCollection<Photo> Photos
         {
@@ -64,7 +63,8 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void TogglePhotosButtonClick(object sender, RoutedEventArgs e)
         {
-            _presenter.TogglePhotos();
+            var toggleButton = sender as ToggleButton;
+            _presenter.TogglePhotos(toggleButton != null && (toggleButton.IsChecked ?? false));
         }
     }
 }
