@@ -20,6 +20,17 @@
                                 <Image Source="{Binding Small320Url, IsAsync=True}" Stretch="Fill"
                                        HorizontalAlignment="Center">
                                 </Image>
+                                <AdornerDecorator>
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
+                                        <TextBlock Text="{Binding Title, IsAsync=True}" HorizontalAlignment="Center" 
+                                                   Margin="3" FontFamily="Consolas" FontSize="20" VerticalAlignment="Bottom" 
+                                                   Foreground="#FFFFFFFF" Background="#44000000">
+                                            <TextBlock.Effect>
+                                                <DropShadowEffect/>
+                                            </TextBlock.Effect>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </AdornerDecorator>
                             </Grid>
                         </Image.ToolTip>
                     </Image>
