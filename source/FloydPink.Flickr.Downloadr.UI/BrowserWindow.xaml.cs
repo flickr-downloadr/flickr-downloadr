@@ -20,12 +20,14 @@ namespace FloydPink.Flickr.Downloadr.UI
         {
             InitializeComponent();
             User = user;
+            TogglePhotosButtonCaption = TogglePhotos.Content.ToString();
 
             _presenter = Bootstrapper.GetPresenter<IBrowserView, BrowserPresenter>(this);
             _presenter.InitializeScreen();
         }
 
         public User User { get; set; }
+        public string TogglePhotosButtonCaption { get; set; }
 
         public ObservableCollection<Photo> Photos
         {
@@ -58,6 +60,11 @@ namespace FloydPink.Flickr.Downloadr.UI
             var loginWindow = new LoginWindow {User = User};
             loginWindow.Show();
             Close();
+        }
+
+        private void TogglePhotosButtonClick(object sender, RoutedEventArgs e)
+        {
+            _presenter.TogglePhotos();
         }
     }
 }

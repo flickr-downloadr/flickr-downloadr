@@ -47,6 +47,8 @@
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button Content="Back" Width="60" Height="28"
                         Margin="5,0,0,0" Click="BackButtonClick" />
+                <Button Name="TogglePhotos" Content="All Photos" Width="100" Height="28"
+                        Margin="5,0,0,0" Click="TogglePhotosButtonClick" />
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Download Selected" Width="120" Height="28"

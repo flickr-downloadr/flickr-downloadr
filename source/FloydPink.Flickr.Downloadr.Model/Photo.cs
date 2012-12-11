@@ -85,6 +85,11 @@ namespace FloydPink.Flickr.Downloadr.Model
             get { return getPhotoUrl(PhotoFormat.Small320); }
         }
 
+        public string OriginalUrl
+        {
+            get { return getPhotoUrl(PhotoFormat.Original); }
+        }
+
         private string getPhotoUrl(string photoFormat)
         {
             return string.Format(AppConstants.PhotoUrlFormat, Farm.ToString(CultureInfo.InvariantCulture), Server, Id,
