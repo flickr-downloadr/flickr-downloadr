@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Rectangle Fill="White" Opacity="0.65"></Rectangle>
+        <Rectangle Fill="White" Opacity="0.85"></Rectangle>
         <Canvas Name="SpinningProgress" Margin="0,0,0,0" Height="130" Width="130"
                                 VerticalAlignment="Center" HorizontalAlignment="Center">
             <Canvas Name="InnerCanvas" Height="110" Width="110" VerticalAlignment="Center"
@@ -55,5 +55,7 @@
                 </EventTrigger>
             </Canvas.Triggers>
         </Canvas>
+        <TextBlock Name="Progress" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"></TextBlock>
+        <Button Name="CancelButtonInternal" Margin="0,175,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Width="120" Height="30" Visibility="Collapsed" Click="CancelButtonClick">Cancel</Button>
     </Grid>
 </UserControl>

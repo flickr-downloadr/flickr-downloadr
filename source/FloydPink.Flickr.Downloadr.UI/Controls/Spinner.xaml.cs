@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FloydPink.Flickr.Downloadr.UI.Controls
 {
@@ -23,6 +12,27 @@ namespace FloydPink.Flickr.Downloadr.UI.Controls
         public Spinner()
         {
             InitializeComponent();
+        }
+
+        public static readonly DependencyProperty CancelButtonProperty =
+            DependencyProperty.Register("CancelButton", typeof(bool), typeof(Spinner), new PropertyMetadata(CancelButtonCallback));
+
+        private static void CancelButtonCallback(DependencyObject instance, DependencyPropertyChangedEventArgs e)
+        {
+            var spinner = (Spinner)instance;
+            spinner.CancelButtonInternal.Visibility = (bool)e.NewValue ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public bool CancelButton
+        {
+            get { return (bool)GetValue(CancelButtonProperty); }
+            set { SetValue(CancelButtonProperty, value); }
+        }
+
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
+        {
+            var adorner = (FrameworkElement) VisualTreeHelper.GetParent(this);
+            adorner.Visibility = Visibility.Collapsed;
         }
     }
 }
