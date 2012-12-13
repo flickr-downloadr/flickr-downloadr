@@ -27,7 +27,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         public async void DownloadSelected()
         {
             _view.ShowSpinner(true);
-            await _logic.Download(_view.Photos);
+            await _logic.Download(_view.SelectedPhotos);
             _view.ShowSpinner(false);
         }
 

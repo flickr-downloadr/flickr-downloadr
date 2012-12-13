@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using FloydPink.Flickr.Downloadr.Model;
 
 namespace FloydPink.Flickr.Downloadr.Presentation.Views
@@ -7,5 +8,6 @@ namespace FloydPink.Flickr.Downloadr.Presentation.Views
     {
         User User { get; set; }
         ObservableCollection<Photo> Photos { get; set; }
+        IList<Photo> SelectedPhotos { get; set; }
     }
 }

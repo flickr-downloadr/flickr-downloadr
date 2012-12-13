@@ -1,11 +1,12 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls.Primitives;
-using FloydPink.Flickr.Downloadr.Bootstrap;
+﻿using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace FloydPink.Flickr.Downloadr.UI
 {
@@ -21,6 +22,16 @@ namespace FloydPink.Flickr.Downloadr.UI
         {
             InitializeComponent();
             User = user;
+            SelectedPhotos = new List<Photo>();
+
+            PhotoList.SelectionChanged += (sender, args) =>
+                                              {
+                                                  SelectedPhotos.Clear();
+                                                  foreach (var selectedItem in PhotoList.SelectedItems)
+                                                  {
+                                                      SelectedPhotos.Add((Photo)selectedItem);
+                                                  }
+                                              };
 
             _presenter = Bootstrapper.GetPresenter<IBrowserView, BrowserPresenter>(this);
             _presenter.InitializeScreen();
@@ -37,6 +48,8 @@ namespace FloydPink.Flickr.Downloadr.UI
                 PhotoList.DataContext = Photos;
             }
         }
+
+        public IList<Photo> SelectedPhotos { get; set; }
 
         private void DownloadSelectedButtonClick(object sender, RoutedEventArgs e)
         {
@@ -56,7 +69,7 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            var loginWindow = new LoginWindow {User = User};
+            var loginWindow = new LoginWindow { User = User };
             loginWindow.Show();
             Close();
         }
