@@ -135,46 +135,53 @@ namespace FloydPink.Flickr.Downloadr.UI
             Close();
         }
 
-        private void TogglePhotosButtonClick(object sender, RoutedEventArgs e)
+        private async void TogglePhotosButtonClick(object sender, RoutedEventArgs e)
         {
-            _presenter.InitializePhotoset();
             LoseFocus((UIElement)sender);
+            await _presenter.InitializePhotoset();
         }
 
-        private void FirstPageButtonClick(object sender, RoutedEventArgs e)
+        private async void FirstPageButtonClick(object sender, RoutedEventArgs e)
         {
-            _presenter.GetFirstPagePhotos();
             LoseFocus((UIElement)sender);
+            await _presenter.GetFirstPagePhotos();
         }
 
-        private void PreviousPageButtonClick(object sender, RoutedEventArgs e)
+        private async void PreviousPageButtonClick(object sender, RoutedEventArgs e)
         {
-            _presenter.GetPreviousPagePhotos();
             LoseFocus((UIElement)sender);
+            await _presenter.GetPreviousPagePhotos();
         }
 
-        private void NextPageButtonClick(object sender, RoutedEventArgs e)
+        private async void NextPageButtonClick(object sender, RoutedEventArgs e)
         {
-            _presenter.GetNextPagePhotos();
             LoseFocus((UIElement)sender);
+            await _presenter.GetNextPagePhotos();
         }
 
-        private void LastPageButtonClick(object sender, RoutedEventArgs e)
+        private async void LastPageButtonClick(object sender, RoutedEventArgs e)
         {
-            _presenter.GetLastPagePhotos();
             LoseFocus((UIElement)sender);
+            await _presenter.GetLastPagePhotos();
         }
 
-        private void DownloadSelectedButtonClick(object sender, RoutedEventArgs e)
+        private async void DownloadSelectionButtonClick(object sender, RoutedEventArgs e)
         {
-            _presenter.DownloadSelected();
             LoseFocus((UIElement)sender);
+            await _presenter.DownloadSelection();
         }
 
-        private void DownloadAllButtonClick(object sender, RoutedEventArgs e)
+        private async void DownloadThisPageButtonClick(object sender, RoutedEventArgs e)
         {
-            _presenter.DownloadAll();
             LoseFocus((UIElement)sender);
+            await _presenter.DownloadThisPage();
+        }
+
+        private async void DownloadAllPagesButtonClick(object sender, RoutedEventArgs e)
+        {
+            LoseFocus((UIElement)sender);
+            MessageBox.Show("Not implemented!");
+            //await _presenter.DownloadAllPages();
         }
 
         private void LoseFocus(UIElement element)

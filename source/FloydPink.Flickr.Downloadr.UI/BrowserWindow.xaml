@@ -88,9 +88,12 @@
                 <Button Content="&gt;&gt;l" Width="30" Height="28" Margin="5,0" Click="LastPageButtonClick"></Button>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Download Selected" Width="120" Height="28"
-                        Margin="0,0,5,0" Click="DownloadSelectedButtonClick" />
-                <Button Content="Download All" Width="120" Height="28" Margin="0,6,5,6" Click="DownloadAllButtonClick" />
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0" FontSize="14" FontWeight="Bold">Download Photos in</TextBlock>
+                <Button Content="Selection" Height="28"
+                        Margin="0,0,5,0" Click="DownloadSelectionButtonClick" Width="60" />
+                <Button Content="This Page" Height="28"
+                        Margin="0,0,5,0" Click="DownloadThisPageButtonClick" Width="60" />
+                <Button Content="All Pages" Height="28" Margin="0,6,5,6" Click="DownloadAllPagesButtonClick" Width="60" />
             </StackPanel>
         </Grid>
         <AdornerDecorator Name="Spinner" Visibility="Collapsed">

@@ -19,27 +19,35 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             _view = view;
         }
 
-        public async void InitializePhotoset()
+        public async Task InitializePhotoset()
         {
             _view.SelectedPhotos.Clear();
             await GetAndSetPhotos(1);
         }
 
-        public async void DownloadAll()
-        {
-            _view.ShowSpinner(true);
-            await _logic.Download(_view.Photos);
-            _view.ShowSpinner(false);
-        }
-
-        public async void DownloadSelected()
+        public async Task DownloadSelection()
         {
             _view.ShowSpinner(true);
             await _logic.Download(_view.SelectedPhotos.Values);
             _view.ShowSpinner(false);
         }
 
-        public async void GetFirstPagePhotos()
+        public async Task DownloadThisPage()
+        {
+            _view.ShowSpinner(true);
+            await _logic.Download(_view.Photos);
+            _view.ShowSpinner(false);
+        }
+
+        public async Task DownloadAllPages()
+        {
+            _view.ShowSpinner(true);
+            //TODO: Implement this!
+            await _logic.Download(_view.Photos);
+            _view.ShowSpinner(false);
+        }
+
+        public async Task GetFirstPagePhotos()
         {
             var page = Convert.ToInt32(_view.Page);
             if (page != 1)
@@ -48,7 +56,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             }
         }
 
-        public async void GetPreviousPagePhotos()
+        public async Task GetPreviousPagePhotos()
         {
             var page = Convert.ToInt32(_view.Page);
             if (page != 1)
@@ -57,7 +65,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             }
         }
 
-        public async void GetNextPagePhotos()
+        public async Task GetNextPagePhotos()
         {
             var page = Convert.ToInt32(_view.Page);
             var pages = Convert.ToInt32(_view.Pages);
@@ -67,7 +75,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             }
         }
 
-        public async void GetLastPagePhotos()
+        public async Task GetLastPagePhotos()
         {
             var page = Convert.ToInt32(_view.Page);
             var pages = Convert.ToInt32(_view.Pages);
