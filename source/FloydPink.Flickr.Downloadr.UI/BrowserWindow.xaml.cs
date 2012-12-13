@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Input;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Model.Extensions;
@@ -101,21 +102,17 @@ namespace FloydPink.Flickr.Downloadr.UI
             }
         }
 
-        private void DownloadSelectedButtonClick(object sender, RoutedEventArgs e)
-        {
-            _presenter.DownloadSelected();
-        }
-
         public void ShowSpinner(bool show)
         {
             var visibility = show ? Visibility.Visible : Visibility.Collapsed;
             Spinner.Dispatch((s) => s.Visibility = visibility);
         }
 
-        private void DownloadAllButtonClick(object sender, RoutedEventArgs e)
-        {
-            _presenter.DownloadAll();
-        }
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
@@ -127,32 +124,52 @@ namespace FloydPink.Flickr.Downloadr.UI
         private void TogglePhotosButtonClick(object sender, RoutedEventArgs e)
         {
             _presenter.InitializeScreen();
+            LoseFocus((UIElement)sender);
         }
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
 
         private void FirstPageButtonClick(object sender, RoutedEventArgs e)
         {
             _presenter.GetFirstPagePhotos();
+            LoseFocus((UIElement)sender);
         }
 
         private void PreviousPageButtonClick(object sender, RoutedEventArgs e)
         {
             _presenter.GetPreviousPagePhotos();
+            LoseFocus((UIElement)sender);
         }
 
         private void NextPageButtonClick(object sender, RoutedEventArgs e)
         {
             _presenter.GetNextPagePhotos();
+            LoseFocus((UIElement)sender);
         }
 
         private void LastPageButtonClick(object sender, RoutedEventArgs e)
         {
-            _presenter.GetLastPagePhotos(); 
+            _presenter.GetLastPagePhotos();
+            LoseFocus((UIElement)sender);
         }
+
+        private void DownloadSelectedButtonClick(object sender, RoutedEventArgs e)
+        {
+            _presenter.DownloadSelected();
+            LoseFocus((UIElement)sender);
+        }
+
+        private void DownloadAllButtonClick(object sender, RoutedEventArgs e)
+        {
+            _presenter.DownloadAll();
+            LoseFocus((UIElement)sender);
+        }
+
+        private void LoseFocus(UIElement element)
+        {
+            var scope = FocusManager.GetFocusScope(element);
+            FocusManager.SetFocusedElement(scope, null);
+            Keyboard.ClearFocus();
+            FocusManager.SetFocusedElement(scope, PhotoList);
+        }
+
     }
 }
