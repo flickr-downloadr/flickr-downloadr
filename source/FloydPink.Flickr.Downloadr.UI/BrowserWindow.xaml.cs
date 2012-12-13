@@ -1,5 +1,7 @@
-﻿using FloydPink.Flickr.Downloadr.Bootstrap;
+﻿using System.ComponentModel;
+using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Model.Extensions;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
@@ -13,10 +15,14 @@ namespace FloydPink.Flickr.Downloadr.UI
     /// <summary>
     ///     Interaction logic for BrowserWindow.xaml
     /// </summary>
-    public partial class BrowserWindow : Window, IBrowserView
+    public partial class BrowserWindow : Window, IBrowserView, INotifyPropertyChanged
     {
         private readonly BrowserPresenter _presenter;
         private ObservableCollection<Photo> _photos;
+        private string _page;
+        private string _pages;
+        private string _perPage;
+        private string _total;
 
         public BrowserWindow(User user)
         {
@@ -51,6 +57,46 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         public IList<Photo> SelectedPhotos { get; set; }
 
+        public string Page
+        {
+            get { return _page; }
+            set
+            {
+                _page = value;
+                PropertyChanged.Notify(() => Page);
+            }
+        }
+
+        public string Pages
+        {
+            get { return _pages; }
+            set
+            {
+                _pages = value;
+                PropertyChanged.Notify(() => Pages);
+            }
+        }
+
+        public string PerPage
+        {
+            get { return _perPage; }
+            set
+            {
+                _perPage = value;
+                PropertyChanged.Notify(() => PerPage);
+            }
+        }
+
+        public string Total
+        {
+            get { return _total; }
+            set
+            {
+                _total = value;
+                PropertyChanged.Notify(() => Total);
+            }
+        }
+
         private void DownloadSelectedButtonClick(object sender, RoutedEventArgs e)
         {
             _presenter.DownloadSelected();
@@ -79,5 +125,11 @@ namespace FloydPink.Flickr.Downloadr.UI
             var toggleButton = sender as ToggleButton;
             _presenter.TogglePhotos(toggleButton != null && (toggleButton.IsChecked ?? false));
         }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
     }
 }

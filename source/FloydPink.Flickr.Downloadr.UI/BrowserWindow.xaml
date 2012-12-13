@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls"
-        xmlns:behaviors="clr-namespace:FloydPink.Flickr.Downloadr.UI.Behaviors" d:DesignHeight="360" d:DesignWidth="576"
+        xmlns:behaviors="clr-namespace:FloydPink.Flickr.Downloadr.UI.Behaviors" d:DesignHeight="500" d:DesignWidth="700"
         Title="Flickr Downloadr > Photo Browser" Icon="/flickr%20downloadr;component/Images/icon.png">
 
     <Window.Resources>
@@ -51,10 +51,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListBox Grid.Row="0" Grid.ColumnSpan="2" x:Name="PhotoList" ItemsSource="{Binding}"
-                     ItemTemplate="{DynamicResource PhotoListDataTemplate}" behaviors:ScrollToTopBehavior.ScrollToTop="True"
+            <ListBox Grid.Row="0" Grid.ColumnSpan="3" x:Name="PhotoList" ItemsSource="{Binding}"
+                     ItemTemplate="{DynamicResource PhotoListDataTemplate}" 
                      ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}" SelectionMode="Multiple">
+<!--                     behaviors:ScrollToTopBehavior.ScrollToTop="True">-->
             </ListBox>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button Content="Back" Width="60" Height="28"
@@ -75,7 +77,16 @@
                     </ToggleButton.Style>
                 </ToggleButton>
             </StackPanel>
-            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <Button Content="l&lt;&lt;" Width="30" Height="28" Margin="5,0"></Button>
+                <Button Content="&lt;" Width="25" Height="28" Margin="5,0"></Button>
+                <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Page}"></TextBlock>
+                <TextBlock Margin="5,0" VerticalAlignment="Center">of</TextBlock>
+                <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Pages}"></TextBlock>
+                <Button Content="&gt;" Width="25" Height="28" Margin="5,0"></Button>
+                <Button Content="&gt;&gt;l" Width="30" Height="28" Margin="5,0"></Button>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Download Selected" Width="120" Height="28"
                         Margin="0,0,5,0" Click="DownloadSelectedButtonClick" />
                 <Button Content="Download All" Width="120" Height="28" Margin="0,6,5,6" Click="DownloadAllButtonClick" />
