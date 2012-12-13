@@ -46,14 +46,14 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         public void ShowLoggedInControl()
         {
-            loggedInCanvas.Dispatch((c) => c.Visibility = Visibility.Visible);
-            loggedOutCanvas.Dispatch((c) => c.Visibility = Visibility.Collapsed);
+            LoggedInCanvas.Dispatch((c) => c.Visibility = Visibility.Visible);
+            LoggedOutCanvas.Dispatch((c) => c.Visibility = Visibility.Collapsed);
         }
 
         public void ShowLoggedOutControl()
         {
-            loggedOutCanvas.Dispatch((c) => c.Visibility = Visibility.Visible);
-            loggedInCanvas.Dispatch((c) => c.Visibility = Visibility.Collapsed);
+            LoggedOutCanvas.Dispatch((c) => c.Visibility = Visibility.Visible);
+            LoggedInCanvas.Dispatch((c) => c.Visibility = Visibility.Collapsed);
         }
 
         #endregion
@@ -70,7 +70,7 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void SetWelcomeLabel(User user)
         {
-            welcomeUserLabel.Dispatch(
+            WelcomeUserLabel.Dispatch(
                 (l) => l.Content = string.IsNullOrEmpty(user.UserNsId) ? string.Empty : user.WelcomeMessage);
             if (user.Info != null)
             {

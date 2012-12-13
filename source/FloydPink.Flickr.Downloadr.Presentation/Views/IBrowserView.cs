@@ -9,6 +9,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation.Views
         User User { get; set; }
         ObservableCollection<Photo> Photos { get; set; }
         IList<Photo> SelectedPhotos { get; set; }
+        bool ShowAllPhotos { get; }
 
         string Page { get; set; }
         string Pages { get; set; }

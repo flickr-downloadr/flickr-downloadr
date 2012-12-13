@@ -56,6 +56,10 @@ namespace FloydPink.Flickr.Downloadr.UI
         }
 
         public IList<Photo> SelectedPhotos { get; set; }
+        public bool ShowAllPhotos
+        {
+            get { return PublicAllToggleButton.IsChecked != null && (bool)PublicAllToggleButton.IsChecked; }
+        }
 
         public string Page
         {
@@ -122,8 +126,7 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void TogglePhotosButtonClick(object sender, RoutedEventArgs e)
         {
-            var toggleButton = sender as ToggleButton;
-            _presenter.TogglePhotos(toggleButton != null && (toggleButton.IsChecked ?? false));
+            _presenter.InitializeScreen();
         }
 
         #region INotifyPropertyChanged Members
@@ -131,5 +134,25 @@ namespace FloydPink.Flickr.Downloadr.UI
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
+
+        private void FirstPageButtonClick(object sender, RoutedEventArgs e)
+        {
+            _presenter.GetFirstPagePhotos();
+        }
+
+        private void PreviousPageButtonClick(object sender, RoutedEventArgs e)
+        {
+            _presenter.GetPreviousPagePhotos();
+        }
+
+        private void NextPageButtonClick(object sender, RoutedEventArgs e)
+        {
+            _presenter.GetNextPagePhotos();
+        }
+
+        private void LastPageButtonClick(object sender, RoutedEventArgs e)
+        {
+            _presenter.GetLastPagePhotos(); 
+        }
     }
 }

@@ -55,13 +55,13 @@
             </Grid.ColumnDefinitions>
             <ListBox Grid.Row="0" Grid.ColumnSpan="3" x:Name="PhotoList" ItemsSource="{Binding}"
                      ItemTemplate="{DynamicResource PhotoListDataTemplate}" 
-                     ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}" SelectionMode="Multiple">
-<!--                     behaviors:ScrollToTopBehavior.ScrollToTop="True">-->
+                     ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}" SelectionMode="Multiple" 
+                     behaviors:ScrollToTopBehavior.ScrollToTop="True">
             </ListBox>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button Content="Back" Width="60" Height="28"
                         Margin="5,0,0,0" Click="BackButtonClick" />
-                <ToggleButton Margin="5,0,0,0" Width="145" Height="28" Click="TogglePhotosButtonClick">
+                <ToggleButton Name="PublicAllToggleButton" Margin="5,0,0,0" Width="145" Height="28" Click="TogglePhotosButtonClick">
                     <ToggleButton.Style>
                         <Style TargetType="{x:Type ToggleButton}">
                             <Setter Property="Content" Value="Show All Photos"/>
@@ -78,13 +78,13 @@
                 </ToggleButton>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <Button Content="l&lt;&lt;" Width="30" Height="28" Margin="5,0"></Button>
-                <Button Content="&lt;" Width="25" Height="28" Margin="5,0"></Button>
+                <Button Content="l&lt;&lt;" Width="30" Height="28" Margin="5,0" Click="FirstPageButtonClick"></Button>
+                <Button Content="&lt;" Width="25" Height="28" Margin="5,0" Click="PreviousPageButtonClick"></Button>
                 <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Page}"></TextBlock>
                 <TextBlock Margin="5,0" VerticalAlignment="Center">of</TextBlock>
                 <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Pages}"></TextBlock>
-                <Button Content="&gt;" Width="25" Height="28" Margin="5,0"></Button>
-                <Button Content="&gt;&gt;l" Width="30" Height="28" Margin="5,0"></Button>
+                <Button Content="&gt;" Width="25" Height="28" Margin="5,0" Click="NextPageButtonClick"></Button>
+                <Button Content="&gt;&gt;l" Width="30" Height="28" Margin="5,0" Click="LastPageButtonClick"></Button>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Download Selected" Width="120" Height="28"

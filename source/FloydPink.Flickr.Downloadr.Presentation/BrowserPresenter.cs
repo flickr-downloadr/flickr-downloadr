@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
+using System.Threading.Tasks;
 using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
@@ -19,23 +21,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
 
         public async void InitializeScreen()
         {
-            _view.ShowSpinner(true);
-
-            var photosResponse = await _logic.GetPublicPhotosAsync(_view.User);
-            SetPhotoResponse(photosResponse);
-
-            _view.ShowSpinner(false);
-        }
-
-        public async void TogglePhotos(bool showAllPhotos)
-        {
-            _view.ShowSpinner(true);
-
-            _view.Photos = new ObservableCollection<Photo>();
-            var photosResponse = await (showAllPhotos ? _logic.GetAllPhotosAsync(_view.User) : _logic.GetPublicPhotosAsync(_view.User));
-            SetPhotoResponse(photosResponse);
-
-            _view.ShowSpinner(false);
+            await GetAndSetPhotos(1);
         }
 
         public async void DownloadAll()
@@ -49,6 +35,52 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         {
             _view.ShowSpinner(true);
             await _logic.Download(_view.SelectedPhotos);
+            _view.ShowSpinner(false);
+        }
+
+        public async void GetFirstPagePhotos()
+        {
+            var page = Convert.ToInt32(_view.Page);
+            if (page != 1)
+            {
+                await GetAndSetPhotos(1);
+            }
+        }
+
+        public async void GetPreviousPagePhotos()
+        {
+            var page = Convert.ToInt32(_view.Page);
+            if (page != 1)
+            {
+                await GetAndSetPhotos(page - 1);
+            }
+        }
+
+        public async void GetNextPagePhotos()
+        {
+            var page = Convert.ToInt32(_view.Page);
+            var pages = Convert.ToInt32(_view.Pages);
+            if (page != pages)
+            {
+                await GetAndSetPhotos(page + 1);
+            }
+        }
+
+        public async void GetLastPagePhotos()
+        {
+            var page = Convert.ToInt32(_view.Page);
+            var pages = Convert.ToInt32(_view.Pages);
+            if (page != pages)
+            {
+                await GetAndSetPhotos(pages);
+            }
+        }
+
+        private async Task GetAndSetPhotos(int page)
+        {
+            _view.ShowSpinner(true);
+            _view.Photos = new ObservableCollection<Photo>();
+            SetPhotoResponse(await (_view.ShowAllPhotos ? _logic.GetAllPhotosAsync(_view.User, page) : _logic.GetPublicPhotosAsync(_view.User, page)));
             _view.ShowSpinner(false);
         }
 

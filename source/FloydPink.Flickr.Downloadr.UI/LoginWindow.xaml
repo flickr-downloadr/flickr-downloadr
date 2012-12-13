@@ -12,29 +12,29 @@
     <Grid Height="287" Width="495">
         <Grid>
             <Canvas Height="286" HorizontalAlignment="Left" Margin="1,1,0,0" VerticalAlignment="Top" Width="488"
-                    Name="loggedInCanvas" Visibility="Visible">
+                    Name="LoggedInCanvas" Visibility="Visible">
                 <Image Canvas.Left="109" Canvas.Top="98" Height="48" Name="buddyIcon" Stretch="Fill" Width="48">
                     <Image.Effect>
                         <DropShadowEffect Color="Gray" BlurRadius="15" ShadowDepth="0" />
                     </Image.Effect>
                 </Image>
-                <Label Canvas.Left="171" Canvas.Top="115" Content="" FontSize="16" Height="38" Name="welcomeUserLabel"
+                <Label Canvas.Left="171" Canvas.Top="115" Content="" FontSize="16" Height="38" Name="WelcomeUserLabel"
                        Width="252" FontWeight="Bold" FontStyle="Normal" FontFamily="Segoe UI"
                        HorizontalContentAlignment="Left" />
-                <Label Canvas.Left="105" Canvas.Top="174" Content="Click continue to start downloading..." Height="34"
-                       Name="loggedInLabel" Width="284" FontSize="13" FontStretch="Normal"
+                <Label Canvas.Left="101" Canvas.Top="174" Content="Click 'Continue' to browse and download photos..." Height="34"
+                       Name="LoggedInLabel" Width="301" FontSize="13" FontStretch="Normal"
                        HorizontalContentAlignment="Center" />
-                <Button Canvas.Left="340" Canvas.Top="239" Content="Continue" Height="38" Name="continueButton"
+                <Button Canvas.Left="340" Canvas.Top="239" Content="Continue" Height="38" Name="ContinueButton"
                         Width="141"
                         FontSize="16" Click="ContinueButtonClick" />
                 <Button Canvas.Left="7" Canvas.Top="248" Content="Logout" FontSize="12" Height="28" Name="logoutButton"
                         Width="100" Click="LogoutButtonClick" />
             </Canvas>
             <Canvas Height="273" HorizontalAlignment="Left" Margin="1,1,0,0" VerticalAlignment="Top" Width="488"
-                    Name="loggedOutCanvas" Visibility="Collapsed">
+                    Name="LoggedOutCanvas" Visibility="Collapsed">
                 <Label Canvas.Left="53" Canvas.Top="107"
-                       Content="Welcome to Flickr Downloadr. Click Login to continue."
-                       Height="33" Name="welcomeLabel" Width="394" FontSize="16" />
+                       Content="Welcome to Flickr Downloadr. Click 'Login' to continue."
+                       Height="33" Name="WelcomeLabel" Width="394" FontSize="16" />
                 <Button Canvas.Left="168" Canvas.Top="182" Content="Login" Height="38" Name="loginButton" Width="141"
                         FontSize="16" Click="LoginButtonClick" />
             </Canvas>
