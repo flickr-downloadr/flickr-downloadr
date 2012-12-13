@@ -19,8 +19,9 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             _view = view;
         }
 
-        public async void InitializeScreen()
+        public async void InitializePhotoset()
         {
+            _view.SelectedPhotos.Clear();
             await GetAndSetPhotos(1);
         }
 
@@ -34,7 +35,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         public async void DownloadSelected()
         {
             _view.ShowSpinner(true);
-            await _logic.Download(_view.SelectedPhotos);
+            await _logic.Download(_view.SelectedPhotos.Values);
             _view.ShowSpinner(false);
         }
 
@@ -79,8 +80,9 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         private async Task GetAndSetPhotos(int page)
         {
             _view.ShowSpinner(true);
-            _view.Photos = new ObservableCollection<Photo>();
+
             SetPhotoResponse(await (_view.ShowAllPhotos ? _logic.GetAllPhotosAsync(_view.User, page) : _logic.GetPublicPhotosAsync(_view.User, page)));
+
             _view.ShowSpinner(false);
         }
 

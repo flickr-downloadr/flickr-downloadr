@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Input;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
@@ -29,19 +31,21 @@ namespace FloydPink.Flickr.Downloadr.UI
         {
             InitializeComponent();
             User = user;
-            SelectedPhotos = new List<Photo>();
+            SelectedPhotos = new Dictionary<string, Photo>();
 
             PhotoList.SelectionChanged += (sender, args) =>
                                               {
-                                                  SelectedPhotos.Clear();
-                                                  foreach (var selectedItem in PhotoList.SelectedItems)
+                                                  foreach (Photo photo in PhotoList.SelectedItems)
                                                   {
-                                                      SelectedPhotos.Add((Photo)selectedItem);
+                                                      if (!SelectedPhotos.ContainsKey(photo.Id))
+                                                      {
+                                                          SelectedPhotos.Add(photo.Id, photo);
+                                                      }
                                                   }
                                               };
 
             _presenter = Bootstrapper.GetPresenter<IBrowserView, BrowserPresenter>(this);
-            _presenter.InitializeScreen();
+            _presenter.InitializePhotoset();
         }
 
         public User User { get; set; }
@@ -53,10 +57,20 @@ namespace FloydPink.Flickr.Downloadr.UI
             {
                 _photos = value;
                 PhotoList.DataContext = Photos;
+                SelectAlreadySelectedPhotos();
             }
         }
 
-        public IList<Photo> SelectedPhotos { get; set; }
+        private void SelectAlreadySelectedPhotos()
+        {
+            if (SelectedPhotos.Count <= 0) return;
+            foreach (var photo in Photos.Where(photo => SelectedPhotos.ContainsKey(photo.Id)))
+            {
+                ((ListBoxItem)PhotoList.ItemContainerGenerator.ContainerFromItem(photo)).IsSelected = true;
+            }
+        }
+
+        public IDictionary<string, Photo> SelectedPhotos { get; set; }
         public bool ShowAllPhotos
         {
             get { return PublicAllToggleButton.IsChecked != null && (bool)PublicAllToggleButton.IsChecked; }
@@ -123,7 +137,7 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void TogglePhotosButtonClick(object sender, RoutedEventArgs e)
         {
-            _presenter.InitializeScreen();
+            _presenter.InitializePhotoset();
             LoseFocus((UIElement)sender);
         }
 

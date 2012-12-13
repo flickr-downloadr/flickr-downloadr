@@ -7,7 +7,7 @@
         xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls"
         xmlns:behaviors="clr-namespace:FloydPink.Flickr.Downloadr.UI.Behaviors" d:DesignHeight="500" d:DesignWidth="700"
         Title="Flickr Downloadr > Photo Browser" Icon="/flickr%20downloadr;component/Images/icon.png"
-        SizeToContent="Width" Height="600">
+        SizeToContent="Width" Height="600" MinWidth="950">
 
     <Window.Resources>
         <DataTemplate x:Key="PhotoListDataTemplate">
