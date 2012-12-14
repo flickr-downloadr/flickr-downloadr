@@ -4,11 +4,14 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Text;
+using log4net;
 
 namespace FloydPink.Flickr.Downloadr.OAuth.Listener
 {
     public class HttpListenerManager : IHttpListenerManager
     {
+        
+        private static readonly ILog Log = LogManager.GetLogger(typeof(HttpListenerManager));
         private static readonly Random Random = new Random();
 
         private static readonly List<string> _activeListeners = new List<string>();
@@ -37,6 +40,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
 
         public IAsyncResult SetupCallback()
         {
+            Log.Debug("Entering SetupCallback Method.");
+
             ListenerAddress = GetNewHttpListenerAddress();
 
             KillAnyExistingListeners();
@@ -44,6 +49,9 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
             var listener = new HttpListener();
             listener.Prefixes.Add(ListenerAddress);
             listener.Start();
+            
+            Log.Debug("Leaving SetupCallback Method.");
+
             return listener.BeginGetContext(HttpListenerCallback, listener);
         }
 
@@ -51,6 +59,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
 
         private void KillAnyExistingListeners()
         {
+            Log.Debug("Entering KillAnyExistingListeners Method.");
+
             if (_activeListeners.Count != 0)
             {
                 var staleListener = new HttpListener();
@@ -61,10 +71,14 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
             }
 
             _activeListeners.Add(ListenerAddress);
+            
+            Log.Debug("Leaving KillAnyExistingListeners Method.");
         }
 
         private string GetNewHttpListenerAddress()
         {
+            Log.Debug("Entering GetNewHttpListenerAddress Method.");
+
             string listenerAddress;
             while (true)
             {
@@ -84,11 +98,16 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
                 }
                 break;
             }
+            
+            Log.Debug("Leaving GetNewHttpListenerAddress Method.");
+
             return listenerAddress;
         }
 
         private void HttpListenerCallback(IAsyncResult result)
         {
+            Log.Debug("Entering HttpListenerCallback Method.");
+
             var listener = (HttpListener) result.AsyncState;
 
             HttpListenerContext context = listener.EndGetContext(result);
@@ -106,6 +125,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
             listener.Close();
 
             RequestReceived(this, new HttpListenerCallbackEventArgs(queryStrings));
+            
+            Log.Debug("Leaving HttpListenerCallback Method.");
         }
     }
 }

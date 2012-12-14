@@ -4,39 +4,47 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using log4net;
 
 namespace FloydPink.Flickr.Downloadr.UI.Behaviors
 {
     // http://stackoverflow.com/a/4797565/218882
     public static class ScrollToTopBehavior
     {
+        
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ScrollToTopBehavior));
         public static readonly DependencyProperty ScrollToTopProperty =
             DependencyProperty.RegisterAttached
-            (
-                "ScrollToTop",
-                typeof(bool),
-                typeof(ScrollToTopBehavior),
-                new UIPropertyMetadata(false, OnScrollToTopPropertyChanged)
-            );
+                (
+                    "ScrollToTop",
+                    typeof (bool),
+                    typeof (ScrollToTopBehavior),
+                    new UIPropertyMetadata(false, OnScrollToTopPropertyChanged)
+                );
+
         public static bool GetScrollToTop(DependencyObject obj)
         {
-            return (bool)obj.GetValue(ScrollToTopProperty);
+            return (bool) obj.GetValue(ScrollToTopProperty);
         }
+
         public static void SetScrollToTop(DependencyObject obj, bool value)
         {
             obj.SetValue(ScrollToTopProperty, value);
         }
+
         private static void OnScrollToTopPropertyChanged(DependencyObject dpo,
                                                          DependencyPropertyChangedEventArgs e)
         {
-            ItemsControl itemsControl = dpo as ItemsControl;
+            Log.Debug("Entering OnScrollToTopPropertyChanged Method.");
+
+            var itemsControl = dpo as ItemsControl;
             if (itemsControl != null)
             {
                 DependencyPropertyDescriptor dependencyPropertyDescriptor =
-                        DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof(ItemsControl));
+                    DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof (ItemsControl));
                 if (dependencyPropertyDescriptor != null)
                 {
-                    if ((bool)e.NewValue == true)
+                    if ((bool) e.NewValue)
                     {
                         dependencyPropertyDescriptor.AddValueChanged(itemsControl, ItemsSourceChanged);
                     }
@@ -46,30 +54,39 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
                     }
                 }
             }
+            
+            Log.Debug("Leaving OnScrollToTopPropertyChanged Method.");
         }
-        static void ItemsSourceChanged(object sender, EventArgs e)
+
+        private static void ItemsSourceChanged(object sender, EventArgs e)
         {
-            ItemsControl itemsControl = sender as ItemsControl;
+            Log.Debug("Entering ItemsSourceChanged Method.");
+
+            var itemsControl = sender as ItemsControl;
             EventHandler eventHandler = null;
-            eventHandler = new EventHandler(delegate
-            {
-                if (itemsControl.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
-                {
-                    ScrollViewer scrollViewer = GetVisualChild<ScrollViewer>(itemsControl) as ScrollViewer;
-                    scrollViewer.ScrollToTop();
-                    itemsControl.ItemContainerGenerator.StatusChanged -= eventHandler;
-                }
-            });
+            eventHandler = delegate
+                               {
+                                   if (itemsControl.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
+                                   {
+                                       var scrollViewer = GetVisualChild<ScrollViewer>(itemsControl);
+                                       scrollViewer.ScrollToTop();
+                                       itemsControl.ItemContainerGenerator.StatusChanged -= eventHandler;
+                                   }
+                               };
             itemsControl.ItemContainerGenerator.StatusChanged += eventHandler;
+            
+            Log.Debug("Leaving ItemsSourceChanged Method.");
         }
 
         private static T GetVisualChild<T>(DependencyObject parent) where T : Visual
         {
+            Log.Debug("Entering GetVisualChild Method.");
+
             T child = default(T);
             int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
             for (int i = 0; i < numVisuals; i++)
             {
-                Visual v = (Visual)VisualTreeHelper.GetChild(parent, i);
+                var v = (Visual) VisualTreeHelper.GetChild(parent, i);
                 child = v as T;
                 if (child == null)
                 {
@@ -80,6 +97,9 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
                     break;
                 }
             }
+            
+            Log.Debug("Leaving GetVisualChild Method.");
+            
             return child;
         }
     }

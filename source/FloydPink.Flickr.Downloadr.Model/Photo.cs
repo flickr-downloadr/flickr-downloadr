@@ -77,20 +77,20 @@ namespace FloydPink.Flickr.Downloadr.Model
 
         public string LargeSquare150X150Url
         {
-            get { return getPhotoUrl(PhotoFormat.LargeSquare150X150); }
+            get { return GetPhotoUrl(PhotoFormat.LargeSquare150X150); }
         }
 
         public string Small320Url
         {
-            get { return getPhotoUrl(PhotoFormat.Small320); }
+            get { return GetPhotoUrl(PhotoFormat.Small320); }
         }
 
         public string OriginalUrl
         {
-            get { return getPhotoUrl(PhotoFormat.Original); }
+            get { return GetPhotoUrl(PhotoFormat.Original); }
         }
 
-        private string getPhotoUrl(string photoFormat)
+        private string GetPhotoUrl(string photoFormat)
         {
             return string.Format(AppConstants.PhotoUrlFormat, Farm.ToString(CultureInfo.InvariantCulture), Server, Id,
                                  Secret, photoFormat, "jpg");

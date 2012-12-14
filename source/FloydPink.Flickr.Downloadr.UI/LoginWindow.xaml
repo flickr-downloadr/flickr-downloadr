@@ -18,7 +18,8 @@
                         <DropShadowEffect Color="Gray" BlurRadius="15" ShadowDepth="0" />
                     </Image.Effect>
                 </Image>
-                <Label Canvas.Left="171" Canvas.Top="115" Content="" FontSize="16" Name="WelcomeUserLabel" FontWeight="Bold" FontStyle="Normal" FontFamily="Segoe UI"
+                <Label Canvas.Left="171" Canvas.Top="115" Content="" FontSize="16" Name="WelcomeUserLabel"
+                       FontWeight="Bold" FontStyle="Normal" FontFamily="Segoe UI"
                        HorizontalContentAlignment="Left" />
                 <Label Canvas.Left="101" Canvas.Top="174" Content="Click 'Continue' to browse and download photos..."
                        Name="LoggedInLabel" FontSize="13" FontStretch="Normal"
@@ -26,13 +27,15 @@
                 <Button Canvas.Left="341" Canvas.Top="239" Content="Continue" Height="38" Name="ContinueButton"
                         Width="141"
                         FontSize="16" Click="ContinueButtonClick" />
-                <Button Canvas.Left="10" Canvas.Top="248" Content="Logout" FontSize="12" Height="28" Name="logoutButton"
+                <Button Canvas.Left="10" Canvas.Top="248" Content="Logout" FontSize="12" Height="28"
+                        Name="logoutButton"
                         Width="100" Click="LogoutButtonClick" />
             </Canvas>
             <Canvas HorizontalAlignment="Left" VerticalAlignment="Top"
                     Name="LoggedOutCanvas" Visibility="Visible">
                 <Label Canvas.Left="55" Canvas.Top="111"
-                       Content="Welcome to Flickr Downloadr. Click 'Login' to continue." Name="WelcomeLabel" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                       Content="Welcome to Flickr Downloadr. Click 'Login' to continue." Name="WelcomeLabel"
+                       FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <Button Canvas.Left="176" Canvas.Top="191" Content="Login" Height="38" Name="loginButton" Width="141"
                         FontSize="16" Click="LoginButtonClick" />
             </Canvas>

@@ -9,6 +9,7 @@ using FloydPink.Flickr.Downloadr.OAuth.Listener;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Repository;
 using StructureMap;
+using log4net;
 
 namespace FloydPink.Flickr.Downloadr.Bootstrap
 {
@@ -19,6 +20,8 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
 
         private static int DefaultPerPageCount = 50;
         private static string DefaultDownloadLocation = ".";
+        
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Bootstrapper));
 
         private static readonly ServiceProviderDescription FlickrServiceDescription = new ServiceProviderDescription
                 {
@@ -34,6 +37,8 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
 
         public static void Load()
         {
+            Log.Debug("Entering Load Method.");
+
             ObjectFactory.Initialize(initializer =>
                                          {
                                              initializer.For<ILoginLogic>().Use<LoginLogic>();
@@ -57,16 +62,22 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                                              initializer.For<IRepository<Token>>().Use<TokenRepository>();
                                              initializer.For<IRepository<User>>().Use<UserRepository>();
                                          });
+            
+            Log.Debug("Leaving Load Method.");
         }
 
         public static T GetInstance<T>()
         {
+            Log.Debug("In GetInstance Method.");
+
             return ObjectFactory.GetInstance<T>();
         }
 
         public static TPresenter GetPresenter<TView, TPresenter>(TView view) where TPresenter : PresenterBase
         {
-            return ObjectFactory.With<TView>(view).GetInstance<TPresenter>();
+            Log.Debug("In GetPresenter Method.");
+
+            return ObjectFactory.With(view).GetInstance<TPresenter>();
         }
     }
 }

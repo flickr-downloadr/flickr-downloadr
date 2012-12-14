@@ -5,7 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls"
-        xmlns:behaviors="clr-namespace:FloydPink.Flickr.Downloadr.UI.Behaviors" d:DesignHeight="500" d:DesignWidth="700"
+        xmlns:behaviors="clr-namespace:FloydPink.Flickr.Downloadr.UI.Behaviors" d:DesignHeight="500"
+        d:DesignWidth="700"
         Title="Flickr Downloadr > Photo Browser" Icon="/flickr%20downloadr;component/Images/icon.png"
         SizeToContent="Width" Height="600" MinWidth="950">
 
@@ -18,15 +19,17 @@
                            HorizontalAlignment="Center">
                         <Image.ToolTip>
                             <Grid>
-                                <Image Source="{Binding Small320Url, IsAsync=True}" Stretch="Fill" HorizontalAlignment="Center">
+                                <Image Source="{Binding Small320Url, IsAsync=True}" Stretch="Fill"
+                                       HorizontalAlignment="Center">
                                 </Image>
                                 <AdornerDecorator>
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
-                                        <TextBlock Text="{Binding Title, IsAsync=True}" HorizontalAlignment="Center" 
-                                                   Margin="3" FontFamily="Consolas" FontSize="20" VerticalAlignment="Bottom" 
+                                        <TextBlock Text="{Binding Title, IsAsync=True}" HorizontalAlignment="Center"
+                                                   Margin="3" FontFamily="Consolas" FontSize="20"
+                                                   VerticalAlignment="Bottom"
                                                    Foreground="#FFFFFFFF" Background="#44000000">
                                             <TextBlock.Effect>
-                                                <DropShadowEffect/>
+                                                <DropShadowEffect />
                                             </TextBlock.Effect>
                                         </TextBlock>
                                     </StackPanel>
@@ -54,30 +57,32 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <ListBox Grid.Row="0" Grid.ColumnSpan="3" x:Name="PhotoList" ItemsSource="{Binding}"
-                     ItemTemplate="{DynamicResource PhotoListDataTemplate}" 
-                     ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}" SelectionMode="Multiple" 
+                     ItemTemplate="{DynamicResource PhotoListDataTemplate}"
+                     ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}" SelectionMode="Multiple"
                      behaviors:ScrollToTopBehavior.ScrollToTop="True">
             </ListBox>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button Content="Back" Width="60" Height="28"
                         Margin="5,0,0,0" Click="BackButtonClick" />
-                <ToggleButton Name="PublicAllToggleButton" Margin="5,0,0,0" Width="145" Height="28" Click="TogglePhotosButtonClick">
+                <ToggleButton Name="PublicAllToggleButton" Margin="5,0,0,0" Width="145" Height="28"
+                              Click="TogglePhotosButtonClick">
                     <ToggleButton.Style>
                         <Style TargetType="{x:Type ToggleButton}">
-                            <Setter Property="Content" Value="Show All Photos"/>
-                            <Setter Property="ToolTip" Value="Now showing only public photos"/>
+                            <Setter Property="Content" Value="Show All Photos" />
+                            <Setter Property="ToolTip" Value="Now showing only public photos" />
                             <Style.Triggers>
                                 <Trigger Property="IsChecked" Value="True">
-                                    <Setter Property="Content" Value="Show Only Public Photos"/>
-                                    <Setter Property="ToolTip" Value="Now showing all photos including private ones"/>
-                                    <Setter Property="Foreground" Value="Blue"/>
+                                    <Setter Property="Content" Value="Show Only Public Photos" />
+                                    <Setter Property="ToolTip" Value="Now showing all photos including private ones" />
+                                    <Setter Property="Foreground" Value="Blue" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
                     </ToggleButton.Style>
                 </ToggleButton>
             </StackPanel>
-            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center"
+                        DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                 <Button Content="l&lt;&lt;" Width="30" Height="28" Margin="5,0" Click="FirstPageButtonClick"></Button>
                 <Button Content="&lt;" Width="25" Height="28" Margin="5,0" Click="PreviousPageButtonClick"></Button>
                 <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Page}"></TextBlock>
@@ -88,7 +93,10 @@
                 <Button Content="&gt;&gt;l" Width="30" Height="28" Margin="5,0" Click="LastPageButtonClick"></Button>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0" FontSize="14" FontWeight="Bold">Download Photos in</TextBlock>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0" FontSize="14"
+                           FontWeight="Bold">
+                    Download Photos in
+                </TextBlock>
                 <Button Content="Selection" Height="28"
                         Margin="0,0,5,0" Click="DownloadSelectionButtonClick" Width="60" />
                 <Button Content="This Page" Height="28"

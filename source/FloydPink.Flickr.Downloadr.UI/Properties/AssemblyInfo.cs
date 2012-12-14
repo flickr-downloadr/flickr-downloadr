@@ -1,16 +1,14 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
+using log4net.Config;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
 [assembly: AssemblyTitle("flickrDownloadr")]
-[assembly:
-    AssemblyDescription(
-        "A desktop application for windows that would help download all (or selected) photos from the user's photostream (in one of the selected sizes) along with the tags, titles and descriptions."
-        )]
+[assembly: AssemblyDescription("A desktop application for windows that would help download all (or selected) photos from the user's photostream (in one of the selected sizes) along with the tags, titles and descriptions.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("floydpink")]
 [assembly: AssemblyProduct("flickrDownloadr")]
@@ -57,5 +55,4 @@ using System.Windows;
 
 [assembly: AssemblyVersion("0.2.0.0")]
 [assembly: AssemblyFileVersion("0.2.0.0")]
-
-[assembly: log4net.Config.XmlConfigurator(ConfigFileExtension = "log4net", Watch = true)]
+[assembly: XmlConfigurator(ConfigFileExtension = "log4net", Watch = true)]

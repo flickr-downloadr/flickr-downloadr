@@ -1,12 +1,12 @@
-﻿using FloydPink.Flickr.Downloadr.Bootstrap;
+﻿using System;
+using System.Windows;
+using System.Windows.Media.Imaging;
+using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
 using log4net;
-using System;
-using System.Windows;
-using System.Windows.Media.Imaging;
 
 namespace FloydPink.Flickr.Downloadr.UI
 {
@@ -15,10 +15,9 @@ namespace FloydPink.Flickr.Downloadr.UI
     /// </summary>
     public partial class LoginWindow : Window, ILoginView
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof (LoginWindow));
         private readonly LoginPresenter _presenter;
         private User _user;
-
-        private static readonly ILog Log = LogManager.GetLogger(typeof(LoginWindow));
 
         public LoginWindow()
             : this(new User())
@@ -61,6 +60,12 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         #endregion
 
+        public void ShowSpinner(bool show)
+        {
+            Visibility visibility = show ? Visibility.Visible : Visibility.Collapsed;
+            Spinner.Dispatch((s) => s.Visibility = visibility);
+        }
+
         private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
             _presenter.Login();
@@ -73,7 +78,8 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void SetWelcomeLabel(User user)
         {
-            WelcomeUserLabel.Dispatch((l) => l.Content = string.IsNullOrEmpty(user.UserNsId) ? string.Empty : user.WelcomeMessage);
+            WelcomeUserLabel.Dispatch(
+                (l) => l.Content = string.IsNullOrEmpty(user.UserNsId) ? string.Empty : user.WelcomeMessage);
             if (user.Info == null) return;
             var buddyIconUri = new Uri(user.Info.BuddyIconUrl, UriKind.Absolute);
             buddyIcon.Dispatch((i) => i.Source = new BitmapImage(buddyIconUri));
@@ -84,12 +90,6 @@ namespace FloydPink.Flickr.Downloadr.UI
             var browserWindow = new BrowserWindow(User);
             browserWindow.Show();
             Close();
-        }
-
-        public void ShowSpinner(bool show)
-        {
-            var visibility = show ? Visibility.Visible : Visibility.Collapsed;
-            Spinner.Dispatch((s) => s.Visibility = visibility);
         }
     }
 }
