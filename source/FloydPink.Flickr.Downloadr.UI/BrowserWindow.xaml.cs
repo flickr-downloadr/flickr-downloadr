@@ -177,7 +177,7 @@ namespace FloydPink.Flickr.Downloadr.UI
             await _presenter.DownloadThisPage();
         }
 
-        private async void DownloadAllPagesButtonClick(object sender, RoutedEventArgs e)
+        private void DownloadAllPagesButtonClick(object sender, RoutedEventArgs e)
         {
             LoseFocus((UIElement)sender);
             MessageBox.Show("Not implemented!");
@@ -186,6 +186,7 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void LoseFocus(UIElement element)
         {
+            // http://stackoverflow.com/a/6031393/218882
             var scope = FocusManager.GetFocusScope(element);
             FocusManager.SetFocusedElement(scope, null);
             Keyboard.ClearFocus();
