@@ -48,6 +48,7 @@
     <Compile Include="Constants\Methods.cs" />
     <Compile Include="Constants\ParameterNames.cs" />
     <Compile Include="Enums\PhotoFormat.cs" />
+    <Compile Include="Enums\PhotoPage.cs" />
     <Compile Include="Enums\SafeSearch.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Photo.cs" />

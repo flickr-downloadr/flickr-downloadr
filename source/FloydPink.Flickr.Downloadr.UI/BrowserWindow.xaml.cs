@@ -1,17 +1,18 @@
-﻿using System.ComponentModel;
-using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Input;
-using FloydPink.Flickr.Downloadr.Bootstrap;
+﻿using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Model.Enums;
 using FloydPink.Flickr.Downloadr.Model.Extensions;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
+using log4net;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
-using System.Windows.Controls.Primitives;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace FloydPink.Flickr.Downloadr.UI
 {
@@ -26,6 +27,8 @@ namespace FloydPink.Flickr.Downloadr.UI
         private string _pages;
         private string _perPage;
         private string _total;
+
+        private static readonly ILog Log = LogManager.GetLogger(typeof(BrowserWindow));
 
         public BrowserWindow(User user)
         {
@@ -144,25 +147,25 @@ namespace FloydPink.Flickr.Downloadr.UI
         private async void FirstPageButtonClick(object sender, RoutedEventArgs e)
         {
             LoseFocus((UIElement)sender);
-            await _presenter.GetFirstPagePhotos();
+            await _presenter.NavigateTo(PhotoPage.First);
         }
 
         private async void PreviousPageButtonClick(object sender, RoutedEventArgs e)
         {
             LoseFocus((UIElement)sender);
-            await _presenter.GetPreviousPagePhotos();
+            await _presenter.NavigateTo(PhotoPage.Previous);
         }
 
         private async void NextPageButtonClick(object sender, RoutedEventArgs e)
         {
             LoseFocus((UIElement)sender);
-            await _presenter.GetNextPagePhotos();
+            await _presenter.NavigateTo(PhotoPage.Next);
         }
 
         private async void LastPageButtonClick(object sender, RoutedEventArgs e)
         {
             LoseFocus((UIElement)sender);
-            await _presenter.GetLastPagePhotos();
+            await _presenter.NavigateTo(PhotoPage.Last);
         }
 
         private async void DownloadSelectionButtonClick(object sender, RoutedEventArgs e)

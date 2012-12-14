@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Model.Enums;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 using System.Collections.ObjectModel;
 
@@ -25,6 +26,29 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             await GetAndSetPhotos(1);
         }
 
+        public async Task NavigateTo(PhotoPage page)
+        {
+            var targetPage = 0;
+            var currentPage = Convert.ToInt32(_view.Page);
+            var totalPages = Convert.ToInt32(_view.Pages);
+            switch (page)
+            {
+                case PhotoPage.First:
+                    if (currentPage != 1) targetPage = 1;
+                    break;
+                case PhotoPage.Previous:
+                    if (currentPage != 1) targetPage = currentPage - 1;
+                    break;
+                case PhotoPage.Next:
+                    if (currentPage != totalPages) targetPage = currentPage + 1;
+                    break;
+                case PhotoPage.Last:
+                    if (currentPage != totalPages) targetPage = totalPages;
+                    break;
+            }
+            await GetAndSetPhotos(targetPage);
+        }
+
         public async Task DownloadSelection()
         {
             _view.ShowSpinner(true);
@@ -45,44 +69,6 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             //TODO: Implement this!
             await _logic.Download(_view.Photos);
             _view.ShowSpinner(false);
-        }
-
-        public async Task GetFirstPagePhotos()
-        {
-            var page = Convert.ToInt32(_view.Page);
-            if (page != 1)
-            {
-                await GetAndSetPhotos(1);
-            }
-        }
-
-        public async Task GetPreviousPagePhotos()
-        {
-            var page = Convert.ToInt32(_view.Page);
-            if (page != 1)
-            {
-                await GetAndSetPhotos(page - 1);
-            }
-        }
-
-        public async Task GetNextPagePhotos()
-        {
-            var page = Convert.ToInt32(_view.Page);
-            var pages = Convert.ToInt32(_view.Pages);
-            if (page != pages)
-            {
-                await GetAndSetPhotos(page + 1);
-            }
-        }
-
-        public async Task GetLastPagePhotos()
-        {
-            var page = Convert.ToInt32(_view.Page);
-            var pages = Convert.ToInt32(_view.Pages);
-            if (page != pages)
-            {
-                await GetAndSetPhotos(pages);
-            }
         }
 
         private async Task GetAndSetPhotos(int page)
