@@ -9,23 +9,19 @@ namespace FloydPink.Flickr.Downloadr.Logic.Extensions
 {
     public static class DictionaryExtensions
     {
-        
+
         private static readonly ILog Log = LogManager.GetLogger(typeof(DictionaryExtensions));
 
         public static object GetValueFromDictionary(this Dictionary<string, object> dictionary, string key,
                                                     string subKey = AppConstants.FlickrDictionaryContentKey)
         {
-            Log.Debug("Entering GetValueFromDictionary Method.");
-
             if (dictionary.ContainsKey(key))
             {
-                var subDictionary = (Dictionary<string, object>) dictionary[key];
-                
+                var subDictionary = (Dictionary<string, object>)dictionary[key];
+
                 Log.Debug("Leaving GetValueFromDictionary Method.");
                 return subDictionary.ContainsKey(subKey) ? subDictionary[subKey] : null;
             }
-            
-            Log.Debug("Leaving GetValueFromDictionary Method.");
             return null;
         }
 
@@ -35,8 +31,10 @@ namespace FloydPink.Flickr.Downloadr.Logic.Extensions
 
             var photos = new List<Photo>();
             IEnumerable<Dictionary<string, object>> photoDictionary =
-                ((IEnumerable<object>) dictionary.GetValueFromDictionary("photos", "photo")).
+                ((IEnumerable<object>)dictionary.GetValueFromDictionary("photos", "photo")).
                     Cast<Dictionary<string, object>>();
+
+            Log.Debug("About to call BuildPhoto method with " + photos.Count + " photos.");
             photos.AddRange(photoDictionary.Select(BuildPhoto));
 
             Log.Debug("Leaving GetPhotosResponseFromDictionary Method.");
