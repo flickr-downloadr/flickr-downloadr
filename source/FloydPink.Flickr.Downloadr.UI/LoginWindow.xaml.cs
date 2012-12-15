@@ -6,7 +6,7 @@ using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
-using log4net;
+
 
 namespace FloydPink.Flickr.Downloadr.UI
 {
@@ -15,7 +15,6 @@ namespace FloydPink.Flickr.Downloadr.UI
     /// </summary>
     public partial class LoginWindow : Window, ILoginView
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (LoginWindow));
         private readonly LoginPresenter _presenter;
         private User _user;
 

@@ -12,7 +12,7 @@ using FloydPink.Flickr.Downloadr.Model.Extensions;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
-using log4net;
+
 
 namespace FloydPink.Flickr.Downloadr.UI
 {
@@ -21,7 +21,6 @@ namespace FloydPink.Flickr.Downloadr.UI
     /// </summary>
     public partial class BrowserWindow : Window, IBrowserView, INotifyPropertyChanged
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (BrowserWindow));
         private readonly BrowserPresenter _presenter;
         private string _page;
         private string _pages;

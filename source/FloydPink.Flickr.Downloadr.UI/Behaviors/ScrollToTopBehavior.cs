@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using log4net;
+
 
 namespace FloydPink.Flickr.Downloadr.UI.Behaviors
 {
@@ -12,7 +12,6 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
     public static class ScrollToTopBehavior
     {
         
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ScrollToTopBehavior));
         public static readonly DependencyProperty ScrollToTopProperty =
             DependencyProperty.RegisterAttached
                 (
@@ -35,8 +34,6 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         private static void OnScrollToTopPropertyChanged(DependencyObject dpo,
                                                          DependencyPropertyChangedEventArgs e)
         {
-            Log.Debug("Entering OnScrollToTopPropertyChanged Method.");
-
             var itemsControl = dpo as ItemsControl;
             if (itemsControl != null)
             {
@@ -54,14 +51,10 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
                     }
                 }
             }
-            
-            Log.Debug("Leaving OnScrollToTopPropertyChanged Method.");
         }
 
         private static void ItemsSourceChanged(object sender, EventArgs e)
         {
-            Log.Debug("Entering ItemsSourceChanged Method.");
-
             var itemsControl = sender as ItemsControl;
             EventHandler eventHandler = null;
             eventHandler = delegate
@@ -74,14 +67,10 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
                                    }
                                };
             itemsControl.ItemContainerGenerator.StatusChanged += eventHandler;
-            
-            Log.Debug("Leaving ItemsSourceChanged Method.");
         }
 
         private static T GetVisualChild<T>(DependencyObject parent) where T : Visual
         {
-            Log.Debug("Entering GetVisualChild Method.");
-
             T child = default(T);
             int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
             for (int i = 0; i < numVisuals; i++)
@@ -97,8 +86,6 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
                     break;
                 }
             }
-            
-            Log.Debug("Leaving GetVisualChild Method.");
             
             return child;
         }

@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using log4net;
+
 
 namespace FloydPink.Flickr.Downloadr.Repository.Helpers
 {
@@ -10,7 +10,6 @@ namespace FloydPink.Flickr.Downloadr.Repository.Helpers
     public class Crypt
     {
         
-        private static readonly ILog Log = LogManager.GetLogger(typeof(Crypt));
         private static readonly byte[] Salt = Encoding.ASCII.GetBytes("o6806642kbM7c5");
 
         /// <summary>
@@ -21,8 +20,6 @@ namespace FloydPink.Flickr.Downloadr.Repository.Helpers
         /// <param name="sharedSecret">A password used to generate a key for encryption.</param>
         public static string Encrypt(string plainText, string sharedSecret)
         {
-            Log.Debug("Entering Encrypt Method.");
-
             if (string.IsNullOrEmpty(plainText))
                 throw new ArgumentNullException("plainText");
             if (string.IsNullOrEmpty(sharedSecret))
@@ -67,9 +64,6 @@ namespace FloydPink.Flickr.Downloadr.Repository.Helpers
                     aesAlg.Clear();
             }
 
-            
-            Log.Debug("Leaving Encrypt Method.");
-
             // Return the encrypted bytes from the memory stream.
             return outStr;
         }
@@ -82,8 +76,6 @@ namespace FloydPink.Flickr.Downloadr.Repository.Helpers
         /// <param name="sharedSecret">A password used to generate a key for decryption.</param>
         public static string Decrypt(string cipherText, string sharedSecret)
         {
-            Log.Debug("Entering Decrypt Method.");
-
             if (string.IsNullOrEmpty(cipherText))
                 throw new ArgumentNullException("cipherText");
             if (string.IsNullOrEmpty(sharedSecret))
@@ -130,15 +122,11 @@ namespace FloydPink.Flickr.Downloadr.Repository.Helpers
                 if (aesAlg != null)
                     aesAlg.Clear();
             }
-            
-            Log.Debug("Leaving Decrypt Method.");
             return plaintext;
         }
 
         private static byte[] ReadByteArray(Stream s)
         {
-            Log.Debug("Entering ReadByteArray Method.");
-
             var rawLength = new byte[sizeof (int)];
             if (s.Read(rawLength, 0, rawLength.Length) != rawLength.Length)
             {
@@ -150,8 +138,6 @@ namespace FloydPink.Flickr.Downloadr.Repository.Helpers
             {
                 throw new SystemException("Did not read byte array properly");
             }
-            
-            Log.Debug("Leaving ReadByteArray Method.");
             return buffer;
         }
     }
