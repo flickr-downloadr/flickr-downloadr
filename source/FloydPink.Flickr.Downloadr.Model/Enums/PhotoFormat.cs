@@ -12,7 +12,6 @@
             z	medium 640, 640 on longest side
             c	medium 800, 800 on longest side†
             b	large, 1024 on longest side*
-            o	original image, either a jpg, gif or png, depending on source format
          */
 
         public static readonly string SmallSquare75X75 = "s";
@@ -24,6 +23,5 @@
         public static readonly string Medium640 = "z";
         public static readonly string Medium800 = "c";
         public static readonly string Large1024 = "b";
-        public static readonly string Original = "o";
     }
 }

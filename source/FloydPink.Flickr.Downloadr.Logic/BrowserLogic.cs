@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using FloydPink.Flickr.Downloadr.Logic.Extensions;
 using FloydPink.Flickr.Downloadr.Logic.Interfaces;
@@ -36,9 +38,9 @@ namespace FloydPink.Flickr.Downloadr.Logic
             return await GetPhotosAsync(user, page, Methods.PeopleGetPublicPhotos);
         }
 
-        public async Task Download(IEnumerable<Photo> photos)
+        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<int> progress)
         {
-            await _downloadLogic.Download(photos);
+            await _downloadLogic.Download(photos, cancellationToken, progress);
         }
 
         private async Task<PhotosResponse> GetPhotosAsync(User user, int page, string methodName)

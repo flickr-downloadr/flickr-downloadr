@@ -12,5 +12,6 @@ namespace FloydPink.Flickr.Downloadr.Model.Constants
         public const string DefaultBuddyIconUrl = "http://www.flickr.com/images/buddyicon.gif";
 
         public const string PhotoUrlFormat = "http://farm{0}.staticflickr.com/{1}/{2}_{3}_{4}.{5}";
+        public const string OriginalPhotoUrlFormat = "http://farm{0}.staticflickr.com/{1}/{2}_{3}_o.{4}";
     }
 }

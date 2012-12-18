@@ -13,10 +13,9 @@ namespace FloydPink.Flickr.Downloadr.UI.Controls
             DependencyProperty.Register("CancelButton", typeof (bool), typeof (Spinner),
                                         new PropertyMetadata(CancelButtonCallback));
 
-        public Spinner()
-        {
-            InitializeComponent();
-        }
+        public static readonly DependencyProperty ProgressPercentProperty =
+            DependencyProperty.Register("ProgressPercent", typeof (string), typeof (Spinner), 
+                                        new PropertyMetadata(ProgressPercentCallback));
 
         public bool CancelButton
         {
@@ -24,10 +23,27 @@ namespace FloydPink.Flickr.Downloadr.UI.Controls
             set { SetValue(CancelButtonProperty, value); }
         }
 
+        public string ProgressPercent
+        {
+            get { return (string) GetValue(ProgressPercentProperty); }
+            set { SetValue(ProgressPercentProperty, value); }
+        }
+
+        public Spinner()
+        {
+            InitializeComponent();
+        }
+
         private static void CancelButtonCallback(DependencyObject instance, DependencyPropertyChangedEventArgs e)
         {
             var spinner = (Spinner) instance;
             spinner.CancelButtonInternal.Visibility = (bool) e.NewValue ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private static void ProgressPercentCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var spinner = (Spinner) d;
+            spinner.Progress.Text = e.NewValue.ToString();
         }
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)

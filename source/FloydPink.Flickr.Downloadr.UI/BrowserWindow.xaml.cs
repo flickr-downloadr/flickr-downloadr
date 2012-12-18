@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -113,6 +114,11 @@ namespace FloydPink.Flickr.Downloadr.UI
         {
             Visibility visibility = show ? Visibility.Visible : Visibility.Collapsed;
             Spinner.Dispatch((s) => s.Visibility = visibility);
+        }
+
+        public void UpdateProgress(int progressPercent)
+        {
+            SpinnerInner.Dispatch(sc => sc.ProgressPercent = progressPercent.ToString(CultureInfo.InvariantCulture));
         }
 
         #region INotifyPropertyChanged Members

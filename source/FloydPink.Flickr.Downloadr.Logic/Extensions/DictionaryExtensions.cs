@@ -48,7 +48,11 @@ namespace FloydPink.Flickr.Downloadr.Logic.Extensions
                              dictionary["title"].ToString(),
                              Convert.ToBoolean(dictionary["ispublic"]),
                              Convert.ToBoolean(dictionary["isfriend"]),
-                             Convert.ToBoolean(dictionary["isfamily"]));
+                             Convert.ToBoolean(dictionary["isfamily"]),
+                             dictionary["description"].ToString(),
+                             dictionary["tags"].ToString(),
+                             dictionary["originalsecret"].ToString(),
+                             dictionary["originalformat"].ToString());
         }
     }
 }

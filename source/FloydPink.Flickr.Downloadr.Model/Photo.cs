@@ -15,9 +15,13 @@ namespace FloydPink.Flickr.Downloadr.Model
         private readonly string _secret;
         private readonly string _server;
         private readonly string _title;
+        private readonly string _description;
+        private readonly string _tags;
+        private readonly string _originalSecret;
+        private readonly string _originalFormat;
 
         public Photo(string id, string owner, string secret, string server, int farm, string title, bool isPublic,
-                     bool isFamily, bool isFriend)
+                     bool isFamily, bool isFriend, string description, string tags, string originalSecret, string originalFormat)
         {
             _id = id;
             _owner = owner;
@@ -28,6 +32,10 @@ namespace FloydPink.Flickr.Downloadr.Model
             _isPublic = isPublic;
             _isFamily = isFamily;
             _isFriend = isFriend;
+            _description = description;
+            _tags = tags;
+            _originalSecret = originalSecret;
+            _originalFormat = originalFormat;
         }
 
         public string Id
@@ -75,6 +83,26 @@ namespace FloydPink.Flickr.Downloadr.Model
             get { return _isFriend; }
         }
 
+        public string Description
+        {
+            get { return _description; }
+        }
+
+        public string Tags
+        {
+            get { return _tags; }
+        }
+
+        public string OriginalSecret
+        {
+            get { return _originalSecret; }
+        }
+
+        public string OriginalFormat
+        {
+            get { return _originalFormat; }
+        }
+
         public string LargeSquare150X150Url
         {
             get { return GetPhotoUrl(PhotoFormat.LargeSquare150X150); }
@@ -87,7 +115,11 @@ namespace FloydPink.Flickr.Downloadr.Model
 
         public string OriginalUrl
         {
-            get { return GetPhotoUrl(PhotoFormat.Original); }
+            get
+            {
+                return string.Format(AppConstants.OriginalPhotoUrlFormat, Farm.ToString(CultureInfo.InvariantCulture),
+                    Server, Id, OriginalSecret, OriginalFormat);
+            }
         }
 
         private string GetPhotoUrl(string photoFormat)

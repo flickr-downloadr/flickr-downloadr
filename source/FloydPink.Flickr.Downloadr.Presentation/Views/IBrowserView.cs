@@ -15,5 +15,6 @@ namespace FloydPink.Flickr.Downloadr.Presentation.Views
         string Pages { get; set; }
         string PerPage { get; set; }
         string Total { get; set; }
+        void UpdateProgress (int progressPercent);
     }
 }

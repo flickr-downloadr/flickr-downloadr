@@ -22,7 +22,8 @@ namespace FloydPink.Flickr.Downloadr.OAuth
         private readonly Dictionary<string, string> _defaultParameters = new Dictionary<string, string>
                                                                              {
                                                                                  {ParameterNames.NoJsonCallback, "1"},
-                                                                                 {ParameterNames.Format, "json"}
+                                                                                 {ParameterNames.Format, "json"},
+                                                                                 {ParameterNames.Extras, "original_format,description,geo,tags,machine_tags"}
                                                                              };
 
         private readonly IHttpListenerManager _listenerManager;

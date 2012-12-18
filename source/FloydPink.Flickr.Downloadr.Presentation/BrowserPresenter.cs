@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
@@ -14,11 +15,18 @@ namespace FloydPink.Flickr.Downloadr.Presentation
     {
         private readonly IBrowserLogic _logic;
         private readonly IBrowserView _view;
+        private Progress<int> _progress = new Progress<int>();
 
         public BrowserPresenter(IBrowserLogic logic, IBrowserView view)
         {
             _logic = logic;
             _view = view;
+            _progress.ProgressChanged += Progress_ProgressChanged;
+        }
+
+        void Progress_ProgressChanged(object sender, int e)
+        {
+            _view.UpdateProgress(e);
         }
 
         public async Task InitializePhotoset()
@@ -53,14 +61,14 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         public async Task DownloadSelection()
         {
             _view.ShowSpinner(true);
-            await _logic.Download(_view.SelectedPhotos.Values);
+            await _logic.Download(_view.SelectedPhotos.Values, CancellationToken.None, _progress);
             _view.ShowSpinner(false);
         }
 
         public async Task DownloadThisPage()
         {
             _view.ShowSpinner(true);
-            await _logic.Download(_view.Photos);
+            await _logic.Download(_view.Photos, CancellationToken.None, _progress);
             _view.ShowSpinner(false);
         }
 
@@ -68,7 +76,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         {
             _view.ShowSpinner(true);
             //TODO: Implement this!
-            await _logic.Download(_view.Photos);
+            await _logic.Download(_view.Photos, CancellationToken.None, _progress);
             _view.ShowSpinner(false);
         }
 
