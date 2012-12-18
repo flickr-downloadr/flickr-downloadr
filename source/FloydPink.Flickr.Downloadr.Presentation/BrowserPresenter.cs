@@ -16,6 +16,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         private readonly IBrowserLogic _logic;
         private readonly IBrowserView _view;
         private readonly Progress<int> _progress = new Progress<int>();
+        private CancellationTokenSource _cancellationTokenSource;
 
         public BrowserPresenter(IBrowserLogic logic, IBrowserView view)
         {
@@ -57,14 +58,16 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         public async Task DownloadSelection()
         {
             _view.ShowSpinner(true);
-            await _logic.Download(_view.SelectedPhotos.Values, CancellationToken.None, _progress);
+            _cancellationTokenSource = new CancellationTokenSource();
+            await _logic.Download(_view.SelectedPhotos.Values, _cancellationTokenSource.Token, _progress);
             _view.ShowSpinner(false);
         }
 
         public async Task DownloadThisPage()
         {
             _view.ShowSpinner(true);
-            await _logic.Download(_view.Photos, CancellationToken.None, _progress);
+            _cancellationTokenSource = new CancellationTokenSource();
+            await _logic.Download(_view.Photos, _cancellationTokenSource.Token, _progress);
             _view.ShowSpinner(false);
         }
 
@@ -72,7 +75,8 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         {
             _view.ShowSpinner(true);
             //TODO: Implement this!
-            await _logic.Download(_view.Photos, CancellationToken.None, _progress);
+            _cancellationTokenSource = new CancellationTokenSource();
+            await _logic.Download(_view.Photos, _cancellationTokenSource.Token, _progress);
             _view.ShowSpinner(false);
         }
 
@@ -94,6 +98,12 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             _view.Pages = photosResponse.Pages.ToString(CultureInfo.InvariantCulture);
             _view.PerPage = photosResponse.PerPage.ToString(CultureInfo.InvariantCulture);
             _view.Total = photosResponse.Total.ToString(CultureInfo.InvariantCulture);
+        }
+
+        public void CancelDownload()
+        {
+            if (!_cancellationTokenSource.IsCancellationRequested)
+                _cancellationTokenSource.Cancel();
         }
     }
 }

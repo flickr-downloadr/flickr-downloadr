@@ -105,7 +105,7 @@
             </StackPanel>
         </Grid>
         <AdornerDecorator Name="Spinner" Visibility="Collapsed">
-            <controls:Spinner x:Name="SpinnerInner"></controls:Spinner>
+            <controls:Spinner x:Name="SpinnerInner" CancelButton="True"></controls:Spinner>
         </AdornerDecorator>
     </Grid>
 </Window>

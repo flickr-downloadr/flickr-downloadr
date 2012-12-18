@@ -26,47 +26,52 @@ namespace FloydPink.Flickr.Downloadr.Logic
         public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken,
                                    IProgress<int> progress)
         {
-            //TODO: refactor this method !
-            progress.Report(0);
-
-            int doneCount = 0;
-            IList<Photo> photosList = photos as IList<Photo> ?? photos.ToList();
-            int totalCount = photosList.Count();
-
-            _currentTimestampFolder = GetSafeFilename(DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
-            DirectoryInfo imageDirectory =
-                Directory.CreateDirectory(Path.Combine(_downloadLocation, _currentTimestampFolder));
-
-            foreach (Photo photo in photosList)
+            try
             {
-                string targetFileName = Path.Combine(imageDirectory.FullName, string.Format("{0}.{1}",
-                                                                                            GetSafeFilename(photo.Title),
-                                                                                            photo.OriginalFormat));
-                var metadata = new { Title = photo.Title, Description = photo.Description, Tags = photo.Tags };
-                File.WriteAllText(string.Format("{0}.json", targetFileName), metadata.ToJson(), Encoding.Unicode);
+                //TODO: refactor this method !
+                progress.Report(0);
 
-                WebRequest request = WebRequest.Create(photo.OriginalUrl);
+                int doneCount = 0;
+                IList<Photo> photosList = photos as IList<Photo> ?? photos.ToList();
+                int totalCount = photosList.Count();
 
-                var buffer = new byte[4096];
+                _currentTimestampFolder = GetSafeFilename(DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+                DirectoryInfo imageDirectory =
+                    Directory.CreateDirectory(Path.Combine(_downloadLocation, _currentTimestampFolder));
 
-                using (var target = new FileStream(targetFileName, FileMode.Create, FileAccess.Write))
+                foreach (Photo photo in photosList)
                 {
-                    using (WebResponse response = await request.GetResponseAsync())
+                    string targetFileName = Path.Combine(imageDirectory.FullName, string.Format("{0}.{1}",
+                                                                                                GetSafeFilename(photo.Title),
+                                                                                                photo.OriginalFormat));
+                    var metadata = new { Title = photo.Title, Description = photo.Description, Tags = photo.Tags };
+                    File.WriteAllText(string.Format("{0}.json", targetFileName), metadata.ToJson(), Encoding.Unicode);
+
+                    WebRequest request = WebRequest.Create(photo.OriginalUrl);
+
+                    var buffer = new byte[4096];
+
+                    using (var target = new FileStream(targetFileName, FileMode.Create, FileAccess.Write))
                     {
-                        using (Stream stream = response.GetResponseStream())
+                        using (WebResponse response = await request.GetResponseAsync())
                         {
-                            int read;
-                            while ((read = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                            using (Stream stream = response.GetResponseStream())
                             {
-                                await target.WriteAsync(buffer, 0, read);
+                                int read;
+                                while ((read = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                                {
+                                    await target.WriteAsync(buffer, 0, read);
+                                }
                             }
                         }
                     }
-                }
 
-                doneCount++;
-                progress.Report(doneCount * 100 / totalCount);
+                    doneCount++;
+                    progress.Report(doneCount * 100 / totalCount);
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
             }
+            catch (OperationCanceledException e) { }
         }
 
         private string RandomString(int size)

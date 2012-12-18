@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +12,6 @@ using FloydPink.Flickr.Downloadr.Model.Extensions;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
-
 
 namespace FloydPink.Flickr.Downloadr.UI
 {
@@ -46,6 +44,8 @@ namespace FloydPink.Flickr.Downloadr.UI
                                                   }
                                               };
 
+            SpinnerInner.SpinnerCanceled += (sender, args) => _presenter.CancelDownload();
+
             _presenter = Bootstrapper.GetPresenter<IBrowserView, BrowserPresenter>(this);
             _presenter.InitializePhotoset();
         }
@@ -67,7 +67,7 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         public bool ShowAllPhotos
         {
-            get { return PublicAllToggleButton.IsChecked != null && (bool) PublicAllToggleButton.IsChecked; }
+            get { return PublicAllToggleButton.IsChecked != null && (bool)PublicAllToggleButton.IsChecked; }
         }
 
         public string Page
@@ -132,62 +132,62 @@ namespace FloydPink.Flickr.Downloadr.UI
             if (SelectedPhotos.Count <= 0) return;
             foreach (Photo photo in Photos.Where(photo => SelectedPhotos.ContainsKey(photo.Id)))
             {
-                ((ListBoxItem) PhotoList.ItemContainerGenerator.ContainerFromItem(photo)).IsSelected = true;
+                ((ListBoxItem)PhotoList.ItemContainerGenerator.ContainerFromItem(photo)).IsSelected = true;
             }
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            var loginWindow = new LoginWindow {User = User};
+            var loginWindow = new LoginWindow { User = User };
             loginWindow.Show();
             Close();
         }
 
         private async void TogglePhotosButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement) sender);
+            LoseFocus((UIElement)sender);
             await _presenter.InitializePhotoset();
         }
 
         private async void FirstPageButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement) sender);
+            LoseFocus((UIElement)sender);
             await _presenter.NavigateTo(PhotoPage.First);
         }
 
         private async void PreviousPageButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement) sender);
+            LoseFocus((UIElement)sender);
             await _presenter.NavigateTo(PhotoPage.Previous);
         }
 
         private async void NextPageButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement) sender);
+            LoseFocus((UIElement)sender);
             await _presenter.NavigateTo(PhotoPage.Next);
         }
 
         private async void LastPageButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement) sender);
+            LoseFocus((UIElement)sender);
             await _presenter.NavigateTo(PhotoPage.Last);
         }
 
         private async void DownloadSelectionButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement) sender);
+            LoseFocus((UIElement)sender);
             await _presenter.DownloadSelection();
         }
 
         private async void DownloadThisPageButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement) sender);
+            LoseFocus((UIElement)sender);
             await _presenter.DownloadThisPage();
         }
 
         private void DownloadAllPagesButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement) sender);
+            LoseFocus((UIElement)sender);
             MessageBox.Show("Not implemented!");
             //await _presenter.DownloadAllPages();
         }
