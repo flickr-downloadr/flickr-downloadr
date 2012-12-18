@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Model.Constants;
 using FloydPink.Flickr.Downloadr.Model.Enums;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 
@@ -14,7 +15,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
     public class BrowserPresenter : PresenterBase
     {
         private readonly IBrowserLogic _logic;
-        private readonly Progress<int> _progress = new Progress<int>();
+        private readonly Progress<ProgressUpdate> _progress = new Progress<ProgressUpdate>();
         private readonly IBrowserView _view;
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -23,9 +24,11 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             _logic = logic;
             _view = view;
             _progress.ProgressChanged += (sender, progress) =>
-                                         _view.UpdateProgress(string.Format("{0}%",
-                                                                            progress.ToString(
-                                                                                CultureInfo.InvariantCulture)));
+                                         _view.UpdateProgress(
+                                             progress.ShowPercent
+                                                 ? string.Format("{0}%", progress.PercentDone.ToString(CultureInfo.InvariantCulture))
+                                                 : string.Empty,
+                                             progress.OperationText, progress.Cancellable);
         }
 
         public async Task InitializePhotoset()
@@ -108,15 +111,16 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         private async Task GetAndSetPhotos(int page)
         {
             _view.ShowSpinner(true);
+
             SetPhotoResponse(await GetPhotosResponse(page));
+
             _view.ShowSpinner(false);
         }
 
         private async Task<PhotosResponse> GetPhotosResponse(int page)
         {
-            return await (_view.ShowAllPhotos
-                              ? _logic.GetAllPhotosAsync(_view.User, page)
-                              : _logic.GetPublicPhotosAsync(_view.User, page));
+            string methodName = _view.ShowAllPhotos ? Methods.PeopleGetPhotos : Methods.PeopleGetPublicPhotos;
+            return await _logic.GetPhotosAsync(methodName, _view.User, page, _progress);
         }
 
         private void SetPhotoResponse(PhotosResponse photosResponse)

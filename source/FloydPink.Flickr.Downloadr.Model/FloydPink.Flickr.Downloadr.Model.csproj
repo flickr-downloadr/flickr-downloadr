@@ -49,6 +49,7 @@
     <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Photo.cs" />
     <Compile Include="PhotosResponse.cs" />
+    <Compile Include="ProgressUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="User.cs" />

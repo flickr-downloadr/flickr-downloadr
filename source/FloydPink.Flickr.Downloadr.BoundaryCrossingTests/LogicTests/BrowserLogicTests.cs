@@ -2,6 +2,7 @@ using System.Threading;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Model.Constants;
 using NUnit.Framework;
 
 namespace FloydPink.Flickr.Downloadr.BoundaryCrossingTests.LogicTests
@@ -50,7 +51,7 @@ namespace FloydPink.Flickr.Downloadr.BoundaryCrossingTests.LogicTests
         public async void GetPublicPhotos_WillGetPublicPhotos()
         {
             WaitTillLoggedIn();
-            PhotosResponse photosResponse = await _logic.GetPublicPhotosAsync(_user);
+            PhotosResponse photosResponse = await _logic.GetPhotosAsync(Methods.PeopleGetPublicPhotos, _user, 1, null);
             Assert.IsNotNull(photosResponse.Photos);
         }
 

@@ -28,23 +28,15 @@ namespace FloydPink.Flickr.Downloadr.Logic
 
         #region IBrowserLogic Members
 
-        public async Task<PhotosResponse> GetAllPhotosAsync(User user, int page = 1)
+        public async Task<PhotosResponse> GetPhotosAsync(string methodName, User user, int page, IProgress<ProgressUpdate> progress)
         {
-            return await GetPhotosAsync(user, page, Methods.PeopleGetPhotos);
-        }
+            var progressUpdate = new ProgressUpdate
+                                     {
+                                         OperationText = "Getting list of photos...",
+                                         ShowPercent = false
+                                     };
+            progress.Report(progressUpdate);
 
-        public async Task<PhotosResponse> GetPublicPhotosAsync(User user, int page = 1)
-        {
-            return await GetPhotosAsync(user, page, Methods.PeopleGetPublicPhotos);
-        }
-
-        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<int> progress)
-        {
-            await _downloadLogic.Download(photos, cancellationToken, progress);
-        }
-
-        private async Task<PhotosResponse> GetPhotosAsync(User user, int page, string methodName)
-        {
             var extraParams = new Dictionary<string, string>
                                   {
                                       {ParameterNames.UserId, user.UserNsId},
@@ -60,6 +52,11 @@ namespace FloydPink.Flickr.Downloadr.Logic
                                  await _oAuthManager.MakeAuthenticatedRequestAsync(methodName, extraParams);
 
             return photosResponse.GetPhotosResponseFromDictionary();
+        }
+
+        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress)
+        {
+            await _downloadLogic.Download(photos, cancellationToken, progress);
         }
 
         #endregion

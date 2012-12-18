@@ -9,17 +9,44 @@ namespace FloydPink.Flickr.Downloadr.UI.Controls
     /// </summary>
     public partial class Spinner : UserControl
     {
-        public static readonly DependencyProperty CancelButtonProperty =
-            DependencyProperty.Register("CancelButton", typeof(bool), typeof(Spinner),
-                                        new PropertyMetadata(CancelButtonCallback));
+        public static readonly DependencyProperty CancellableProperty =
+            DependencyProperty.Register("Cancellable", typeof (bool), typeof (Spinner),
+                                        new PropertyMetadata(CancellableChanged));
 
-        public static readonly DependencyProperty ProgressPercentProperty =
-            DependencyProperty.Register("ProgressPercent", typeof(string), typeof(Spinner),
-                                        new PropertyMetadata(ProgressPercentCallback));
+        public static readonly DependencyProperty PercentDoneProperty =
+            DependencyProperty.Register("PercentDone", typeof (string), typeof (Spinner),
+                                        new PropertyMetadata(PercentDoneChanged));
+
+        public static readonly DependencyProperty OperationTextProperty =
+            DependencyProperty.Register("OperationText", typeof (string), typeof (Spinner),
+                                        new PropertyMetadata(OperationTextChanged));
 
         public static readonly RoutedEvent SpinnerCanceledEvent =
             EventManager.RegisterRoutedEvent("SpinnerCanceled", RoutingStrategy.Bubble,
-                                             typeof(RoutedEventHandler), typeof(Spinner));
+                                             typeof (RoutedEventHandler), typeof (Spinner));
+
+        public Spinner()
+        {
+            InitializeComponent();
+        }
+
+        public bool Cancellable
+        {
+            get { return (bool) GetValue(CancellableProperty); }
+            set { SetValue(CancellableProperty, value); }
+        }
+
+        public string PercentDone
+        {
+            get { return (string) GetValue(PercentDoneProperty); }
+            set { SetValue(PercentDoneProperty, value); }
+        }
+
+        public string OperationText
+        {
+            get { return (string) GetValue(OperationTextProperty); }
+            set { SetValue(OperationTextProperty, value); }
+        }
 
         public event RoutedEventHandler SpinnerCanceled
         {
@@ -27,40 +54,32 @@ namespace FloydPink.Flickr.Downloadr.UI.Controls
             remove { RemoveHandler(SpinnerCanceledEvent, value); }
         }
 
-        public bool CancelButton
+        private static void CancellableChanged(DependencyObject instance, DependencyPropertyChangedEventArgs e)
         {
-            get { return (bool)GetValue(CancelButtonProperty); }
-            set { SetValue(CancelButtonProperty, value); }
+            ((Spinner) instance).CancelButton.Visibility = (bool) e.NewValue
+                                                                       ? Visibility.Visible
+                                                                       : Visibility.Collapsed;
         }
 
-        public string ProgressPercent
+        private static void OperationTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            get { return (string)GetValue(ProgressPercentProperty); }
-            set { SetValue(ProgressPercentProperty, value); }
+            var spinner = (Spinner) d;
+            spinner.OperationTextControl.Text = e.NewValue.ToString();
+            spinner.OperationTextControl.Visibility = string.IsNullOrWhiteSpace(e.NewValue.ToString())
+                                               ? Visibility.Collapsed
+                                               : Visibility.Visible;
         }
 
-        public Spinner()
+        private static void PercentDoneChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            InitializeComponent();
-        }
-
-        private static void CancelButtonCallback(DependencyObject instance, DependencyPropertyChangedEventArgs e)
-        {
-            var spinner = (Spinner)instance;
-            spinner.CancelButtonInternal.Visibility = (bool)e.NewValue ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        private static void ProgressPercentCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var spinner = (Spinner)d;
-            spinner.Progress.Text = e.NewValue.ToString();
+            ((Spinner) d).PercentDoneControl.Text = e.NewValue.ToString();
         }
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
-            var adorner = (FrameworkElement)VisualTreeHelper.GetParent(this);
+            var adorner = (FrameworkElement) VisualTreeHelper.GetParent(this);
             adorner.Visibility = Visibility.Collapsed;
-            RaiseEvent(new RoutedEventArgs() {RoutedEvent= SpinnerCanceledEvent});
+            RaiseEvent(new RoutedEventArgs {RoutedEvent = SpinnerCanceledEvent});
         }
     }
 }

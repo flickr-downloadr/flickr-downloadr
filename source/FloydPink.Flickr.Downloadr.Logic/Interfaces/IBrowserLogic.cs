@@ -8,8 +8,7 @@ namespace FloydPink.Flickr.Downloadr.Logic.Interfaces
 {
     public interface IBrowserLogic
     {
-        Task<PhotosResponse> GetAllPhotosAsync(User user, int page = 1);
-        Task<PhotosResponse> GetPublicPhotosAsync(User user, int page = 1);
-        Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<int> progress);
+        Task<PhotosResponse> GetPhotosAsync(string methodName, User user, int page, IProgress<ProgressUpdate> progress);
+        Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress);
     }
 }

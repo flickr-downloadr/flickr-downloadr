@@ -116,9 +116,11 @@ namespace FloydPink.Flickr.Downloadr.UI
             Spinner.Dispatch((s) => s.Visibility = visibility);
         }
 
-        public void UpdateProgress(string progressPercent)
+        public void UpdateProgress(string percentDone, string operationText, bool cancellable)
         {
-            SpinnerInner.Dispatch(sc => sc.ProgressPercent = progressPercent);
+            SpinnerInner.Dispatch(sc => sc.Cancellable = cancellable);
+            SpinnerInner.Dispatch(sc => sc.OperationText = operationText);
+            SpinnerInner.Dispatch(sc => sc.PercentDone = percentDone);
         }
 
         #region INotifyPropertyChanged Members

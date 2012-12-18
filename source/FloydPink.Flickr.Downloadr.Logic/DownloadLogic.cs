@@ -23,13 +23,13 @@ namespace FloydPink.Flickr.Downloadr.Logic
             _downloadLocation = downloadLocation;
         }
 
-        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken,
-                                   IProgress<int> progress)
+        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress)
         {
             try
             {
                 //TODO: refactor this method !
-                progress.Report(0);
+                var progressUpdate = new ProgressUpdate {Cancellable = true, OperationText = "Downloading Photos...", PercentDone = 0, ShowPercent = true};
+                progress.Report(progressUpdate);
 
                 int doneCount = 0;
                 IList<Photo> photosList = photos as IList<Photo> ?? photos.ToList();
@@ -67,7 +67,8 @@ namespace FloydPink.Flickr.Downloadr.Logic
                     }
 
                     doneCount++;
-                    progress.Report(doneCount * 100 / totalCount);
+                    progressUpdate.PercentDone = doneCount*100/totalCount;
+                    progress.Report(progressUpdate);
                     cancellationToken.ThrowIfCancellationRequested();
                 }
             }
