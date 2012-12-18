@@ -15,18 +15,14 @@ namespace FloydPink.Flickr.Downloadr.Presentation
     {
         private readonly IBrowserLogic _logic;
         private readonly IBrowserView _view;
-        private Progress<int> _progress = new Progress<int>();
+        private readonly Progress<int> _progress = new Progress<int>();
 
         public BrowserPresenter(IBrowserLogic logic, IBrowserView view)
         {
             _logic = logic;
             _view = view;
-            _progress.ProgressChanged += Progress_ProgressChanged;
-        }
-
-        void Progress_ProgressChanged(object sender, int e)
-        {
-            _view.UpdateProgress(e);
+            _progress.ProgressChanged += (sender, progress) =>
+                _view.UpdateProgress(string.Format("{0}%", progress.ToString(CultureInfo.InvariantCulture)));
         }
 
         public async Task InitializePhotoset()

@@ -116,9 +116,9 @@ namespace FloydPink.Flickr.Downloadr.UI
             Spinner.Dispatch((s) => s.Visibility = visibility);
         }
 
-        public void UpdateProgress(int progressPercent)
+        public void UpdateProgress(string progressPercent)
         {
-            SpinnerInner.Dispatch(sc => sc.ProgressPercent = progressPercent.ToString(CultureInfo.InvariantCulture));
+            SpinnerInner.Dispatch(sc => sc.ProgressPercent = progressPercent);
         }
 
         #region INotifyPropertyChanged Members

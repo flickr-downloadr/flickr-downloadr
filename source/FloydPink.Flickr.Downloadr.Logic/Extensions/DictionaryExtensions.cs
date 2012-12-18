@@ -49,7 +49,7 @@ namespace FloydPink.Flickr.Downloadr.Logic.Extensions
                              Convert.ToBoolean(dictionary["ispublic"]),
                              Convert.ToBoolean(dictionary["isfriend"]),
                              Convert.ToBoolean(dictionary["isfamily"]),
-                             dictionary["description"].ToString(),
+                             dictionary.GetValueFromDictionary("description").ToString(),
                              dictionary["tags"].ToString(),
                              dictionary["originalsecret"].ToString(),
                              dictionary["originalformat"].ToString());
