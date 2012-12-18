@@ -85,10 +85,26 @@
                         DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                 <Button Content="l&lt;&lt;" Width="30" Height="28" Margin="5,0" Click="FirstPageButtonClick"></Button>
                 <Button Content="&lt;" Width="25" Height="28" Margin="5,0" Click="PreviousPageButtonClick"></Button>
-                <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Page}"></TextBlock>
-                <TextBlock Margin="5,0" VerticalAlignment="Center">of</TextBlock>
-                <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Pages}"></TextBlock>
-                <TextBlock Margin="5,0" VerticalAlignment="Center">Pages</TextBlock>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
+                        <TextBlock Margin="5,0" Foreground="DimGray" VerticalAlignment="Center" Text="{Binding Path=FirstPhoto}"></TextBlock>
+                        <TextBlock Margin="5,0" Foreground="DimGray" VerticalAlignment="Center">-</TextBlock>
+                        <TextBlock Margin="5,0" Foreground="DimGray" VerticalAlignment="Center" Text="{Binding Path=LastPhoto}"></TextBlock>
+                        <TextBlock Margin="5,0" Foreground="DimGray" VerticalAlignment="Center">of</TextBlock>
+                        <TextBlock Margin="5,0" Foreground="DimGray" VerticalAlignment="Center" Text="{Binding Path=Total}"></TextBlock>
+                        <TextBlock Margin="5,0" Foreground="DimGray" VerticalAlignment="Center">Photos</TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Page}"></TextBlock>
+                        <TextBlock Margin="5,0" VerticalAlignment="Center">of</TextBlock>
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Pages}"></TextBlock>
+                        <TextBlock Margin="5,0" VerticalAlignment="Center">Pages</TextBlock>
+                    </StackPanel>
+                </Grid>
                 <Button Content="&gt;" Width="25" Height="28" Margin="5,0" Click="NextPageButtonClick"></Button>
                 <Button Content="&gt;&gt;l" Width="30" Height="28" Margin="5,0" Click="LastPageButtonClick"></Button>
             </StackPanel>
@@ -105,7 +121,7 @@
             </StackPanel>
         </Grid>
         <AdornerDecorator Name="Spinner" Visibility="Collapsed">
-            <controls:Spinner x:Name="SpinnerInner" Cancellable="True"></controls:Spinner>
+            <controls:Spinner x:Name="SpinnerInner"></controls:Spinner>
         </AdornerDecorator>
     </Grid>
 </Window>

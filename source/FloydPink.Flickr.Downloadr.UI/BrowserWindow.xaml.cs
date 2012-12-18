@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,11 +23,7 @@ namespace FloydPink.Flickr.Downloadr.UI
     public partial class BrowserWindow : Window, IBrowserView, INotifyPropertyChanged
     {
         private readonly BrowserPresenter _presenter;
-        private string _page;
-        private string _pages;
-        private string _perPage;
         private ObservableCollection<Photo> _photos;
-        private string _total;
 
         public BrowserWindow(User user)
         {
@@ -50,6 +48,23 @@ namespace FloydPink.Flickr.Downloadr.UI
             _presenter.InitializePhotoset();
         }
 
+        public string FirstPhoto
+        {
+            get
+            {
+                return (((Convert.ToInt32(Page) - 1) * Convert.ToInt32(PerPage)) + 1).ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+        public string LastPhoto
+        {
+            get
+            {
+                var maxLast = Convert.ToInt32(Page) * Convert.ToInt32(PerPage);
+                return maxLast > Convert.ToInt32(Total) ? Total : maxLast.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
         public User User { get; set; }
 
         public ObservableCollection<Photo> Photos
@@ -70,44 +85,22 @@ namespace FloydPink.Flickr.Downloadr.UI
             get { return PublicAllToggleButton.IsChecked != null && (bool)PublicAllToggleButton.IsChecked; }
         }
 
-        public string Page
-        {
-            get { return _page; }
-            set
-            {
-                _page = value;
-                PropertyChanged.Notify(() => Page);
-            }
-        }
+        public string Page { get; set; }
 
-        public string Pages
-        {
-            get { return _pages; }
-            set
-            {
-                _pages = value;
-                PropertyChanged.Notify(() => Pages);
-            }
-        }
+        public string Pages { get; set; }
 
-        public string PerPage
-        {
-            get { return _perPage; }
-            set
-            {
-                _perPage = value;
-                PropertyChanged.Notify(() => PerPage);
-            }
-        }
+        public string PerPage { get; set; }
 
-        public string Total
+        public string Total { get; set; }
+
+        public void RaiseNotify()
         {
-            get { return _total; }
-            set
-            {
-                _total = value;
-                PropertyChanged.Notify(() => Total);
-            }
+            PropertyChanged.Notify(() => Page);
+            PropertyChanged.Notify(() => Pages);
+            PropertyChanged.Notify(() => PerPage);
+            PropertyChanged.Notify(() => Total);
+            PropertyChanged.Notify(() => FirstPhoto);
+            PropertyChanged.Notify(() => LastPhoto);
         }
 
         public void ShowSpinner(bool show)
