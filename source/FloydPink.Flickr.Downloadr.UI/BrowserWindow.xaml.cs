@@ -185,11 +185,10 @@ namespace FloydPink.Flickr.Downloadr.UI
             await _presenter.DownloadThisPage();
         }
 
-        private void DownloadAllPagesButtonClick(object sender, RoutedEventArgs e)
+        private async void DownloadAllPagesButtonClick(object sender, RoutedEventArgs e)
         {
             LoseFocus((UIElement)sender);
-            MessageBox.Show("Not implemented!");
-            //await _presenter.DownloadAllPages();
+            await _presenter.DownloadAllPages();
         }
 
         private void LoseFocus(UIElement element)
