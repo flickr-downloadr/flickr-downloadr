@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FloydPink.Flickr.Downloadr.Logic.Extensions;
@@ -56,7 +57,10 @@ namespace FloydPink.Flickr.Downloadr.Logic
 
         public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress)
         {
-            await _downloadLogic.Download(photos, cancellationToken, progress);
+            var photosList = photos as IList<Photo> ?? photos.ToList();
+            if (!photosList.Any()) return;
+
+            await _downloadLogic.Download(photosList, cancellationToken, progress);
         }
 
         #endregion

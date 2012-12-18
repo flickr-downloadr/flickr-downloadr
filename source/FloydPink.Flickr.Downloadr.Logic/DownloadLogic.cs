@@ -28,7 +28,13 @@ namespace FloydPink.Flickr.Downloadr.Logic
             try
             {
                 //TODO: refactor this method !
-                var progressUpdate = new ProgressUpdate {Cancellable = true, OperationText = "Downloading Photos...", PercentDone = 0, ShowPercent = true};
+                var progressUpdate = new ProgressUpdate
+                                         {
+                                             Cancellable = true,
+                                             OperationText = "Downloading photos...",
+                                             PercentDone = 0,
+                                             ShowPercent = true
+                                         };
                 progress.Report(progressUpdate);
 
                 int doneCount = 0;
@@ -67,7 +73,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
                     }
 
                     doneCount++;
-                    progressUpdate.PercentDone = doneCount*100/totalCount;
+                    progressUpdate.PercentDone = doneCount * 100 / totalCount;
                     progress.Report(progressUpdate);
                     cancellationToken.ThrowIfCancellationRequested();
                 }
