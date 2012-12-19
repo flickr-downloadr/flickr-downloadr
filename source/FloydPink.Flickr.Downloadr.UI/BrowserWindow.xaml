@@ -62,7 +62,7 @@
                      behaviors:ScrollToTopBehavior.ScrollToTop="True">
             </ListBox>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button Content="Back" Width="60" Height="28"
+                <Button Content="Back" Width="60" Height="28" ToolTip="Go back to previous screen"
                         Margin="5,0,0,0" Click="BackButtonClick" />
                 <ToggleButton Name="PublicAllToggleButton" Margin="5,0,0,0" Width="145" Height="28"
                               Click="TogglePhotosButtonClick">
@@ -83,8 +83,10 @@
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center"
                         DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <Button Content="l&lt;&lt;" Width="30" Height="28" Margin="5,0" Click="FirstPageButtonClick"></Button>
-                <Button Content="&lt;" Width="25" Height="28" Margin="5,0" Click="PreviousPageButtonClick"></Button>
+                <Button Content="l&lt;&lt;" ToolTip="Go to first page"
+                        Width="30" Height="28" Margin="5,0" Click="FirstPageButtonClick"></Button>
+                <Button Content="&lt;" ToolTip="Go to previous page"
+                        Width="25" Height="28" Margin="5,0" Click="PreviousPageButtonClick"></Button>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
@@ -105,19 +107,22 @@
                         <TextBlock Margin="5,0" VerticalAlignment="Center">Pages</TextBlock>
                     </StackPanel>
                 </Grid>
-                <Button Content="&gt;" Width="25" Height="28" Margin="5,0" Click="NextPageButtonClick"></Button>
-                <Button Content="&gt;&gt;l" Width="30" Height="28" Margin="5,0" Click="LastPageButtonClick"></Button>
+                <Button Content="&gt;" ToolTip="Go to next page"
+                        Width="25" Height="28" Margin="5,0" Click="NextPageButtonClick"></Button>
+                <Button Content="&gt;&gt;l" ToolTip="Go to last page"
+                        Width="30" Height="28" Margin="5,0" Click="LastPageButtonClick"></Button>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0" FontSize="14"
                            FontWeight="Bold">
                     Download Photos in
                 </TextBlock>
-                <Button Content="Selection" Height="28"
+                <Button Content="Selection" Height="28" ToolTip="Download selected photos"
                         Margin="0,0,5,0" Click="DownloadSelectionButtonClick" Width="60" />
-                <Button Content="This Page" Height="28"
+                <Button Content="This Page" Height="28" ToolTip="Download all the photos in this page"
                         Margin="0,0,5,0" Click="DownloadThisPageButtonClick" Width="60" />
-                <Button Content="All Pages" Height="28" Margin="0,6,5,6" Click="DownloadAllPagesButtonClick" Width="60" />
+                <Button Content="All Pages" Height="28" ToolTip="Download all the photos"
+                        Margin="0,6,5,6" Click="DownloadAllPagesButtonClick" Width="60" />
             </StackPanel>
         </Grid>
         <AdornerDecorator Name="Spinner" Visibility="Collapsed">
