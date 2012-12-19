@@ -126,16 +126,23 @@
                 <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0" FontSize="14"
                                FontWeight="Bold">
-                        Download Photos in
+                        Download
                     </TextBlock>
                     <Button Content="{Binding Path=SelectedPhotosCountText}" Height="28" ToolTip="Download selected photos"
-                            Margin="0,0,5,0" Click="DownloadSelectionButtonClick" 
+                            Margin="0,0,5,0" Click="DownloadSelectionButtonClick" Width="95" 
                             IsEnabled="{Binding Path=SelectedPhotosExist}" />
                     <Button Content="This Page" Height="28" ToolTip="Download all the photos in this page"
                             Margin="0,0,5,0" Click="DownloadThisPageButtonClick" Width="60" />
                     <Button Content="All Pages" Height="28" ToolTip="Download all the photos"
                             Margin="0,6,5,6" Click="DownloadAllPagesButtonClick" Width="60" />
                 </StackPanel>
+                <Grid.Background>
+                    <SolidColorBrush Color="Gainsboro" Opacity="0.7" />
+                </Grid.Background>
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="25" Direction="90" ShadowDepth="3" 
+                                      RenderingBias="Performance" Opacity="0.2" Color="Olive"></DropShadowEffect>
+                </Grid.Effect>
             </Grid>
         </Grid>
         <AdornerDecorator Name="Spinner" Visibility="Collapsed">
