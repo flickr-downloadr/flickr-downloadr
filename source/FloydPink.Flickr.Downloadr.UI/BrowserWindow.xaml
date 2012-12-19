@@ -64,7 +64,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Content="Back" Width="60" Height="28" ToolTip="Go back to previous screen"
-                            Margin="5,0,0,0" Click="BackButtonClick" />
+                            Margin="5,0,0,0" Click="BackButtonClick" IsCancel="True" />
                     <ToggleButton Name="PublicAllToggleButton" Margin="5,0,0,0" Width="145" Height="28"
                                   Click="TogglePhotosButtonClick">
                         <ToggleButton.Style>

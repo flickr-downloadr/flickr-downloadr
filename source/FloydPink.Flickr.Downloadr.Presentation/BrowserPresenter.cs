@@ -19,17 +19,23 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         private readonly Progress<ProgressUpdate> _progress = new Progress<ProgressUpdate>();
         private readonly IBrowserView _view;
         private CancellationTokenSource _cancellationTokenSource;
+        private string _downloadedLocation;
+        private bool _downloadComplete;
 
         public BrowserPresenter(IBrowserLogic logic, IBrowserView view)
         {
             _logic = logic;
             _view = view;
             _progress.ProgressChanged += (sender, progress) =>
-                                         _view.UpdateProgress(
-                                             progress.ShowPercent
-                                                 ? string.Format("{0}%", progress.PercentDone.ToString(CultureInfo.InvariantCulture))
-                                                 : string.Empty,
-                                             progress.OperationText, progress.Cancellable);
+                                             {
+                                                 _view.UpdateProgress(
+                                                     progress.ShowPercent
+                                                         ? string.Format("{0}%", progress.PercentDone.ToString(CultureInfo.InvariantCulture))
+                                                         : string.Empty,
+                                                     progress.OperationText, progress.Cancellable);
+                                                 _downloadedLocation = progress.DownloadedPath;
+                                                 _downloadComplete = progress.PercentDone == 100;
+                                             };
         }
 
         public async Task InitializePhotoset()
@@ -130,7 +136,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             {
                 _cancellationTokenSource = new CancellationTokenSource();
                 await _logic.Download(photosList, _cancellationTokenSource.Token, _progress);
-
+                _view.DownloadComplete(_downloadedLocation, _downloadComplete);
             }
 
             if (handleSpinner) _view.ShowSpinner(false);

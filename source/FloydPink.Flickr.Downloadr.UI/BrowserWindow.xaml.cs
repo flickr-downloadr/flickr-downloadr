@@ -167,9 +167,24 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         public bool ShowWarning(string warningMessage)
         {
-            MessageBoxResult result = MessageBox.Show(warningMessage, "Please confirm...", 
+            MessageBoxResult result = MessageBox.Show(warningMessage, "Please confirm...",
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
             return result != MessageBoxResult.Yes;
+        }
+
+        public void DownloadComplete(string downloadedLocation, bool downloadComplete)
+        {
+            if (downloadComplete)
+            {
+                PhotoList.SelectedItems.Clear();
+                MessageBox.Show(string.Format("Download completed to the directory: {0}\r\n(Click CTRL+C to copy the location.)", 
+                    downloadedLocation), "Done");
+            }
+            else
+            {
+                MessageBox.Show(string.Format("Incomplete download could be found at {0}\r\n(Click CTRL+C to copy the location.)", 
+                    downloadedLocation), "Cancelled");
+            }
         }
 
         #region INotifyPropertyChanged Members
