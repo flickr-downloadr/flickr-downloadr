@@ -24,22 +24,24 @@ namespace FloydPink.Flickr.Downloadr.UI
     {
         private readonly BrowserPresenter _presenter;
         private ObservableCollection<Photo> _photos;
+        private string _page;
+        private string _pages;
+        private string _perPage;
+        private string _total;
+        private bool _doNotSyncSelectedItems;
 
         public BrowserWindow(User user)
         {
             InitializeComponent();
             User = user;
-            SelectedPhotos = new Dictionary<string, Photo>();
+            SelectedPhotos = new Dictionary<string, Dictionary<string, Photo>>();
 
             PhotoList.SelectionChanged += (sender, args) =>
                                               {
-                                                  foreach (Photo photo in PhotoList.SelectedItems)
-                                                  {
-                                                      if (!SelectedPhotos.ContainsKey(photo.Id))
-                                                      {
-                                                          SelectedPhotos.Add(photo.Id, photo);
-                                                      }
-                                                  }
+                                                  if (_doNotSyncSelectedItems) return;
+                                                  SelectedPhotos[Page] = PhotoList.SelectedItems.Cast<Photo>().
+                                                                                   ToDictionary(p => p.Id, p => p);
+                                                  PropertyChanged.Notify(() => SelectedPhotosExist);
                                               };
 
             SpinnerInner.SpinnerCanceled += (sender, args) => _presenter.CancelDownload();
@@ -47,6 +49,8 @@ namespace FloydPink.Flickr.Downloadr.UI
             _presenter = Bootstrapper.GetPresenter<IBrowserView, BrowserPresenter>(this);
             _presenter.InitializePhotoset();
         }
+
+        public bool SelectedPhotosExist { get { return SelectedPhotos.Values.SelectMany(d => d.Values).Count() != 0; } }
 
         public string FirstPhoto
         {
@@ -73,34 +77,60 @@ namespace FloydPink.Flickr.Downloadr.UI
             set
             {
                 _photos = value;
+                _doNotSyncSelectedItems = true;
                 PhotoList.DataContext = Photos;
                 SelectAlreadySelectedPhotos();
+                _doNotSyncSelectedItems = false;
             }
         }
 
-        public IDictionary<string, Photo> SelectedPhotos { get; set; }
+        public IDictionary<string, Dictionary<string, Photo>> SelectedPhotos { get; set; }
 
         public bool ShowAllPhotos
         {
             get { return PublicAllToggleButton.IsChecked != null && (bool)PublicAllToggleButton.IsChecked; }
         }
 
-        public string Page { get; set; }
-
-        public string Pages { get; set; }
-
-        public string PerPage { get; set; }
-
-        public string Total { get; set; }
-
-        public void RaiseNotify()
+        public string Page
         {
-            PropertyChanged.Notify(() => Page);
-            PropertyChanged.Notify(() => Pages);
-            PropertyChanged.Notify(() => PerPage);
-            PropertyChanged.Notify(() => Total);
-            PropertyChanged.Notify(() => FirstPhoto);
-            PropertyChanged.Notify(() => LastPhoto);
+            get { return _page; }
+            set
+            {
+                _page = value;
+                PropertyChanged.Notify(() => Page);
+            }
+        }
+
+        public string Pages
+        {
+            get { return _pages; }
+            set
+            {
+                _pages = value;
+                PropertyChanged.Notify(() => Pages);
+            }
+        }
+
+        public string PerPage
+        {
+            get { return _perPage; }
+            set
+            {
+                _perPage = value;
+                PropertyChanged.Notify(() => PerPage);
+            }
+        }
+
+        public string Total
+        {
+            get { return _total; }
+            set
+            {
+                _total = value;
+                PropertyChanged.Notify(() => Total);
+                PropertyChanged.Notify(() => FirstPhoto);
+                PropertyChanged.Notify(() => LastPhoto);
+            }
         }
 
         public void ShowSpinner(bool show)
@@ -124,8 +154,9 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void SelectAlreadySelectedPhotos()
         {
-            if (SelectedPhotos.Count <= 0) return;
-            foreach (Photo photo in Photos.Where(photo => SelectedPhotos.ContainsKey(photo.Id)))
+            if (!SelectedPhotos.ContainsKey(Page) || SelectedPhotos[Page].Count <= 0) return;
+            var photos = Photos.Where(photo => SelectedPhotos[Page].ContainsKey(photo.Id)).ToList();
+            foreach (Photo photo in photos)
             {
                 ((ListBoxItem)PhotoList.ItemContainerGenerator.ContainerFromItem(photo)).IsSelected = true;
             }

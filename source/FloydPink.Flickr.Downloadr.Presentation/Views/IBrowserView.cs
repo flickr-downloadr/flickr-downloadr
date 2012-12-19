@@ -8,7 +8,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation.Views
     {
         User User { get; set; }
         ObservableCollection<Photo> Photos { get; set; }
-        IDictionary<string, Photo> SelectedPhotos { get; set; }
+        IDictionary<string, Dictionary<string, Photo>> SelectedPhotos { get; set; }
         bool ShowAllPhotos { get; }
 
         string Page { get; set; }
@@ -16,6 +16,5 @@ namespace FloydPink.Flickr.Downloadr.Presentation.Views
         string PerPage { get; set; }
         string Total { get; set; }
         void UpdateProgress (string percentDone, string operationText, bool cancellable);
-        void RaiseNotify();
     }
 }

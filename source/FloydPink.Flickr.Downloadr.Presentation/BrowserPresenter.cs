@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FloydPink.Flickr.Downloadr.Logic.Interfaces;
@@ -68,7 +69,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
 
         public async Task DownloadSelection()
         {
-            await DownloadPhotos(_view.SelectedPhotos.Values);
+            await DownloadPhotos(_view.SelectedPhotos.Values.SelectMany(d => d.Values).ToList());
         }
 
         public async Task DownloadThisPage()
@@ -125,12 +126,11 @@ namespace FloydPink.Flickr.Downloadr.Presentation
 
         private void SetPhotoResponse(PhotosResponse photosResponse)
         {
-            _view.Photos = new ObservableCollection<Photo>(photosResponse.Photos);
             _view.Page = photosResponse.Page.ToString(CultureInfo.InvariantCulture);
             _view.Pages = photosResponse.Pages.ToString(CultureInfo.InvariantCulture);
             _view.PerPage = photosResponse.PerPage.ToString(CultureInfo.InvariantCulture);
             _view.Total = photosResponse.Total.ToString(CultureInfo.InvariantCulture);
-            _view.RaiseNotify();
+            _view.Photos = new ObservableCollection<Photo>(photosResponse.Photos);
         }
     }
 }
