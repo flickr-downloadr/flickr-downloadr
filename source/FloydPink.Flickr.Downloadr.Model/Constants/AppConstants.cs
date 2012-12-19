@@ -13,5 +13,10 @@ namespace FloydPink.Flickr.Downloadr.Model.Constants
 
         public const string PhotoUrlFormat = "http://farm{0}.staticflickr.com/{1}/{2}_{3}_{4}.{5}";
         public const string OriginalPhotoUrlFormat = "http://farm{0}.staticflickr.com/{1}/{2}_{3}_o.{4}";
+        
+        public const string MoreThan1000PhotosWarningFormat = "There are a total of {0} photos to be downloaded! This WILL take quite a while. Are you sure?";
+        public const string MoreThan500PhotosWarningFormat = "You are going to download {0} photos. It could take a while. Continue?";
+        public const string MoreThan100PhotosWarningFormat = "Are you sure you want to download {0} photos?";
+
     }
 }

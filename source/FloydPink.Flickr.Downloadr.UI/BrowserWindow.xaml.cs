@@ -165,6 +165,13 @@ namespace FloydPink.Flickr.Downloadr.UI
             SpinnerInner.Dispatch(sc => sc.PercentDone = percentDone);
         }
 
+        public bool ShowWarning(string warningMessage)
+        {
+            MessageBoxResult result = MessageBox.Show(warningMessage, "Please confirm...", 
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            return result != MessageBoxResult.Yes;
+        }
+
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;

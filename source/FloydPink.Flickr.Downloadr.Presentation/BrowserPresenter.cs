@@ -103,8 +103,35 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         {
             if (handleSpinner) _view.ShowSpinner(true);
 
-            _cancellationTokenSource = new CancellationTokenSource();
-            await _logic.Download(photos, _cancellationTokenSource.Token, _progress);
+            var photosList = photos as IList<Photo> ?? photos.ToList();
+            var lotOfPhotosWarningFailed = false;
+            var warningFormat = string.Empty;
+
+            if (photosList.Count() > 1000)
+            {
+                warningFormat = AppConstants.MoreThan1000PhotosWarningFormat;
+            }
+            else if (photosList.Count() > 500)
+            {
+                warningFormat = AppConstants.MoreThan500PhotosWarningFormat;
+            }
+            else if (photosList.Count() > 100)
+            {
+                warningFormat = AppConstants.MoreThan100PhotosWarningFormat;
+            }
+
+            if (!string.IsNullOrWhiteSpace(warningFormat))
+            {
+                lotOfPhotosWarningFailed = _view.ShowWarning(string.Format(warningFormat,
+                    photosList.Count().ToString(CultureInfo.InvariantCulture)));
+            }
+
+            if (!lotOfPhotosWarningFailed)
+            {
+                _cancellationTokenSource = new CancellationTokenSource();
+                await _logic.Download(photosList, _cancellationTokenSource.Token, _progress);
+
+            }
 
             if (handleSpinner) _view.ShowSpinner(false);
         }

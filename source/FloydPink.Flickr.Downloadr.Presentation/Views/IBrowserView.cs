@@ -16,5 +16,6 @@ namespace FloydPink.Flickr.Downloadr.Presentation.Views
         string PerPage { get; set; }
         string Total { get; set; }
         void UpdateProgress (string percentDone, string operationText, bool cancellable);
+        bool ShowWarning(string warningMessage);
     }
 }
