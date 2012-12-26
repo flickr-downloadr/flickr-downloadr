@@ -19,6 +19,8 @@
 	<property name="unittests.assembly" value="${bin.dir}\FloydPink.Flickr.Downloadr.UnitTests.exe" />
 	<property name="boundarycrossingtests.assembly" value="${bin.dir}\FloydPink.Flickr.Downloadr.BoundaryCrossingTests.exe" />
 	
+	<loadtasks assembly="${build.tools.dir}\nant\nantcontrib-0.92\bin\NAnt.Contrib.Tasks.dll" />
+	
 	<!-- Build Targets -->
 	<target name="unitTestsOnly" depends="cleanBin, createBin, compilesolution, unitTests"/>
 	<target name="allTests" depends="cleanBin, createBin, compilesolution, unitTests, boundarycrossingTests"/>
@@ -58,6 +60,20 @@
 		<exec program="${nunit.dir}\nunit-console.exe">
 			<arg value="&quot;${nunittest.testassemblypath}&quot; /xml=&quot;${nunit.results.dir}\${nunittest.output.file.name}&quot;"/>
 		</exec>		
+	</target>
+	
+	<target name="publish">
+		<property name="increment.build" value="NoIncrement"/>
+		<call target="publishcore"/>
+	</target>
+
+	<target name="publishmajor">
+		<property name="increment.build" value="MonthDay"/>
+		<call target="publishcore"/>
+	</target>
+
+	<target name="publishcore">
+		<version buildtype="${increment.build}" revisiontype="Increment" startdate="2012-05-02" verbose="true"/>
 	</target>
 
 </project>
