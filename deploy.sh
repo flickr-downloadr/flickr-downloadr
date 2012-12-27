@@ -1,6 +1,5 @@
 PATH=$HOME/bin:$ADDPATH:$PATH
 SSH_ENV="$HOME/.ssh/environment"
-ssh -T git@github.com
 
 # start the ssh-agent
 function start_agent {
@@ -46,24 +45,31 @@ else
     fi
 fi
 
-ssh -T git@github.com
-exit
-
 cd source/bin/Release
 REPO=git@github.com:flickr-downloadr/flickr-downloadr.git
 MSG="application (v${BUILDNUMBER})"
+#clone repo in a tmp dir
 mkdir tmp-gh-pages
 cd tmp-gh-pages
 git clone -b gh-pages $REPO
 cd flickr-downloadr
 git config push.default tracking
+#add deploy files to gh-pages
 cp -r ../../Deploy/* ./downloads/latest
 git add .
 git commit -m "deploying $MSG" -s
+git push
+#checkout master to add the modified build.number and CommonAssemblyInfo
 git checkout master
-cp ../../../../../../build.number .
-cp ../../../../../CommonAssemblyInfo.cs ./source
-#git push
+cp ../../../../../build.number .
+cp ../../../../CommonAssemblyInfo.cs ./source
+git commit -a -m "deploying $MSG" -s
+git push
+#remove the tmp dir
 cd ../..
 rm -rf tmp-gh-pages
+#reset the modified build.number and CommonAssemblyInfo in the main (outer) repo
+cd ../../..
+git checkout -- build.number source/CommonAssemblyInfo.cs
 echo "deployed $MSG successfully"
+exit
