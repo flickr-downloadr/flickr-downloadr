@@ -1,4 +1,6 @@
+PATH=$HOME/bin:$ADDPATH:$PATH
 SSH_ENV="$HOME/.ssh/environment"
+ssh -T git@github.com
 
 # start the ssh-agent
 function start_agent {
@@ -44,8 +46,10 @@ else
     fi
 fi
 
+ssh -T git@github.com
+exit
+
 cd source/bin/Release
-PATH=$HOME/bin:$ADDPATH:$PATH
 REPO=git@github.com:flickr-downloadr/flickr-downloadr.git
 MSG="application (v${BUILDNUMBER})"
 mkdir tmp-gh-pages
@@ -56,7 +60,10 @@ git config push.default tracking
 cp -r ../../Deploy/* ./downloads/latest
 git add .
 git commit -m "deploying $MSG" -s
-git push
+git checkout master
+cp ../../../../../../build.number .
+cp ../../../../../CommonAssemblyInfo.cs ./source
+#git push
 cd ../..
 rm -rf tmp-gh-pages
 echo "deployed $MSG successfully"
