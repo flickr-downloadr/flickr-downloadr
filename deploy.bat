@@ -1,0 +1,2 @@
+go deploy Release
+pause
