@@ -43,13 +43,15 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AuthenticatedEventArgs.cs" />
     <Compile Include="IOAuthManager.cs" />
     <Compile Include="Listener\HttpListenerCallbackEventArgs.cs" />
     <Compile Include="Listener\HttpListenerManager.cs" />
     <Compile Include="Listener\IHttpListenerManager.cs" />
     <Compile Include="OAuthManager.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenManager.cs" />
   </ItemGroup>
   <ItemGroup>

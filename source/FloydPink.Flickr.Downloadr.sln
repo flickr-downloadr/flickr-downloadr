@@ -19,6 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloydPink.Flickr.Downloadr.BoundaryCrossingTests", "FloydPink.Flickr.Downloadr.BoundaryCrossingTests\FloydPink.Flickr.Downloadr.BoundaryCrossingTests.csproj", "{48CD526C-9284-4E43-BFDA-449B5DCA2B68}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BB49C32-E40C-499B-9165-90E8A9B8873B}"
+	ProjectSection(SolutionItems) = preProject
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

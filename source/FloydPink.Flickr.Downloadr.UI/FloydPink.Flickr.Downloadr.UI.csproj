@@ -127,6 +127,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Behaviors\ScrollToTopBehavior.cs" />
     <Compile Include="BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
@@ -157,9 +160,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

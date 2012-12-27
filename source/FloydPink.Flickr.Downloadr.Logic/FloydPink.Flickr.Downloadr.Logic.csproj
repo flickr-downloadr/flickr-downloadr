@@ -39,6 +39,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="BrowserLogic.cs" />
     <Compile Include="DownloadLogic.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
@@ -46,7 +49,6 @@
     <Compile Include="Interfaces\IDownloadLogic.cs" />
     <Compile Include="Interfaces\ILoginLogic.cs" />
     <Compile Include="LoginLogic.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloydPink.Flickr.Downloadr.Model\FloydPink.Flickr.Downloadr.Model.csproj">

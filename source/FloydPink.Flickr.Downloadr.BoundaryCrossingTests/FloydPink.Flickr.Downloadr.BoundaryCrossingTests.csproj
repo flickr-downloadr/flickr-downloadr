@@ -58,8 +58,10 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="LogicTests\BrowserLogicTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestsDebugger.cs" />
   </ItemGroup>
   <ItemGroup>
