@@ -17,13 +17,13 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescriptionAttribute("A desktop application for windows that would help download all (or selected) phot" +
     "os from the user\'s photostream (in one of the selected sizes) along with the tag" +
     "s, titles and descriptions.")]
-[assembly: AssemblyConfigurationAttribute("Debug")]
+[assembly: AssemblyConfigurationAttribute("Release")]
 [assembly: AssemblyCompanyAttribute("http://flickrdownloadr.com")]
 [assembly: AssemblyProductAttribute("flickr downloadr")]
 [assembly: AssemblyCopyrightAttribute("Copyright © 2012-2012 Haridas Pachuveetil")]
 [assembly: AssemblyTrademarkAttribute("")]
 [assembly: AssemblyCultureAttribute("")]
-[assembly: AssemblyVersionAttribute("0.6.726.6")]
-[assembly: AssemblyFileVersionAttribute("0.6.726.6")]
+[assembly: AssemblyVersionAttribute("0.6.0.11")]
+[assembly: AssemblyFileVersionAttribute("0.6.0.11")]
 [assembly: AssemblyInformationalVersionAttribute("0.6")]
 
