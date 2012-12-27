@@ -48,28 +48,42 @@ fi
 cd source/bin/Release
 REPO=git@github.com:flickr-downloadr/flickr-downloadr.git
 MSG="application (v${BUILDNUMBER})"
+
 #clone repo in a tmp dir
 mkdir tmp-gh-pages
 cd tmp-gh-pages
 git clone -b gh-pages $REPO
 cd flickr-downloadr
 git config push.default tracking
-#add deploy files to gh-pages
+
+#remove all files except index.html in downloads/latest
+mv downloads/latest/index.html .
+cd downloads/latest/
+git rm -r .
+cd ../..
+mv index.html downloads/latest
+
+#add deploy files to gh-pages; commit; push
 cp -r ../../Deploy/* ./downloads/latest
 git add .
 git commit -m "deploying $MSG" -s
 git push
-#checkout master to add the modified build.number and CommonAssemblyInfo
+
+#checkout master to add the modified build.number and CommonAssemblyInfo; commit; push
 git checkout master
 cp ../../../../../build.number .
 cp ../../../../CommonAssemblyInfo.cs ./source
 git commit -a -m "deploying $MSG" -s
 git push
+
 #remove the tmp dir
 cd ../..
 rm -rf tmp-gh-pages
+
 #reset the modified build.number and CommonAssemblyInfo in the main (outer) repo
 cd ../../..
 git checkout -- build.number source/CommonAssemblyInfo.cs
+
+# done
 echo "deployed $MSG successfully"
 exit
