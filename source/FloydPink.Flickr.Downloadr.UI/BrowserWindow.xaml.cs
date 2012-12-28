@@ -45,6 +45,8 @@ namespace FloydPink.Flickr.Downloadr.UI
                                                                                    ToDictionary(p => p.Id, p => p);
                                                   PropertyChanged.Notify(() => SelectedPhotosExist);
                                                   PropertyChanged.Notify(() => SelectedPhotosCountText);
+                                                  PropertyChanged.Notify(() => SelectedPhotosExistInPage);
+                                                  PropertyChanged.Notify(() => AllPhotosSelected);
                                               };
 
             SpinnerInner.SpinnerCanceled += (sender, args) => _presenter.CancelDownload();
@@ -62,8 +64,12 @@ namespace FloydPink.Flickr.Downloadr.UI
         {
             get
             {
-                var selectionCount = SelectedPhotosExist ? SelectedPhotosCount.ToString(CultureInfo.InvariantCulture) : string.Empty;
-                return string.IsNullOrEmpty(selectionCount) ? "Selection" : string.Format("Selection ({0})", selectionCount);
+                string selectionCount = SelectedPhotosExist
+                                            ? SelectedPhotosCount.ToString(CultureInfo.InvariantCulture)
+                                            : string.Empty;
+                return string.IsNullOrEmpty(selectionCount)
+                           ? "Selection"
+                           : string.Format("Selection ({0})", selectionCount);
             }
         }
 
@@ -72,12 +78,26 @@ namespace FloydPink.Flickr.Downloadr.UI
             get { return SelectedPhotosCount != 0; }
         }
 
+        public bool SelectedPhotosExistInPage
+        {
+            get { return Page != null && SelectedPhotos.ContainsKey(Page) && SelectedPhotos[Page].Count != 0; }
+        }
+
+        public bool AllPhotosSelected
+        {
+            get
+            {
+                return Photos != null &&
+                    (!SelectedPhotos.ContainsKey(Page) || Photos.Count != SelectedPhotos[Page].Count);
+            }
+        }
+
         public string FirstPhoto
         {
             get
             {
-                return
-                    (((Convert.ToInt32(Page) - 1) * Convert.ToInt32(PerPage)) + 1).ToString(CultureInfo.InvariantCulture);
+                return (((Convert.ToInt32(Page) - 1) * Convert.ToInt32(PerPage)) + 1).
+                    ToString(CultureInfo.InvariantCulture);
             }
         }
 
@@ -98,6 +118,7 @@ namespace FloydPink.Flickr.Downloadr.UI
             set
             {
                 _photos = value;
+                PropertyChanged.Notify(() => AllPhotosSelected);
                 _doNotSyncSelectedItems = true;
                 PhotoList.DataContext = Photos;
                 SelectAlreadySelectedPhotos();
@@ -119,6 +140,7 @@ namespace FloydPink.Flickr.Downloadr.UI
             {
                 _page = value;
                 PropertyChanged.Notify(() => Page);
+                PropertyChanged.Notify(() => SelectedPhotosExistInPage);
             }
         }
 
@@ -170,7 +192,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         public bool ShowWarning(string warningMessage)
         {
             MessageBoxResult result = MessageBox.Show(warningMessage, "Please confirm...",
-                MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                                      MessageBoxButton.YesNo, MessageBoxImage.Question);
             return result != MessageBoxResult.Yes;
         }
 
@@ -179,13 +201,15 @@ namespace FloydPink.Flickr.Downloadr.UI
             if (downloadComplete)
             {
                 PhotoList.SelectedItems.Clear();
-                MessageBox.Show(string.Format("Download completed to the directory: {0}\r\n(Click CTRL+C to copy the location.)", 
-                    downloadedLocation), "Done");
+                MessageBox.Show(
+                    string.Format("Download completed to the directory: {0}\r\n(Click CTRL+C to copy the location.)",
+                                  downloadedLocation), "Done");
             }
             else
             {
-                MessageBox.Show(string.Format("Incomplete download could be found at {0}\r\n(Click CTRL+C to copy the location.)", 
-                    downloadedLocation), "Cancelled");
+                MessageBox.Show(
+                    string.Format("Incomplete download could be found at {0}\r\n(Click CTRL+C to copy the location.)",
+                                  downloadedLocation), "Cancelled");
             }
         }
 
@@ -267,6 +291,14 @@ namespace FloydPink.Flickr.Downloadr.UI
             FocusManager.SetFocusedElement(scope, null);
             Keyboard.ClearFocus();
             FocusManager.SetFocusedElement(scope, PhotoList);
+        }
+
+        private void SelectAllButtonClick(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void DeselectAllButtonClick(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

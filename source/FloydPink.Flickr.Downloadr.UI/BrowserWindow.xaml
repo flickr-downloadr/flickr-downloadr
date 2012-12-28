@@ -7,7 +7,7 @@
         xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls"
         xmlns:behaviors="clr-namespace:FloydPink.Flickr.Downloadr.UI.Behaviors" d:DesignHeight="500"
         d:DesignWidth="700"
-        Title="Flickr Downloadr > Photo Browser" Icon="/flickr%20downloadr;component/Images/icon.png"
+        Title="Photo Browser - flickr downloadr" Icon="/flickr%20downloadr;component/Images/icon.png"
         SizeToContent="Width" Height="600" MinWidth="950">
 
     <Window.Resources>
@@ -82,6 +82,12 @@
                             </Style>
                         </ToggleButton.Style>
                     </ToggleButton>
+                    <Button Content="R" Height="28" ToolTip="Select all photos in this page"
+                            Margin="20,0,0,0" Click="SelectAllButtonClick" FontFamily="Wingdings 2" FontSize="24"
+                            IsEnabled="{Binding Path=AllPhotosSelected}" />
+                    <Button Content="Q" Height="28" ToolTip="Deselect all photos in this page"
+                            Margin="5,0,0,0" Click="DeselectAllButtonClick" FontFamily="Wingdings 2" FontSize="24"
+                            IsEnabled="{Binding Path=SelectedPhotosExistInPage}" />
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Content="l&lt;&lt;" ToolTip="Go to first page"
