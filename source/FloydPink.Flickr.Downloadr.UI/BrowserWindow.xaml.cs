@@ -14,6 +14,7 @@ using FloydPink.Flickr.Downloadr.Model.Extensions;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
+using FloydPink.Flickr.Downloadr.UI.Helpers;
 
 namespace FloydPink.Flickr.Downloadr.UI
 {
@@ -33,6 +34,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         public BrowserWindow(User user)
         {
             InitializeComponent();
+            Title += VersionHelper.GetVersionString();
             User = user;
             SelectedPhotos = new Dictionary<string, Dictionary<string, Photo>>();
 

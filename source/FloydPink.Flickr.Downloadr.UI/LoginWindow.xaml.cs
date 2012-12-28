@@ -6,6 +6,7 @@ using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
+using FloydPink.Flickr.Downloadr.UI.Helpers;
 
 
 namespace FloydPink.Flickr.Downloadr.UI
@@ -26,7 +27,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         public LoginWindow(User user)
         {
             InitializeComponent();
-
+            Title += VersionHelper.GetVersionString();
             User = user;
 
             _presenter = Bootstrapper.GetPresenter<ILoginView, LoginPresenter>(this);
