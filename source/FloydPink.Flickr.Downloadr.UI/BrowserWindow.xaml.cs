@@ -295,10 +295,14 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void SelectAllButtonClick(object sender, RoutedEventArgs e)
         {
+            LoseFocus((UIElement)sender);
+            PhotoList.SelectAll();
         }
 
         private void DeselectAllButtonClick(object sender, RoutedEventArgs e)
         {
+            LoseFocus((UIElement)sender);
+            PhotoList.SelectedItems.Clear();
         }
     }
 }
