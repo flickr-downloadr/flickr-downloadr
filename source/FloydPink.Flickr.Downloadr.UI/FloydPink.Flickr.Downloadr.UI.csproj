@@ -235,6 +235,9 @@
     <SplashScreen Include="Splash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)..\build\nant\nant-0.92\bin\NAnt.exe -buildfile:$(SolutionDir)..\FlickrDownloadr.build increment-version -D:project.build.type=Debug</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
