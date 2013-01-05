@@ -131,7 +131,7 @@
       <arg value="/p:ApplicationVersion=${buildnumber.version}"/>
       <arg value="/p:PublishDir=${bin.dir}\Deploy\"/>
       <arg value="/p:InstallUrl=http://flickrdownloadr.com/downloads/latest/"/>
-      <arg value="/p:SupportUrl=http://flickrdownloadr.com/"/>
+      <arg value="/p:SupportUrl=http://flickrdownloadr.com/downloads/latest/"/>
       <arg value="/p:ErrorReportUrl=http://flickrdownloadr.com/"/>
       <arg value="/p:BootstrapperEnabled=true"/>
       <arg value="/p:CreateDesktopShortcut=true"/>
