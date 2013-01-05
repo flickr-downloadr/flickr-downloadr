@@ -128,7 +128,8 @@
       <arg value="/p:UpdateIntervalUnits=Days"/>
       <arg value="/p:UpdatePeriodically=false"/>
       <arg value="/p:Configuration=${project.build.type}"/>
-      <arg value="/p:ProductName=flickr downloadr v${buildnumber.version}"/>
+      <arg value="/p:PublisherName=flickrdownloadr"/>
+      <arg value="/p:ProductName=flickr downloadr (beta v${buildnumber.version})"/>
       <arg value="/p:ApplicationVersion=${buildnumber.version}"/>
       <arg value="/p:PublishDir=${bin.dir}\Deploy\"/>
       <arg value="/p:InstallUrl=http://flickrdownloadr.com/downloads/latest/"/>
