@@ -83,7 +83,7 @@ rm -rf tmp-gh-pages
 
 #reset the modified build.number and CommonAssemblyInfo in the main (outer) repo
 cd ../../..
-git checkout -- build.number source/CommonAssemblyInfo.cs
+git checkout -- build/build.number source/CommonAssemblyInfo.cs
 
 # done
 echo "deployed $MSG successfully"
