@@ -45,7 +45,7 @@ else
     fi
 fi
 
-cd source/bin/Release
+cd ../source/bin/Release
 REPO=git@github.com:flickr-downloadr/flickr-downloadr.git
 MSG="application (v${BUILDNUMBER})"
 
@@ -65,14 +65,14 @@ mv index.html downloads/latest
 
 #add published files & build.number to gh-pages; commit; push
 cp -r ../../Deploy/* ./downloads/latest
-cp ../../../../../build.number .
+cp ../../../../../build/build.number .
 git add .
 git commit -m "deploying $MSG" -s
 git push
 
 #checkout master to add the modified build.number and CommonAssemblyInfo; commit; push
 git checkout master
-cp ../../../../../build.number .
+cp ../../../../../build/build.number ./build
 cp ../../../../CommonAssemblyInfo.cs ./source
 git commit -a -m "deploying $MSG" -s
 git push
