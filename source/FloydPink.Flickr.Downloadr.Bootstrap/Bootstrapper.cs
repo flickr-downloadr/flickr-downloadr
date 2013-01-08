@@ -8,6 +8,7 @@ using FloydPink.Flickr.Downloadr.OAuth;
 using FloydPink.Flickr.Downloadr.OAuth.Listener;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Repository;
+using FloydPink.Flickr.Downloadr.Repository.Helpers;
 using StructureMap;
 
 
@@ -15,8 +16,9 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
 {
     public static class Bootstrapper
     {
-        private static string ConsumerKey = "33fe2dc1389339c4e9cd77e9a90ebabf";
-        private static string ConsumerSecret = "573233c34efdd943";
+        private static string SharedSecret = "kn98nkgg90sknka2038234(&9883!@%^";
+        private static string ConsumerKey = "EAAAABumLz7N4IfZ9hH2YCoRjttqgG3QQEpPUhHC4EUnXl/JOE9Zl90MwGZh2KtuUzIpJz/9s0BX9q3DVBrPUP00g9E=";
+        private static string ConsumerSecret = "EAAAAEsjQ3vGqYjtqsHqE+unh1gtlK6usoX2+65UUOW83RHCAC+/n0EPnCaPbaXUAvPs9w==";
 
         private static int DefaultPerPageCount = 50;
         private static string DefaultDownloadLocation = ".";
@@ -50,8 +52,8 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                                                  Ctor<ServiceProviderDescription>("serviceDescription").Is(
                                                      FlickrServiceDescription);
                                              initializer.For<IConsumerTokenManager>().Use<TokenManager>().
-                                                 Ctor<string>("consumerKey").Is(ConsumerKey).
-                                                 Ctor<string>("consumerSecret").Is(ConsumerSecret);
+                                                 Ctor<string>("consumerKey").Is(Crypt.Decrypt(ConsumerKey,SharedSecret)).
+                                                 Ctor<string>("consumerSecret").Is(Crypt.Decrypt(ConsumerSecret,SharedSecret));
 
                                              initializer.For<IHttpListenerManager>().Use<HttpListenerManager>();
 

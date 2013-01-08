@@ -6,7 +6,7 @@ namespace FloydPink.Flickr.Downloadr.UnitTests.HelperTests
     [TestFixture]
     public class CryptTests
     {
-        private const string CryptKey = "kn98nkgg90sknka2038234(&9883!@%^";
+        private const string CryptKey = "kn98nkgg90sknka242342234038234(&9883!@%^";
 
         [Test]
         public void WillEncryptDecryptToken()
