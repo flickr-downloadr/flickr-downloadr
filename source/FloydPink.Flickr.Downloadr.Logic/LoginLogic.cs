@@ -58,7 +58,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
             _oAuthManager.AccessToken = token.TokenString;
             var testLogin =
                 (Dictionary<string, object>)await _oAuthManager.MakeAuthenticatedRequestAsync(Methods.TestLogin);
-            bool userIsLoggedIn = (string)testLogin.GetValueFromDictionary("user", "id") == user.UserNsId;
+            bool userIsLoggedIn = (string)testLogin.GetSubValue("user", "id") == user.UserNsId;
 
             if (userIsLoggedIn)
             {
@@ -95,14 +95,14 @@ namespace FloydPink.Flickr.Downloadr.Logic
                                                  userInfo["path_alias"] == null
                                                      ? string.Empty
                                                      : userInfo["path_alias"].ToString(),
-                                             Description = userInfo.GetValueFromDictionary("description").ToString(),
-                                             PhotosUrl = userInfo.GetValueFromDictionary("photosurl").ToString(),
-                                             ProfileUrl = userInfo.GetValueFromDictionary("profileurl").ToString(),
-                                             MobileUrl = userInfo.GetValueFromDictionary("mobileurl").ToString(),
+                                             Description = userInfo.GetSubValue("description").ToString(),
+                                             PhotosUrl = userInfo.GetSubValue("photosurl").ToString(),
+                                             ProfileUrl = userInfo.GetSubValue("profileurl").ToString(),
+                                             MobileUrl = userInfo.GetSubValue("mobileurl").ToString(),
                                              PhotosCount =
                                                  Convert.ToInt32(
                                                      ((Dictionary<string, object>)userInfo["photos"]).
-                                                         GetValueFromDictionary("count"))
+                                                         GetSubValue("count"))
                                          };
             _applyUser(authenticatedUser);
         }

@@ -14,9 +14,8 @@ namespace FloydPink.Flickr.Downloadr.Model.Constants
         public const string BuddyIconUrlFormat = "http://farm{0}.staticflickr.com/{1}/buddyicons/{2}.jpg";
         public const string DefaultBuddyIconUrl = "http://www.flickr.com/images/buddyicon.gif";
 
-        public const string PhotoUrlFormat = "http://farm{0}.staticflickr.com/{1}/{2}_{3}_{4}.{5}";
-        public const string OriginalPhotoUrlFormat = "http://farm{0}.staticflickr.com/{1}/{2}_{3}_o.{4}";
-        
+        public const string ExtraInfo = "description, license, date_upload, date_taken, owner_name, icon_server, original_format, last_update, geo, tags, machine_tags, o_dims, views, media, path_alias, url_sq, url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o";
+
         public const string MoreThan1000PhotosWarningFormat = "There are a total of {0} photos to be downloaded! This WILL take quite a while. Are you sure?";
         public const string MoreThan500PhotosWarningFormat = "You are going to download {0} photos. It could take a while. Continue?";
         public const string MoreThan100PhotosWarningFormat = "Are you sure you want to download {0} photos?";

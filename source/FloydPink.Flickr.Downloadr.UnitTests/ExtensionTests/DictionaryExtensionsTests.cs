@@ -15,8 +15,8 @@ namespace FloydPink.Flickr.Downloadr.UnitTests.ExtensionTests
                                      {"key1", new Dictionary<string, object> {{"_content", "value1"}}},
                                      {"key2", new Dictionary<string, object> {{"_content", "value2"}}}
                                  };
-            Assert.AreEqual("value1", dictionary.GetValueFromDictionary("key1"));
-            Assert.AreEqual("value2", dictionary.GetValueFromDictionary("key2"));
+            Assert.AreEqual("value1", dictionary.GetSubValue("key1"));
+            Assert.AreEqual("value2", dictionary.GetSubValue("key2"));
         }
     }
 }

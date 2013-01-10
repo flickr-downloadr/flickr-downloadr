@@ -4,18 +4,21 @@ using System.Linq;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Model.Constants;
 
-
 namespace FloydPink.Flickr.Downloadr.Logic.Extensions
 {
     public static class DictionaryExtensions
     {
+        public static object GetValue(this Dictionary<string, object> dictionary, string key)
+        {
+            return dictionary.ContainsKey(key) ? dictionary[key] : string.Empty;
+        }
 
-        public static object GetValueFromDictionary(this Dictionary<string, object> dictionary, string key,
-                                                    string subKey = AppConstants.FlickrDictionaryContentKey)
+        public static object GetSubValue(this Dictionary<string, object> dictionary, string key,
+                                         string subKey = AppConstants.FlickrDictionaryContentKey)
         {
             if (dictionary.ContainsKey(key))
             {
-                var subDictionary = (Dictionary<string, object>)dictionary[key];
+                var subDictionary = (Dictionary<string, object>) dictionary[key];
                 return subDictionary.ContainsKey(subKey) ? subDictionary[subKey] : null;
             }
             return null;
@@ -25,34 +28,44 @@ namespace FloydPink.Flickr.Downloadr.Logic.Extensions
         {
             var photos = new List<Photo>();
             IEnumerable<Dictionary<string, object>> photoDictionary =
-                ((IEnumerable<object>)dictionary.GetValueFromDictionary("photos", "photo")).
+                ((IEnumerable<object>) dictionary.GetSubValue("photos", "photo")).
                     Cast<Dictionary<string, object>>();
 
             photos.AddRange(photoDictionary.Select(BuildPhoto));
 
             return new PhotosResponse(
-                Convert.ToInt32(dictionary.GetValueFromDictionary("photos", "page")),
-                Convert.ToInt32(dictionary.GetValueFromDictionary("photos", "pages")),
-                Convert.ToInt32(dictionary.GetValueFromDictionary("photos", "perpage")),
-                Convert.ToInt32(dictionary.GetValueFromDictionary("photos", "total")),
+                Convert.ToInt32(dictionary.GetSubValue("photos", "page")),
+                Convert.ToInt32(dictionary.GetSubValue("photos", "pages")),
+                Convert.ToInt32(dictionary.GetSubValue("photos", "perpage")),
+                Convert.ToInt32(dictionary.GetSubValue("photos", "total")),
                 photos);
         }
 
         private static Photo BuildPhoto(Dictionary<string, object> dictionary)
         {
-            return new Photo(dictionary["id"].ToString(),
-                             dictionary["owner"].ToString(),
-                             dictionary["secret"].ToString(),
-                             dictionary["server"].ToString(),
-                             Convert.ToInt32(dictionary["farm"]),
-                             dictionary["title"].ToString(),
-                             Convert.ToBoolean(dictionary["ispublic"]),
-                             Convert.ToBoolean(dictionary["isfriend"]),
-                             Convert.ToBoolean(dictionary["isfamily"]),
-                             dictionary.GetValueFromDictionary("description").ToString(),
-                             dictionary["tags"].ToString(),
-                             dictionary["originalsecret"].ToString(),
-                             dictionary["originalformat"].ToString());
+            return new Photo(dictionary.GetValue("id").ToString(),
+                             dictionary.GetValue("owner").ToString(),
+                             dictionary.GetValue("secret").ToString(),
+                             dictionary.GetValue("server").ToString(),
+                             Convert.ToInt32(dictionary.GetValue("farm")),
+                             dictionary.GetValue("title").ToString(),
+                             Convert.ToBoolean(dictionary.GetValue("ispublic")),
+                             Convert.ToBoolean(dictionary.GetValue("isfriend")),
+                             Convert.ToBoolean(dictionary.GetValue("isfamily")),
+                             dictionary.GetSubValue("description").ToString().Trim(),
+                             dictionary.GetValue("tags").ToString(),
+                             dictionary.GetValue("originalsecret").ToString(),
+                             dictionary.GetValue("originalformat").ToString(),
+                             dictionary.GetValue("url_sq").ToString(),
+                             dictionary.GetValue("url_q").ToString(),
+                             dictionary.GetValue("url_t").ToString(),
+                             dictionary.GetValue("url_s").ToString(),
+                             dictionary.GetValue("url_n").ToString(),
+                             dictionary.GetValue("url_m").ToString(),
+                             dictionary.GetValue("url_z").ToString(),
+                             dictionary.GetValue("url_c").ToString(),
+                             dictionary.GetValue("url_l").ToString(),
+                             dictionary.GetValue("url_o").ToString());
         }
     }
 }

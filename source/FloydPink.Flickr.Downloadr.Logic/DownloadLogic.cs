@@ -23,7 +23,13 @@ namespace FloydPink.Flickr.Downloadr.Logic
             _downloadLocation = downloadLocation;
         }
 
-        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress)
+        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken,
+                                   IProgress<ProgressUpdate> progress)
+        {
+            await DownloadAndSavePhotos(photos, cancellationToken, progress);
+        }
+
+        private async Task DownloadAndSavePhotos(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress)
         {
             try
             {
@@ -47,13 +53,12 @@ namespace FloydPink.Flickr.Downloadr.Logic
 
                 foreach (Photo photo in photosList)
                 {
-                    string targetFileName = Path.Combine(imageDirectory.FullName, string.Format("{0}.{1}",
-                                                                                                GetSafeFilename(photo.Title),
-                                                                                                photo.OriginalFormat));
-                    var metadata = new { Title = photo.Title, Description = photo.Description, Tags = photo.Tags };
+                    string targetFileName = Path.Combine(imageDirectory.FullName,
+                        string.Format("{0}.{1}", GetSafeFilename(photo.Title), photo.DownloadFormat));
+                    var metadata = new { photo.Title, photo.Description, photo.Tags };
                     File.WriteAllText(string.Format("{0}.json", targetFileName), metadata.ToJson(), Encoding.Unicode);
 
-                    WebRequest request = WebRequest.Create(photo.OriginalUrl);
+                    WebRequest request = WebRequest.Create(photo.LargestAvailableSizeUrl);
 
                     var buffer = new byte[4096];
 
@@ -79,7 +84,9 @@ namespace FloydPink.Flickr.Downloadr.Logic
                     if (progressUpdate.PercentDone != 100) cancellationToken.ThrowIfCancellationRequested();
                 }
             }
-            catch (OperationCanceledException e) { }
+            catch (OperationCanceledException e)
+            {
+            }
         }
 
         private string RandomString(int size)

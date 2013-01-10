@@ -19,7 +19,7 @@
                            HorizontalAlignment="Center">
                         <Image.ToolTip>
                             <Grid>
-                                <Image Source="{Binding Small320Url, IsAsync=True}" Stretch="Fill"
+                                <Image Source="{Binding Medium500Url, IsAsync=True}" Stretch="Fill"
                                        HorizontalAlignment="Center">
                                 </Image>
                                 <AdornerDecorator>

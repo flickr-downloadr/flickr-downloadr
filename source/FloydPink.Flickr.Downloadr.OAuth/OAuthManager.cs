@@ -23,7 +23,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
                                                                              {
                                                                                  {ParameterNames.NoJsonCallback, "1"},
                                                                                  {ParameterNames.Format, "json"},
-                                                                                 {ParameterNames.Extras, "original_format,description,geo,tags,machine_tags"}
+                                                                                 {ParameterNames.Extras, AppConstants.ExtraInfo}
                                                                              };
 
         private readonly IHttpListenerManager _listenerManager;
