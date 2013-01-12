@@ -88,7 +88,7 @@ namespace FloydPink.Flickr.Downloadr.UI
             get
             {
                 return Photos != null &&
-                    (!SelectedPhotos.ContainsKey(Page) || Photos.Count != SelectedPhotos[Page].Count);
+                       (!SelectedPhotos.ContainsKey(Page) || Photos.Count != SelectedPhotos[Page].Count);
             }
         }
 
@@ -96,7 +96,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         {
             get
             {
-                return (((Convert.ToInt32(Page) - 1) * Convert.ToInt32(PerPage)) + 1).
+                return (((Convert.ToInt32(Page) - 1)*Convert.ToInt32(PerPage)) + 1).
                     ToString(CultureInfo.InvariantCulture);
             }
         }
@@ -105,7 +105,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         {
             get
             {
-                int maxLast = Convert.ToInt32(Page) * Convert.ToInt32(PerPage);
+                int maxLast = Convert.ToInt32(Page)*Convert.ToInt32(PerPage);
                 return maxLast > Convert.ToInt32(Total) ? Total : maxLast.ToString(CultureInfo.InvariantCulture);
             }
         }
@@ -130,7 +130,7 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         public bool ShowAllPhotos
         {
-            get { return PublicAllToggleButton.IsChecked != null && (bool)PublicAllToggleButton.IsChecked; }
+            get { return PublicAllToggleButton.IsChecked != null && (bool) PublicAllToggleButton.IsChecked; }
         }
 
         public string Page
@@ -225,62 +225,62 @@ namespace FloydPink.Flickr.Downloadr.UI
             List<Photo> photos = Photos.Where(photo => SelectedPhotos[Page].ContainsKey(photo.Id)).ToList();
             foreach (Photo photo in photos)
             {
-                ((ListBoxItem)PhotoList.ItemContainerGenerator.ContainerFromItem(photo)).IsSelected = true;
+                ((ListBoxItem) PhotoList.ItemContainerGenerator.ContainerFromItem(photo)).IsSelected = true;
             }
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            var loginWindow = new LoginWindow { User = User };
+            var loginWindow = new LoginWindow {User = User};
             loginWindow.Show();
             Close();
         }
 
         private async void TogglePhotosButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement)sender);
+            LoseFocus((UIElement) sender);
             await _presenter.InitializePhotoset();
         }
 
         private async void FirstPageButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement)sender);
+            LoseFocus((UIElement) sender);
             await _presenter.NavigateTo(PhotoPage.First);
         }
 
         private async void PreviousPageButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement)sender);
+            LoseFocus((UIElement) sender);
             await _presenter.NavigateTo(PhotoPage.Previous);
         }
 
         private async void NextPageButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement)sender);
+            LoseFocus((UIElement) sender);
             await _presenter.NavigateTo(PhotoPage.Next);
         }
 
         private async void LastPageButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement)sender);
+            LoseFocus((UIElement) sender);
             await _presenter.NavigateTo(PhotoPage.Last);
         }
 
         private async void DownloadSelectionButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement)sender);
+            LoseFocus((UIElement) sender);
             await _presenter.DownloadSelection();
         }
 
         private async void DownloadThisPageButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement)sender);
+            LoseFocus((UIElement) sender);
             await _presenter.DownloadThisPage();
         }
 
         private async void DownloadAllPagesButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement)sender);
+            LoseFocus((UIElement) sender);
             await _presenter.DownloadAllPages();
         }
 
@@ -295,13 +295,13 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void SelectAllButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement)sender);
+            LoseFocus((UIElement) sender);
             PhotoList.SelectAll();
         }
 
         private void DeselectAllButtonClick(object sender, RoutedEventArgs e)
         {
-            LoseFocus((UIElement)sender);
+            LoseFocus((UIElement) sender);
             PhotoList.SelectedItems.Clear();
         }
     }

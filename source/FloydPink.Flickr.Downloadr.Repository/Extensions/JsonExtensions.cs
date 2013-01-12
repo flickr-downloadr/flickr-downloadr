@@ -1,11 +1,9 @@
 using System.Web.Script.Serialization;
 
-
 namespace FloydPink.Flickr.Downloadr.Repository.Extensions
 {
     public static class JsonExtensions
     {
-        
         public static string ToJson(this object value)
         {
             return (new JavaScriptSerializer()).Serialize(value);

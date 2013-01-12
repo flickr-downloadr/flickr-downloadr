@@ -1,12 +1,10 @@
 using System.IO;
 using FloydPink.Flickr.Downloadr.Repository.Helpers;
 
-
 namespace FloydPink.Flickr.Downloadr.Repository
 {
     public abstract class RepositoryBase
     {
-        
         protected readonly string CryptKey = "SomeEncryPtionKey123";
         internal abstract string RepoFileName { get; }
 

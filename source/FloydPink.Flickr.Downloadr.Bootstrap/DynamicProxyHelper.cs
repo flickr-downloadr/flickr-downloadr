@@ -9,9 +9,14 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
         public static object CreateInterfaceProxyWithTargetInterface(Type interfaceType, object concreteObject)
         {
             var proxyGenerator = new ProxyGenerator();
-            var result = proxyGenerator.CreateInterfaceProxyWithTargetInterface(interfaceType,
-                concreteObject,
-                new[] { new LogInterceptor(LogManager.GetLogger(concreteObject.GetType())) });
+            object result = proxyGenerator.
+                CreateInterfaceProxyWithTargetInterface(interfaceType,
+                                                        concreteObject,
+                                                        new[]
+                                                            {
+                                                                new LogInterceptor(
+                                                                    LogManager.GetLogger(concreteObject.GetType()))
+                                                            });
 
             return result;
         }

@@ -8,7 +8,6 @@ using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
 using FloydPink.Flickr.Downloadr.UI.Helpers;
 
-
 namespace FloydPink.Flickr.Downloadr.UI
 {
     /// <summary>

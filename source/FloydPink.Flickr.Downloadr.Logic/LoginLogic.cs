@@ -9,7 +9,6 @@ using FloydPink.Flickr.Downloadr.Model.Constants;
 using FloydPink.Flickr.Downloadr.OAuth;
 using FloydPink.Flickr.Downloadr.Repository;
 
-
 namespace FloydPink.Flickr.Downloadr.Logic
 {
     public class LoginLogic : ILoginLogic
@@ -56,9 +55,8 @@ namespace FloydPink.Flickr.Downloadr.Logic
             }
 
             _oAuthManager.AccessToken = token.TokenString;
-            var testLogin =
-                (Dictionary<string, object>)await _oAuthManager.MakeAuthenticatedRequestAsync(Methods.TestLogin);
-            bool userIsLoggedIn = (string)testLogin.GetSubValue("user", "id") == user.UserNsId;
+            var testLogin = (Dictionary<string, object>) await _oAuthManager.MakeAuthenticatedRequestAsync(Methods.TestLogin);
+            bool userIsLoggedIn = (string) testLogin.GetSubValue("user", "id") == user.UserNsId;
 
             if (userIsLoggedIn)
             {
@@ -99,10 +97,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
                                              PhotosUrl = userInfo.GetSubValue("photosurl").ToString(),
                                              ProfileUrl = userInfo.GetSubValue("profileurl").ToString(),
                                              MobileUrl = userInfo.GetSubValue("mobileurl").ToString(),
-                                             PhotosCount =
-                                                 Convert.ToInt32(
-                                                     ((Dictionary<string, object>)userInfo["photos"]).
-                                                         GetSubValue("count"))
+                                             PhotosCount = Convert.ToInt32(((Dictionary<string, object>) userInfo["photos"]).GetSubValue("count"))
                                          };
             _applyUser(authenticatedUser);
         }

@@ -46,7 +46,8 @@
     </Window.Resources>
 
     <Grid>
-        <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+        <Grid
+            DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="40"></RowDefinition>
@@ -56,7 +57,7 @@
                      ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}" SelectionMode="Multiple"
                      behaviors:ScrollToTopBehavior.ScrollToTop="True">
             </ListBox>
-            <Grid Grid.Row="1" >
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -134,8 +135,9 @@
                                FontWeight="Bold">
                         Download
                     </TextBlock>
-                    <Button Content="{Binding Path=SelectedPhotosCountText}" Height="28" ToolTip="Download selected photos"
-                            Margin="0,0,5,0" Click="DownloadSelectionButtonClick" Width="95" 
+                    <Button Content="{Binding Path=SelectedPhotosCountText}" Height="28"
+                            ToolTip="Download selected photos"
+                            Margin="0,0,5,0" Click="DownloadSelectionButtonClick" Width="95"
                             IsEnabled="{Binding Path=SelectedPhotosExist}" />
                     <Button Content="This Page" Height="28" ToolTip="Download all the photos in this page"
                             Margin="0,0,5,0" Click="DownloadThisPageButtonClick" Width="60" />
@@ -146,8 +148,9 @@
                     <SolidColorBrush Color="Gainsboro" Opacity="0.7" />
                 </Grid.Background>
                 <Grid.Effect>
-                    <DropShadowEffect BlurRadius="25" Direction="90" ShadowDepth="3" 
-                                      RenderingBias="Performance" Opacity="0.2" Color="Olive"></DropShadowEffect>
+                    <DropShadowEffect BlurRadius="25" Direction="90" ShadowDepth="3"
+                                      RenderingBias="Performance" Opacity="0.2" Color="Olive">
+                    </DropShadowEffect>
                 </Grid.Effect>
             </Grid>
         </Grid>

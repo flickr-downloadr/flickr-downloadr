@@ -11,7 +11,6 @@ using FloydPink.Flickr.Downloadr.Model.Constants;
 using FloydPink.Flickr.Downloadr.Model.Enums;
 using FloydPink.Flickr.Downloadr.OAuth;
 
-
 namespace FloydPink.Flickr.Downloadr.Logic
 {
     public class BrowserLogic : IBrowserLogic
@@ -29,7 +28,8 @@ namespace FloydPink.Flickr.Downloadr.Logic
 
         #region IBrowserLogic Members
 
-        public async Task<PhotosResponse> GetPhotosAsync(string methodName, User user, int page, IProgress<ProgressUpdate> progress)
+        public async Task<PhotosResponse> GetPhotosAsync(string methodName, User user, int page,
+                                                         IProgress<ProgressUpdate> progress)
         {
             var progressUpdate = new ProgressUpdate
                                      {
@@ -55,9 +55,10 @@ namespace FloydPink.Flickr.Downloadr.Logic
             return photosResponse.GetPhotosResponseFromDictionary();
         }
 
-        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress)
+        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken,
+                                   IProgress<ProgressUpdate> progress)
         {
-            var photosList = photos as IList<Photo> ?? photos.ToList();
+            IList<Photo> photosList = photos as IList<Photo> ?? photos.ToList();
             if (!photosList.Any()) return;
 
             await _downloadLogic.Download(photosList, cancellationToken, progress);

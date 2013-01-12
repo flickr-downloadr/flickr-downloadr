@@ -5,12 +5,10 @@ using DotNetOpenAuth.OAuth.Messages;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Repository;
 
-
 namespace FloydPink.Flickr.Downloadr.OAuth
 {
     public class TokenManager : IConsumerTokenManager
     {
-        
         private readonly IRepository<Token> _tokenRepository;
 
         private readonly Dictionary<string, Tuple<string, TokenType>> _tokens =

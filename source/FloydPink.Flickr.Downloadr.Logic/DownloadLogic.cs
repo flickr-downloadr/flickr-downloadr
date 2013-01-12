@@ -14,7 +14,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
 {
     public class DownloadLogic : IDownloadLogic
     {
-        private static readonly Random Random = new Random((int)DateTime.Now.Ticks);
+        private static readonly Random Random = new Random((int) DateTime.Now.Ticks);
         private readonly string _downloadLocation;
         private string _currentTimestampFolder;
 
@@ -29,7 +29,8 @@ namespace FloydPink.Flickr.Downloadr.Logic
             await DownloadAndSavePhotos(photos, cancellationToken, progress);
         }
 
-        private async Task DownloadAndSavePhotos(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress)
+        private async Task DownloadAndSavePhotos(IEnumerable<Photo> photos, CancellationToken cancellationToken,
+                                                 IProgress<ProgressUpdate> progress)
         {
             try
             {
@@ -54,8 +55,9 @@ namespace FloydPink.Flickr.Downloadr.Logic
                 foreach (Photo photo in photosList)
                 {
                     string targetFileName = Path.Combine(imageDirectory.FullName,
-                        string.Format("{0}.{1}", GetSafeFilename(photo.Title), photo.DownloadFormat));
-                    var metadata = new { photo.Title, photo.Description, photo.Tags };
+                                                         string.Format("{0}.{1}", GetSafeFilename(photo.Title),
+                                                                       photo.DownloadFormat));
+                    var metadata = new {photo.Title, photo.Description, photo.Tags};
                     File.WriteAllText(string.Format("{0}.json", targetFileName), metadata.ToJson(), Encoding.Unicode);
 
                     WebRequest request = WebRequest.Create(photo.LargestAvailableSizeUrl);
@@ -78,7 +80,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
                     }
 
                     doneCount++;
-                    progressUpdate.PercentDone = doneCount * 100 / totalCount;
+                    progressUpdate.PercentDone = doneCount*100/totalCount;
                     progressUpdate.DownloadedPath = imageDirectory.FullName;
                     progress.Report(progressUpdate);
                     if (progressUpdate.PercentDone != 100) cancellationToken.ThrowIfCancellationRequested();
@@ -95,7 +97,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
             var builder = new StringBuilder();
             for (int i = 0; i < size; i++)
             {
-                char ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * Random.NextDouble() + 65)));
+                char ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26*Random.NextDouble() + 65)));
                 builder.Append(ch);
             }
 

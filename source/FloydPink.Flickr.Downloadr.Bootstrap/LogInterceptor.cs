@@ -2,9 +2,8 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 using Castle.DynamicProxy;
-using FloydPink.Flickr.Downloadr.Repository.Extensions;
+using ServiceStack.Text;
 using log4net;
 
 namespace FloydPink.Flickr.Downloadr.Bootstrap
@@ -32,22 +31,23 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
 
                 if (Log.IsDebugEnabled)
                 {
-                    var returnType = invocation.Method.ReturnType;
-                    if (returnType != typeof(void))
+                    Type returnType = invocation.Method.ReturnType;
+                    if (returnType != typeof (void))
                     {
-                        var returnValue = invocation.ReturnValue;
-                        if (returnType == typeof(Task))
+                        object returnValue = invocation.ReturnValue;
+                        if (returnType == typeof (Task))
                         {
                             Log.Debug("Returning with a task.");
                         }
-                        else if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>))
+                        else if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof (Task<>))
                         {
                             Log.Debug("Returning with a generic task.");
-                            var task = (Task)returnValue;
+                            var task = (Task) returnValue;
                             task.ContinueWith((antecedent) =>
                                                   {
-                                                      var taskDescriptor = CreateInvocationLogString("Task from", invocation);
-                                                      var result =
+                                                      string taskDescriptor = CreateInvocationLogString("Task from",
+                                                                                                        invocation);
+                                                      object result =
                                                           antecedent.GetType()
                                                                     .GetProperty("Result")
                                                                     .GetValue(antecedent, null);
@@ -85,7 +85,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
         private static string DumpObject(object argument)
         {
             Type objtype = argument.GetType();
-            if (objtype == typeof(String) || objtype.IsPrimitive || !objtype.IsClass)
+            if (objtype == typeof (String) || objtype.IsPrimitive || !objtype.IsClass)
                 return argument.ToString();
 
             return ToJson(argument);
@@ -95,8 +95,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
         {
             try
             {
-                var serializedObject = (new JavaScriptSerializer()).Serialize(value);
-                return serializedObject;
+                return value.Dump();
             }
             catch (Exception)
             {

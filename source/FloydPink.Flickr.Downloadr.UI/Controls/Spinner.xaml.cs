@@ -57,8 +57,8 @@ namespace FloydPink.Flickr.Downloadr.UI.Controls
         private static void CancellableChanged(DependencyObject instance, DependencyPropertyChangedEventArgs e)
         {
             ((Spinner) instance).CancelButton.Visibility = (bool) e.NewValue
-                                                                       ? Visibility.Visible
-                                                                       : Visibility.Collapsed;
+                                                               ? Visibility.Visible
+                                                               : Visibility.Collapsed;
         }
 
         private static void OperationTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -66,8 +66,8 @@ namespace FloydPink.Flickr.Downloadr.UI.Controls
             var spinner = (Spinner) d;
             spinner.OperationTextControl.Text = e.NewValue.ToString();
             spinner.OperationTextControl.Visibility = string.IsNullOrWhiteSpace(e.NewValue.ToString())
-                                               ? Visibility.Collapsed
-                                               : Visibility.Visible;
+                                                          ? Visibility.Collapsed
+                                                          : Visibility.Visible;
         }
 
         private static void PercentDoneChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

@@ -12,7 +12,8 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
     {
         private const string SharedSecret = "kn98nkgg90sknka2038234(&9883!@%^";
 
-        private const string ConsumerKey = "EAAAABumLz7N4IfZ9hH2YCoRjttqgG3QQEpPUhHC4EUnXl/JOE9Zl90MwGZh2KtuUzIpJz/9s0BX9q3DVBrPUP00g9E=";
+        private const string ConsumerKey =
+            "EAAAABumLz7N4IfZ9hH2YCoRjttqgG3QQEpPUhHC4EUnXl/JOE9Zl90MwGZh2KtuUzIpJz/9s0BX9q3DVBrPUP00g9E=";
 
         private const string ConsumerSecret = "EAAAAEsjQ3vGqYjtqsHqE+unh1gtlK6usoX2+65UUOW83RHCAC+/n0EPnCaPbaXUAvPs9w==";
 
@@ -20,13 +21,17 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
             new ServiceProviderDescription
                 {
                     ProtocolVersion = ProtocolVersion.V10a,
-                    RequestTokenEndpoint = new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/request_token",
+                    RequestTokenEndpoint =
+                        new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/request_token",
                                                      HttpDeliveryMethods.PostRequest),
-                    UserAuthorizationEndpoint = new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/authorize",
+                    UserAuthorizationEndpoint =
+                        new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/authorize",
                                                      HttpDeliveryMethods.GetRequest),
-                    AccessTokenEndpoint = new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/access_token",
+                    AccessTokenEndpoint =
+                        new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/access_token",
                                                      HttpDeliveryMethods.GetRequest),
-                    TamperProtectionElements = new ITamperProtectionChannelBindingElement[] { new HmacSha1SigningBindingElement() }
+                    TamperProtectionElements =
+                        new ITamperProtectionChannelBindingElement[] {new HmacSha1SigningBindingElement()}
                 };
 
         private static readonly MessageReceivingEndpoint FlickrServiceEndPoint =
@@ -34,20 +39,29 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
 
         public OAuthRegistry()
         {
-            For<IOAuthManager>().Singleton().Use<OAuthManager>().
-                EnrichWith(s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof(IOAuthManager), s)).
-                Ctor<MessageReceivingEndpoint>("serviceEndPoint").Is(FlickrServiceEndPoint);
+            For<IOAuthManager>()
+                .Singleton()
+                .Use<OAuthManager>()
+                .EnrichWith(
+                    s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof (IOAuthManager), s)).
+                 Ctor<MessageReceivingEndpoint>("serviceEndPoint").Is(FlickrServiceEndPoint);
 
-            For<DesktopConsumer>().Use<DesktopConsumer>().Ctor<ServiceProviderDescription>("serviceDescription").Is(FlickrServiceDescription);
+            For<DesktopConsumer>()
+                .Use<DesktopConsumer>()
+                .Ctor<ServiceProviderDescription>("serviceDescription")
+                .Is(FlickrServiceDescription);
 
-            For<IConsumerTokenManager>().Use<TokenManager>().
-                EnrichWith(s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof(IConsumerTokenManager), s)).
-                Ctor<string>("consumerKey").Is(Crypt.Decrypt(ConsumerKey, SharedSecret)).
-                Ctor<string>("consumerSecret").Is(Crypt.Decrypt(ConsumerSecret, SharedSecret));
+            For<IConsumerTokenManager>()
+                .Use<TokenManager>()
+                .Ctor<string>("consumerKey")
+                .Is(Crypt.Decrypt(ConsumerKey, SharedSecret))
+                .Ctor<string>("consumerSecret")
+                .Is(Crypt.Decrypt(ConsumerSecret, SharedSecret));
 
             For<IHttpListenerManager>()
                 .Use<HttpListenerManager>()
-                .EnrichWith(s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof(IHttpListenerManager), s));
+                .EnrichWith(
+                    s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof (IHttpListenerManager), s));
         }
     }
 }

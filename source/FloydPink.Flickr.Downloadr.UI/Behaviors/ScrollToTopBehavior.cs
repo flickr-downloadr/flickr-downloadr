@@ -5,13 +5,11 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-
 namespace FloydPink.Flickr.Downloadr.UI.Behaviors
 {
     // http://stackoverflow.com/a/4797565/218882
     public static class ScrollToTopBehavior
     {
-        
         public static readonly DependencyProperty ScrollToTopProperty =
             DependencyProperty.RegisterAttached
                 (
@@ -86,7 +84,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
                     break;
                 }
             }
-            
+
             return child;
         }
     }

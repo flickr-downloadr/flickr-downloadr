@@ -2,7 +2,6 @@ using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 
-
 namespace FloydPink.Flickr.Downloadr.Presentation
 {
     public class LoginPresenter : PresenterBase

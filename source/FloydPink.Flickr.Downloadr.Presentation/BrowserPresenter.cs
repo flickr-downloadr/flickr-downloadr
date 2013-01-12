@@ -19,8 +19,8 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         private readonly Progress<ProgressUpdate> _progress = new Progress<ProgressUpdate>();
         private readonly IBrowserView _view;
         private CancellationTokenSource _cancellationTokenSource;
-        private string _downloadedLocation;
         private bool _downloadComplete;
+        private string _downloadedLocation;
 
         public BrowserPresenter(IBrowserLogic logic, IBrowserView view)
         {
@@ -109,9 +109,9 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         {
             if (handleSpinner) _view.ShowSpinner(true);
 
-            var photosList = photos as IList<Photo> ?? photos.ToList();
-            var lotOfPhotosWarningFailed = false;
-            var warningFormat = string.Empty;
+            IList<Photo> photosList = photos as IList<Photo> ?? photos.ToList();
+            bool lotOfPhotosWarningFailed = false;
+            string warningFormat = string.Empty;
 
             if (photosList.Count() > 1000)
             {
@@ -129,7 +129,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             if (!string.IsNullOrWhiteSpace(warningFormat))
             {
                 lotOfPhotosWarningFailed = _view.ShowWarning(string.Format(warningFormat,
-                    photosList.Count().ToString(CultureInfo.InvariantCulture)));
+                                                                           photosList.Count().ToString(CultureInfo.InvariantCulture)));
             }
 
             if (!lotOfPhotosWarningFailed)

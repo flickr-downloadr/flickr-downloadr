@@ -5,15 +5,13 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-
 namespace FloydPink.Flickr.Downloadr.OAuth.Listener
 {
     public class HttpListenerManager : IHttpListenerManager
     {
-        
         private static readonly Random Random = new Random();
 
-        private static readonly List<string> _activeListeners = new List<string>();
+        private static readonly List<string> ActiveListeners = new List<string>();
 
         #region IHttpListenerManager Members
 
@@ -46,7 +44,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
             var listener = new HttpListener();
             listener.Prefixes.Add(ListenerAddress);
             listener.Start();
-            
+
             return listener.BeginGetContext(HttpListenerCallback, listener);
         }
 
@@ -54,16 +52,16 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
 
         private void KillAnyExistingListeners()
         {
-            if (_activeListeners.Count != 0)
+            if (ActiveListeners.Count != 0)
             {
                 var staleListener = new HttpListener();
-                staleListener.Prefixes.Add(_activeListeners[0]);
+                staleListener.Prefixes.Add(ActiveListeners[0]);
                 staleListener.Stop();
                 staleListener.Close();
-                _activeListeners.Clear();
+                ActiveListeners.Clear();
             }
 
-            _activeListeners.Add(ListenerAddress);
+            ActiveListeners.Add(ListenerAddress);
         }
 
         private string GetNewHttpListenerAddress()
@@ -93,7 +91,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
 
         private void HttpListenerCallback(IAsyncResult result)
         {
-            var listener = (HttpListener) result.AsyncState;
+            var listener = (HttpListener)result.AsyncState;
 
             HttpListenerContext context = listener.EndGetContext(result);
             HttpListenerRequest request = context.Request;

@@ -11,19 +11,20 @@ using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Model.Constants;
 using FloydPink.Flickr.Downloadr.OAuth.Listener;
 
-
 namespace FloydPink.Flickr.Downloadr.OAuth
 {
     public class OAuthManager : IOAuthManager
     {
-        
         private readonly DesktopConsumer _consumer;
 
         private readonly Dictionary<string, string> _defaultParameters = new Dictionary<string, string>
                                                                              {
                                                                                  {ParameterNames.NoJsonCallback, "1"},
                                                                                  {ParameterNames.Format, "json"},
-                                                                                 {ParameterNames.Extras, AppConstants.ExtraInfo}
+                                                                                 {
+                                                                                     ParameterNames.Extras,
+                                                                                     AppConstants.ExtraInfo
+                                                                                 }
                                                                              };
 
         private readonly IHttpListenerManager _listenerManager;
@@ -89,7 +90,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             foreach (var kvp in _defaultParameters)
                 allParameters.Add(kvp.Key, kvp.Value);
             allParameters.Add(ParameterNames.Method, methodName);
-            
+
             return allParameters;
         }
 
