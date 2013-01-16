@@ -4,7 +4,7 @@ using FloydPink.Flickr.Downloadr.Presentation.Views;
 
 namespace FloydPink.Flickr.Downloadr.Presentation
 {
-    public class LoginPresenter : PresenterBase
+    public class LoginPresenter : PresenterBase, ILoginPresenter
     {
         private readonly ILoginLogic _logic;
         private readonly ILoginView _view;

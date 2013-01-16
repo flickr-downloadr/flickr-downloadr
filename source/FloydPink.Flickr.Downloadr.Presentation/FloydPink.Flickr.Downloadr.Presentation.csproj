@@ -43,6 +43,8 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BrowserPresenter.cs" />
+    <Compile Include="IBrowserPresenter.cs" />
+    <Compile Include="ILoginPresenter.cs" />
     <Compile Include="LoginPresenter.cs" />
     <Compile Include="PresenterBase.cs" />
     <Compile Include="Views\IBaseView.cs" />

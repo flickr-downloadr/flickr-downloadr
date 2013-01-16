@@ -13,7 +13,7 @@ using FloydPink.Flickr.Downloadr.Presentation.Views;
 
 namespace FloydPink.Flickr.Downloadr.Presentation
 {
-    public class BrowserPresenter : PresenterBase
+    public class BrowserPresenter : PresenterBase, IBrowserPresenter
     {
         private readonly IBrowserLogic _logic;
         private readonly Progress<ProgressUpdate> _progress = new Progress<ProgressUpdate>();

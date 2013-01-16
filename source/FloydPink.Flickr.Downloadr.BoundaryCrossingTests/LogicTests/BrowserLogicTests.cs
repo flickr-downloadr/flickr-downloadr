@@ -28,7 +28,7 @@ namespace FloydPink.Flickr.Downloadr.BoundaryCrossingTests.LogicTests
         [TestFixtureSetUp]
         public void SetupTestFixture()
         {
-            Bootstrapper.Load();
+            Bootstrapper.Initialize();
             _loginLogic = Bootstrapper.GetInstance<ILoginLogic>();
             _logic = Bootstrapper.GetInstance<IBrowserLogic>();
         }

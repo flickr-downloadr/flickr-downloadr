@@ -1,29 +1,31 @@
-using FloydPink.Flickr.Downloadr.Presentation;
 using StructureMap;
 
 namespace FloydPink.Flickr.Downloadr.Bootstrap
 {
     public static class Bootstrapper
     {
-        public static void Load()
+        private static Container _container;
+
+        public static void Initialize()
         {
-            ObjectFactory.Initialize(initializer =>
-                                         {
-                                             initializer.AddRegistry<CommonsRegistry>();
-                                             initializer.AddRegistry<OAuthRegistry>();
-                                             initializer.AddRegistry<RepositoryRegistry>();
-                                             initializer.AddRegistry<LogicRegistry>();
-                                         });
+            _container = new Container(expression =>
+                                           {
+                                               expression.AddRegistry<CommonsRegistry>();
+                                               expression.AddRegistry<OAuthRegistry>();
+                                               expression.AddRegistry<RepositoryRegistry>();
+                                               expression.AddRegistry<LogicRegistry>();
+                                               expression.AddRegistry<PresentationRegistry>();
+                                           });
         }
 
         public static T GetInstance<T>()
         {
-            return ObjectFactory.GetInstance<T>();
+            return _container.GetInstance<T>();
         }
 
-        public static TPresenter GetPresenter<TView, TPresenter>(TView view) where TPresenter : PresenterBase
+        public static TPresenter GetPresenter<TView, TPresenter>(TView view)
         {
-            return ObjectFactory.With(view).GetInstance<TPresenter>();
+            return _container.With(view).GetInstance<TPresenter>();
         }
     }
 }

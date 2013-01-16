@@ -15,7 +15,7 @@ namespace FloydPink.Flickr.Downloadr.UI
     /// </summary>
     public partial class LoginWindow : Window, ILoginView
     {
-        private readonly LoginPresenter _presenter;
+        private readonly ILoginPresenter _presenter;
         private User _user;
 
         public LoginWindow()
@@ -29,7 +29,7 @@ namespace FloydPink.Flickr.Downloadr.UI
             Title += VersionHelper.GetVersionString();
             User = user;
 
-            _presenter = Bootstrapper.GetPresenter<ILoginView, LoginPresenter>(this);
+            _presenter = Bootstrapper.GetPresenter<ILoginView, ILoginPresenter>(this);
             _presenter.InitializeScreen();
         }
 

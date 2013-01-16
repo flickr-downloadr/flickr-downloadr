@@ -23,7 +23,7 @@ namespace FloydPink.Flickr.Downloadr.UI
     /// </summary>
     public partial class BrowserWindow : Window, IBrowserView, INotifyPropertyChanged
     {
-        private readonly BrowserPresenter _presenter;
+        private readonly IBrowserPresenter _presenter;
         private bool _doNotSyncSelectedItems;
         private string _page;
         private string _pages;
@@ -51,7 +51,7 @@ namespace FloydPink.Flickr.Downloadr.UI
 
             SpinnerInner.SpinnerCanceled += (sender, args) => _presenter.CancelDownload();
 
-            _presenter = Bootstrapper.GetPresenter<IBrowserView, BrowserPresenter>(this);
+            _presenter = Bootstrapper.GetPresenter<IBrowserView, IBrowserPresenter>(this);
             _presenter.InitializePhotoset();
         }
 

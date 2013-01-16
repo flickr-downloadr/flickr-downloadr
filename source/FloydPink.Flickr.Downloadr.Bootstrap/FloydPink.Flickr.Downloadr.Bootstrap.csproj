@@ -64,6 +64,7 @@
     <Compile Include="LogicRegistry.cs" />
     <Compile Include="LogInterceptor.cs" />
     <Compile Include="OAuthRegistry.cs" />
+    <Compile Include="PresentationRegistry.cs" />
     <Compile Include="RepositoryRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
