@@ -91,7 +91,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
             }
         }
 
-        private string RandomString(int size)
+        private static string RandomString(int size)
         {
             // http://stackoverflow.com/a/1122519/218882
             var builder = new StringBuilder();
@@ -104,7 +104,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
             return builder.ToString();
         }
 
-        private string GetSafeFilename(string path)
+        private static string GetSafeFilename(string path)
         {
             // http://stackoverflow.com/a/333297/218882
             string safeFilename = Path.GetInvalidFileNameChars()

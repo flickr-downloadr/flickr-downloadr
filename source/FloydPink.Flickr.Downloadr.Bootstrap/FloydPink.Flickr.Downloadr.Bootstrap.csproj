@@ -60,7 +60,7 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CommonsRegistry.cs" />
-    <Compile Include="DynamicProxyHelper.cs" />
+    <Compile Include="DynamicProxy.cs" />
     <Compile Include="LogicRegistry.cs" />
     <Compile Include="LogInterceptor.cs" />
     <Compile Include="OAuthRegistry.cs" />

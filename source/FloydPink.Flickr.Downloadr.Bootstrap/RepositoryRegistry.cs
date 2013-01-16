@@ -9,10 +9,10 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
         public RepositoryRegistry()
         {
             For<IRepository<Token>>()
-                .EnrichAllWith(s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof(IRepository<Token>), s))
+                .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IRepository<Token>>())
                 .Use<TokenRepository>();
             For<IRepository<User>>()
-                .EnrichAllWith(s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof(IRepository<User>), s))
+                .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IRepository<User>>())
                 .Use<UserRepository>();
         }
     }

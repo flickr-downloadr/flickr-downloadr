@@ -41,7 +41,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
         {
             For<IOAuthManager>()
                 .Singleton()
-                .EnrichAllWith(s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof (IOAuthManager), s))
+                .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IOAuthManager>())
                 .Use<OAuthManager>().
                  Ctor<MessageReceivingEndpoint>("serviceEndPoint").Is(FlickrServiceEndPoint);
 
@@ -51,7 +51,6 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                 .Is(FlickrServiceDescription);
 
             For<IConsumerTokenManager>()
-                .EnrichAllWith(s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof(IConsumerTokenManager), s))
                 .Use<TokenManager>()
                 .Ctor<string>("consumerKey")
                 .Is(Crypt.Decrypt(ConsumerKey, SharedSecret))
@@ -59,7 +58,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                 .Is(Crypt.Decrypt(ConsumerSecret, SharedSecret));
 
             For<IHttpListenerManager>()
-                .EnrichAllWith(s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof(IHttpListenerManager), s))
+                .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IHttpListenerManager>())
                 .Use<HttpListenerManager>();
         }
     }

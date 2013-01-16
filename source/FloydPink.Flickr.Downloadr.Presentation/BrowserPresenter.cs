@@ -30,7 +30,9 @@ namespace FloydPink.Flickr.Downloadr.Presentation
                                              {
                                                  _view.UpdateProgress(
                                                      progress.ShowPercent
-                                                         ? string.Format("{0}%", progress.PercentDone.ToString(CultureInfo.InvariantCulture))
+                                                         ? string.Format("{0}%",
+                                                                         progress.PercentDone.ToString(
+                                                                             CultureInfo.InvariantCulture))
                                                          : string.Empty,
                                                      progress.OperationText, progress.Cancellable);
                                                  _downloadedLocation = progress.DownloadedPath;
@@ -129,7 +131,9 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             if (!string.IsNullOrWhiteSpace(warningFormat))
             {
                 lotOfPhotosWarningFailed = _view.ShowWarning(string.Format(warningFormat,
-                                                                           photosList.Count().ToString(CultureInfo.InvariantCulture)));
+                                                                           photosList.Count()
+                                                                                     .ToString(
+                                                                                         CultureInfo.InvariantCulture)));
             }
 
             if (!lotOfPhotosWarningFailed)

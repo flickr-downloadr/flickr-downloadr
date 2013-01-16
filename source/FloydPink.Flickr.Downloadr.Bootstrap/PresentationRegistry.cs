@@ -7,10 +7,12 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
     {
         public PresentationRegistry()
         {
-            For<ILoginPresenter>().EnrichAllWith(presenter => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(
-                typeof (ILoginPresenter), presenter)).Use<LoginPresenter>();
-            For<IBrowserPresenter>().EnrichAllWith(presenter => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(
-                typeof (IBrowserPresenter), presenter)).Use<BrowserPresenter>();
+            For<ILoginPresenter>()
+                .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<ILoginPresenter>())
+                .Use<LoginPresenter>();
+            For<IBrowserPresenter>()
+                .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IBrowserPresenter>())
+                .Use<BrowserPresenter>();
         }
     }
 }

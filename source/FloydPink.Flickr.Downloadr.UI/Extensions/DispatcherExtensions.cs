@@ -3,7 +3,7 @@ using System.Windows.Threading;
 
 namespace FloydPink.Flickr.Downloadr.UI.Extensions
 {
-    // code from blog.decarufel.net/2009/03/good-practice-to-use-dispatcher-in-wpf.html
+    // http://blog.decarufel.net/2009/03/good-practice-to-use-dispatcher-in-wpf.html
     public static class DispatcherExtensions
     {
         public static TResult Dispatch<TResult>(this DispatcherObject source, Func<TResult> func)

@@ -91,7 +91,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth.Listener
 
         private void HttpListenerCallback(IAsyncResult result)
         {
-            var listener = (HttpListener)result.AsyncState;
+            var listener = (HttpListener) result.AsyncState;
 
             HttpListenerContext context = listener.EndGetContext(result);
             HttpListenerRequest request = context.Request;

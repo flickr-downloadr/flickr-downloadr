@@ -11,11 +11,17 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
 
         public LogicRegistry()
         {
-            For<ILoginLogic>().EnrichAllWith(s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof (ILoginLogic), s)).Use<LoginLogic>();
-            For<IBrowserLogic>().EnrichAllWith(s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof(IBrowserLogic), s)).Use<BrowserLogic>().
-                                 Ctor<int>("defaultPerPageCount").Is(DefaultPerPageCount);
-            For<IDownloadLogic>().EnrichAllWith(s => DynamicProxyHelper.CreateInterfaceProxyWithTargetInterface(typeof(IDownloadLogic), s)).Use<DownloadLogic>().
-                                  Ctor<string>("downloadLocation").Is(DefaultDownloadLocation);
+            For<ILoginLogic>()
+                .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<ILoginLogic>())
+                .Use<LoginLogic>();
+            For<IBrowserLogic>()
+                .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IBrowserLogic>())
+                .Use<BrowserLogic>()
+                .Ctor<int>("defaultPerPageCount").Is(DefaultPerPageCount);
+            For<IDownloadLogic>()
+                .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IDownloadLogic>())
+                .Use<DownloadLogic>()
+                .Ctor<string>("downloadLocation").Is(DefaultDownloadLocation);
         }
     }
 }

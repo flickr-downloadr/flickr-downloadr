@@ -1,12 +1,18 @@
 ﻿using System;
 using Castle.DynamicProxy;
+using StructureMap.Interceptors;
 using log4net;
 
 namespace FloydPink.Flickr.Downloadr.Bootstrap
 {
-    public class DynamicProxyHelper
+    public class DynamicProxy
     {
-        public static object CreateInterfaceProxyWithTargetInterface(Type interfaceType, object concreteObject)
+        public static EnrichmentHandler<T> LoggingInterceptorFor<T>()
+        {
+            return s => CreateInterfaceProxyWithTargetInterface(typeof (T), s);
+        }
+
+        private static object CreateInterfaceProxyWithTargetInterface(Type interfaceType, object concreteObject)
         {
             var proxyGenerator = new ProxyGenerator();
             object result = proxyGenerator.
