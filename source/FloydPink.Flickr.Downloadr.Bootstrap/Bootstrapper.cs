@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using StructureMap;
 
 namespace FloydPink.Flickr.Downloadr.Bootstrap
@@ -26,6 +29,21 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
         public static TPresenter GetPresenter<TView, TPresenter>(TView view)
         {
             return _container.With(view).GetInstance<TPresenter>();
+        }
+
+        public static FileInfo GetLogFile()
+        {
+            return GetAppDirectoryFile("flickrdownloadr.log");
+        }
+
+        public static FileInfo GetLogConfigFile()
+        {
+            return GetAppDirectoryFile("flickrdownloadr.log4net");
+        }
+
+        private static FileInfo GetAppDirectoryFile(string filename)
+        {
+            return new FileInfo(Path.Combine(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), filename));
         }
     }
 }

@@ -41,7 +41,14 @@
             </Canvas>
             <Image Height="106" Name="logo" Stretch="Uniform" Width="314" Canvas.Left="90" Canvas.Top="-1"
                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                   Source="/flickr%20downloadr;component/Images/logo-Small.png" Margin="0,0,0,150" />
+                   Source="/flickr%20downloadr;component/Images/logo-Small.png" Margin="0,0,0,150">
+                <Image.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Edit Log Configuration..." Click="EditLogConfigClick"></MenuItem>
+                        <MenuItem Header="View Log..." Click="ViewLogClick"></MenuItem>
+                    </ContextMenu>
+                </Image.ContextMenu>
+            </Image>
         </Grid>
         <AdornerDecorator Name="Spinner" Visibility="Collapsed">
             <controls:Spinner Cancellable="True"></controls:Spinner>

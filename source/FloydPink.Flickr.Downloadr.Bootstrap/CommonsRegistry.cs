@@ -18,9 +18,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                                               return LogManager.GetLogger(s.ParentType);
                                           });
 
-            string applicationPath = Path.GetDirectoryName(Assembly.GetAssembly(GetType()).Location);
-            var configFile = new FileInfo(Path.Combine(applicationPath, "flickrdownloadr.log4net"));
-            XmlConfigurator.ConfigureAndWatch(configFile);
+            XmlConfigurator.ConfigureAndWatch(Bootstrapper.GetLogConfigFile());
         }
     }
 }

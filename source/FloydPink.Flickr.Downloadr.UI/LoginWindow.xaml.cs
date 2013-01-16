@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using FloydPink.Flickr.Downloadr.Bootstrap;
@@ -89,6 +90,21 @@ namespace FloydPink.Flickr.Downloadr.UI
             var browserWindow = new BrowserWindow(User);
             browserWindow.Show();
             Close();
+        }
+
+        private void EditLogConfigClick(object sender, RoutedEventArgs e)
+        {
+            OpenInNotepad(Bootstrapper.GetLogConfigFile().FullName);
+        }
+
+        private void ViewLogClick(object sender, RoutedEventArgs e)
+        {
+            OpenInNotepad(Bootstrapper.GetLogFile().FullName);
+        }
+
+        private static void OpenInNotepad(string filepath)
+        {
+            Process.Start("notepad.exe", filepath);
         }
     }
 }
