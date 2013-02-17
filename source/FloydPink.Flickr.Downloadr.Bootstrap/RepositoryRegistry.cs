@@ -14,6 +14,9 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
             For<IRepository<User>>()
                 .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IRepository<User>>())
                 .Use<UserRepository>();
+            For<IRepository<Preferences>>()
+                .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IRepository<Preferences>>())
+                .Use<PreferencesRepository>();
         }
     }
 }

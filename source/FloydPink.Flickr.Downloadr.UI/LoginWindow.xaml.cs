@@ -46,11 +46,15 @@ namespace FloydPink.Flickr.Downloadr.UI
             }
         }
 
-        public void ShowLoggedInControl()
+        public void ShowLoggedInControl(Preferences preferences)
         {
+            Preferences = preferences;
+            PreferencesButton.Dispatch((p) => p.Visibility = (Preferences != null ? Visibility.Visible : Visibility.Collapsed));
             LoggedInCanvas.Dispatch((c) => c.Visibility = Visibility.Visible);
             LoggedOutCanvas.Dispatch((c) => c.Visibility = Visibility.Collapsed);
         }
+
+        protected Preferences Preferences { get; set; }
 
         public void ShowLoggedOutControl()
         {
@@ -64,6 +68,20 @@ namespace FloydPink.Flickr.Downloadr.UI
         {
             Visibility visibility = show ? Visibility.Visible : Visibility.Collapsed;
             Spinner.Dispatch((s) => s.Visibility = visibility);
+        }
+
+        public void OpenBrowserWindow()
+        {
+            var browserWindow = new BrowserWindow(User, Preferences);
+            browserWindow.Show();
+            Close();
+        }
+
+        public void OpenPreferencesWindow(Preferences preferences)
+        {
+            var preferencesWindow = new PreferencesWindow(User, preferences);
+            preferencesWindow.Show();
+            Close();
         }
 
         private void LoginButtonClick(object sender, RoutedEventArgs e)
@@ -87,9 +105,7 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void ContinueButtonClick(object sender, RoutedEventArgs e)
         {
-            var browserWindow = new BrowserWindow(User);
-            browserWindow.Show();
-            Close();
+            _presenter.Continue();
         }
 
         private void EditLogConfigClick(object sender, RoutedEventArgs e)
@@ -105,6 +121,13 @@ namespace FloydPink.Flickr.Downloadr.UI
         private static void OpenInNotepad(string filepath)
         {
             Process.Start("notepad.exe", filepath);
+        }
+
+        private void PreferencesButtonClick(object sender, RoutedEventArgs e)
+        {
+            var preferencesWindow = new PreferencesWindow(User, Preferences);
+            preferencesWindow.Show();
+            Close();
         }
     }
 }

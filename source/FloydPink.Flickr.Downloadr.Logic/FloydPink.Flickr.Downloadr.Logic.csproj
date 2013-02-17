@@ -48,7 +48,9 @@
     <Compile Include="Interfaces\IBrowserLogic.cs" />
     <Compile Include="Interfaces\IDownloadLogic.cs" />
     <Compile Include="Interfaces\ILoginLogic.cs" />
+    <Compile Include="Interfaces\IPreferencesLogic.cs" />
     <Compile Include="LoginLogic.cs" />
+    <Compile Include="PreferencesLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloydPink.Flickr.Downloadr.Model\FloydPink.Flickr.Downloadr.Model.csproj">

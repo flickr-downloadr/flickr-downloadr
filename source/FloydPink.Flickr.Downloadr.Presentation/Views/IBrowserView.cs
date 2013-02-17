@@ -7,6 +7,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation.Views
     public interface IBrowserView : IBaseView
     {
         User User { get; set; }
+        Preferences Preferences { get; set; }
         ObservableCollection<Photo> Photos { get; set; }
         IDictionary<string, Dictionary<string, Photo>> SelectedPhotos { get; set; }
         bool ShowAllPhotos { get; }

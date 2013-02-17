@@ -1,0 +1,109 @@
+﻿<Window x:Class="FloydPink.Flickr.Downloadr.UI.PreferencesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Preferences - flickr downloadr" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="317" d:DesignWidth="507"
+        SizeToContent="WidthAndHeight"
+        xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls"
+        xmlns:enums="clr-namespace:FloydPink.Flickr.Downloadr.Model.Enums;assembly=FloydPink.Flickr.Downloadr.Model"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:behaviors="clr-namespace:FloydPink.Flickr.Downloadr.UI.Behaviors" 
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Icon="/flickr%20downloadr;component/Images/icon.png">
+    <Window.Resources>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="DownloadSizes">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:PhotoDownloadSize" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetItems" ObjectType="{x:Type enums:PhotoMetadata}" x:Key="Metadatas" />
+    </Window.Resources>
+
+    <Grid Height="350" Width="495">
+        <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Path=Preferences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="20,5,0,5">
+                    <Label Content="Preferences" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" />
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Vertical" Grid.IsSharedSizeScope="True" Margin="10">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="30"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0">Download Location:</Label>
+                        <TextBox Name="DownloadLocationTextbox" Grid.Column="1" IsReadOnly="True" IsReadOnlyCaretVisible="True" Text="{Binding Path=DownloadLocation}"></TextBox>
+                        <Button Grid.Column="2" Content="..." Width="25" Height="25" Click="SelectFolderButtonClick"></Button>
+                    </Grid>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0">Download Size:</Label>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding Source={StaticResource DownloadSizes}}"
+                                  SelectedItem="{Binding Path=DownloadSize}"/>
+                    </Grid>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0">Photos Per Page:</Label>
+                        <ComboBox Grid.Column="1" SelectedValue="{Binding Path=PhotosPerPage}" SelectedValuePath="Content">
+                            <ComboBoxItem>
+                                <sys:Int32>25</sys:Int32>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <sys:Int32>50</sys:Int32>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <sys:Int32>75</sys:Int32>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <sys:Int32>100</sys:Int32>
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0">Metadata:</Label>
+                        <ListBox Grid.Column="1" SelectionMode="Multiple" 
+                                 ItemsSource="{Binding Source={StaticResource Metadatas}}" 
+                                 behaviors:MultiSelectorBehaviours.SynchronizedSelectedItems="{Binding Metadata}"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" HorizontalAlignment="Left">
+                    <Button Content="Cancel" ToolTip="Cancel" Width="80" Height="28" Margin="5,0" Click="CancelButtonClick">
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Column="2" HorizontalAlignment="Right">
+                    <Button Content="Save" ToolTip="Save" Width="80" Height="28" Margin="5,0" Click="SaveButtonClick">
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <AdornerDecorator Name="Spinner" Visibility="Collapsed">
+            <controls:Spinner Cancellable="True"></controls:Spinner>
+        </AdornerDecorator>
+    </Grid>
+</Window>

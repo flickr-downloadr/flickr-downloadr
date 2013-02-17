@@ -8,33 +8,29 @@ using System.Threading;
 using System.Threading.Tasks;
 using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Model.Enums;
 using FloydPink.Flickr.Downloadr.Repository.Extensions;
 
 namespace FloydPink.Flickr.Downloadr.Logic
 {
     public class DownloadLogic : IDownloadLogic
     {
-        private static readonly Random Random = new Random((int) DateTime.Now.Ticks);
-        private readonly string _downloadLocation;
+        private static readonly Random Random = new Random((int)DateTime.Now.Ticks);
         private string _currentTimestampFolder;
 
-        public DownloadLogic(string downloadLocation)
+        public DownloadLogic()
         {
-            _downloadLocation = downloadLocation;
         }
 
-        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken,
-                                   IProgress<ProgressUpdate> progress)
+        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress, Preferences preferences)
         {
-            await DownloadAndSavePhotos(photos, cancellationToken, progress);
+            await DownloadPhotos(photos, cancellationToken, progress, preferences);
         }
 
-        private async Task DownloadAndSavePhotos(IEnumerable<Photo> photos, CancellationToken cancellationToken,
-                                                 IProgress<ProgressUpdate> progress)
+        private async Task DownloadPhotos(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress, Preferences preferences)
         {
             try
             {
-                //TODO: refactor this method !
                 var progressUpdate = new ProgressUpdate
                                          {
                                              Cancellable = true,
@@ -48,39 +44,36 @@ namespace FloydPink.Flickr.Downloadr.Logic
                 IList<Photo> photosList = photos as IList<Photo> ?? photos.ToList();
                 int totalCount = photosList.Count();
 
-                _currentTimestampFolder = GetSafeFilename(DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
-                DirectoryInfo imageDirectory =
-                    Directory.CreateDirectory(Path.Combine(_downloadLocation, _currentTimestampFolder));
+                DirectoryInfo imageDirectory = CreateDownloadFolder(preferences.DownloadLocation);
 
                 foreach (Photo photo in photosList)
                 {
                     string targetFileName = Path.Combine(imageDirectory.FullName,
                                                          string.Format("{0}.{1}", GetSafeFilename(photo.Title),
                                                                        photo.DownloadFormat));
-                    var metadata = new {photo.Title, photo.Description, photo.Tags};
-                    File.WriteAllText(string.Format("{0}.json", targetFileName), metadata.ToJson(), Encoding.Unicode);
+                    WriteMetaDataFile(photo, targetFileName, preferences);
 
-                    WebRequest request = WebRequest.Create(photo.LargestAvailableSizeUrl);
+                    var photoUrl = photo.LargestAvailableSizeUrl;
+                    switch (preferences.DownloadSize)
+                    {
+                        case PhotoDownloadSize.Medium:
+                            photoUrl = photo.Medium800Url;
+                            break;
+                        case PhotoDownloadSize.Large:
+                            photoUrl = photo.Large1024Url;
+                            break;
+                        case PhotoDownloadSize.Original:
+                            photoUrl = photo.LargestAvailableSizeUrl;
+                            break;
+                    }
+                    WebRequest request = WebRequest.Create(photoUrl);
 
                     var buffer = new byte[4096];
 
-                    using (var target = new FileStream(targetFileName, FileMode.Create, FileAccess.Write))
-                    {
-                        using (WebResponse response = await request.GetResponseAsync())
-                        {
-                            using (Stream stream = response.GetResponseStream())
-                            {
-                                int read;
-                                while ((read = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                                {
-                                    await target.WriteAsync(buffer, 0, read);
-                                }
-                            }
-                        }
-                    }
+                    await DownloadAndSavePhoto(targetFileName, request, buffer);
 
                     doneCount++;
-                    progressUpdate.PercentDone = doneCount*100/totalCount;
+                    progressUpdate.PercentDone = doneCount * 100 / totalCount;
                     progressUpdate.DownloadedPath = imageDirectory.FullName;
                     progress.Report(progressUpdate);
                     if (progressUpdate.PercentDone != 100) cancellationToken.ThrowIfCancellationRequested();
@@ -91,13 +84,40 @@ namespace FloydPink.Flickr.Downloadr.Logic
             }
         }
 
+        private static async Task DownloadAndSavePhoto(string targetFileName, WebRequest request, byte[] buffer)
+        {
+            using (var target = new FileStream(targetFileName, FileMode.Create, FileAccess.Write))
+            {
+                using (WebResponse response = await request.GetResponseAsync())
+                {
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        int read;
+                        while ((read = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                        {
+                            await target.WriteAsync(buffer, 0, read);
+                        }
+                    }
+                }
+            }
+        }
+
+        private DirectoryInfo CreateDownloadFolder(string downloadLocation)
+        {
+            _currentTimestampFolder = string.Format("flickr-downloadr-{0}",
+                                                    GetSafeFilename(DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")));
+            DirectoryInfo imageDirectory =
+                Directory.CreateDirectory(Path.Combine(downloadLocation, _currentTimestampFolder));
+            return imageDirectory;
+        }
+
         private static string RandomString(int size)
         {
             // http://stackoverflow.com/a/1122519/218882
             var builder = new StringBuilder();
             for (int i = 0; i < size; i++)
             {
-                char ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26*Random.NextDouble() + 65)));
+                char ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * Random.NextDouble() + 65)));
                 builder.Append(ch);
             }
 
@@ -110,6 +130,12 @@ namespace FloydPink.Flickr.Downloadr.Logic
             string safeFilename = Path.GetInvalidFileNameChars()
                                       .Aggregate(path, (current, c) => current.Replace(c, '-'));
             return string.IsNullOrWhiteSpace(safeFilename) ? RandomString(8) : safeFilename;
+        }
+
+        private static void WriteMetaDataFile(Photo photo, string targetFileName, Preferences preferences)
+        {
+            var metadata = preferences.Metadata.ToDictionary(metadatum => metadatum, metadatum => photo.GetType().GetProperty(metadatum).GetValue(photo, null).ToString());
+            File.WriteAllText(string.Format("{0}.json", targetFileName), metadata.ToJson(), Encoding.Unicode);
         }
     }
 }

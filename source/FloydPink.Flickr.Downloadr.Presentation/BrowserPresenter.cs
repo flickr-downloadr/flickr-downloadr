@@ -139,7 +139,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             if (!lotOfPhotosWarningFailed)
             {
                 _cancellationTokenSource = new CancellationTokenSource();
-                await _logic.Download(photosList, _cancellationTokenSource.Token, _progress);
+                await _logic.Download(photosList, _cancellationTokenSource.Token, _progress, _view.Preferences);
                 _view.DownloadComplete(_downloadedLocation, _downloadComplete);
             }
 
@@ -158,7 +158,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         private async Task<PhotosResponse> GetPhotosResponse(int page)
         {
             string methodName = _view.ShowAllPhotos ? Methods.PeopleGetPhotos : Methods.PeopleGetPublicPhotos;
-            return await _logic.GetPhotosAsync(methodName, _view.User, page, _progress);
+            return await _logic.GetPhotosAsync(methodName, _view.User, _view.Preferences, page, _progress);
         }
 
         private void SetPhotoResponse(PhotosResponse photosResponse)

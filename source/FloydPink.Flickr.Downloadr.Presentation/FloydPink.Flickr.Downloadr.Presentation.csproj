@@ -45,11 +45,14 @@
     <Compile Include="BrowserPresenter.cs" />
     <Compile Include="IBrowserPresenter.cs" />
     <Compile Include="ILoginPresenter.cs" />
+    <Compile Include="IPreferencesPresenter.cs" />
     <Compile Include="LoginPresenter.cs" />
+    <Compile Include="PreferencesPresenter.cs" />
     <Compile Include="PresenterBase.cs" />
     <Compile Include="Views\IBaseView.cs" />
     <Compile Include="Views\IBrowserView.cs" />
     <Compile Include="Views\ILoginView.cs" />
+    <Compile Include="Views\IPreferencesView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FloydPink.Flickr.Downloadr.Logic\FloydPink.Flickr.Downloadr.Logic.csproj">

@@ -20,14 +20,16 @@ namespace FloydPink.Flickr.Downloadr.Repository
         {
             if (File.Exists(RepoFileName))
             {
-                return Crypt.Decrypt(File.ReadAllText(RepoFileName), CryptKey);
+                return File.ReadAllText(RepoFileName);
+                //return Crypt.Decrypt(File.ReadAllText(RepoFileName), CryptKey);
             }
             return string.Empty;
         }
 
         protected void Write(string fileContent)
         {
-            File.WriteAllText(RepoFileName, Crypt.Encrypt(fileContent, CryptKey));
+            File.WriteAllText(RepoFileName, fileContent);
+            //File.WriteAllText(RepoFileName, Crypt.Encrypt(fileContent, CryptKey));
         }
     }
 }

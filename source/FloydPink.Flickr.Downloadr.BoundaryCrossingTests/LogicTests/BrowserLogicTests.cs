@@ -51,7 +51,7 @@ namespace FloydPink.Flickr.Downloadr.BoundaryCrossingTests.LogicTests
         public async void GetPublicPhotos_WillGetPublicPhotos()
         {
             WaitTillLoggedIn();
-            PhotosResponse photosResponse = await _logic.GetPhotosAsync(Methods.PeopleGetPublicPhotos, _user, 1, null);
+            PhotosResponse photosResponse = await _logic.GetPhotosAsync(Methods.PeopleGetPublicPhotos, _user, Preferences.GetDefault(), 1, null);
             Assert.IsNotNull(photosResponse.Photos);
         }
 

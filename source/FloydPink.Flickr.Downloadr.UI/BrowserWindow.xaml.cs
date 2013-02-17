@@ -31,8 +31,9 @@ namespace FloydPink.Flickr.Downloadr.UI
         private ObservableCollection<Photo> _photos;
         private string _total;
 
-        public BrowserWindow(User user)
+        public BrowserWindow(User user, Preferences preferences)
         {
+            Preferences = preferences;
             InitializeComponent();
             Title += VersionHelper.GetVersionString();
             User = user;
@@ -111,6 +112,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         }
 
         public User User { get; set; }
+        public Preferences Preferences { get; set; }
 
         public ObservableCollection<Photo> Photos
         {

@@ -46,12 +46,15 @@
     <Compile Include="Constants\AppConstants.cs" />
     <Compile Include="Constants\Methods.cs" />
     <Compile Include="Constants\ParameterNames.cs" />
-    <Compile Include="Enums\PhotoFormat.cs" />
+    <Compile Include="Enums\PhotoDownloadSize.cs" />
+    <Compile Include="Enums\PhotoMetadata.cs" />
+    <Compile Include="Enums\PhotoSize.cs" />
     <Compile Include="Enums\PhotoPage.cs" />
     <Compile Include="Enums\SafeSearch.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Photo.cs" />
     <Compile Include="PhotosResponse.cs" />
+    <Compile Include="Preferences.cs" />
     <Compile Include="ProgressUpdate.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="User.cs" />

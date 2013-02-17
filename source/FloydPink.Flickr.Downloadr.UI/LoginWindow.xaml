@@ -28,8 +28,9 @@
                         Width="141"
                         FontSize="16" Click="ContinueButtonClick" />
                 <Button Canvas.Left="10" Canvas.Top="248" Content="Logout" FontSize="12" Height="28"
-                        Name="logoutButton"
-                        Width="100" Click="LogoutButtonClick" />
+                        Name="logoutButton" Width="100" Click="LogoutButtonClick" />
+                <Button Canvas.Left="120" Canvas.Top="248" Content="Preferences" FontSize="12" Height="28"
+                        Name="PreferencesButton" Width="100" Click="PreferencesButtonClick" />
             </Canvas>
             <Canvas HorizontalAlignment="Left" VerticalAlignment="Top"
                     Name="LoggedOutCanvas" Visibility="Visible">

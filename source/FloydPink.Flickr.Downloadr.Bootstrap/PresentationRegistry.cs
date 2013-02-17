@@ -10,6 +10,9 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
             For<ILoginPresenter>()
                 .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<ILoginPresenter>())
                 .Use<LoginPresenter>();
+            For<IPreferencesPresenter>()
+                .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IPreferencesPresenter>())
+                .Use<PreferencesPresenter>();
             For<IBrowserPresenter>()
                 .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IBrowserPresenter>())
                 .Use<BrowserPresenter>();

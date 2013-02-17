@@ -15,21 +15,18 @@ namespace FloydPink.Flickr.Downloadr.Logic
 {
     public class BrowserLogic : IBrowserLogic
     {
-        private readonly int _defaultPerPageCount;
         private readonly IDownloadLogic _downloadLogic;
         private readonly IOAuthManager _oAuthManager;
 
-        public BrowserLogic(IOAuthManager oAuthManager, IDownloadLogic downloadLogic, int defaultPerPageCount)
+        public BrowserLogic(IOAuthManager oAuthManager, IDownloadLogic downloadLogic)
         {
             _oAuthManager = oAuthManager;
-            _defaultPerPageCount = defaultPerPageCount;
             _downloadLogic = downloadLogic;
         }
 
         #region IBrowserLogic Members
 
-        public async Task<PhotosResponse> GetPhotosAsync(string methodName, User user, int page,
-                                                         IProgress<ProgressUpdate> progress)
+        public async Task<PhotosResponse> GetPhotosAsync(string methodName, User user, Preferences preferences, int page, IProgress<ProgressUpdate> progress)
         {
             var progressUpdate = new ProgressUpdate
                                      {
@@ -44,7 +41,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
                                       {ParameterNames.SafeSearch, SafeSearch.Safe},
                                       {
                                           ParameterNames.PerPage,
-                                          _defaultPerPageCount.ToString(CultureInfo.InvariantCulture)
+                                          preferences.PhotosPerPage.ToString(CultureInfo.InvariantCulture)
                                       },
                                       {ParameterNames.Page, page.ToString(CultureInfo.InvariantCulture)}
                                   };
@@ -55,13 +52,12 @@ namespace FloydPink.Flickr.Downloadr.Logic
             return photosResponse.GetPhotosResponseFromDictionary();
         }
 
-        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken,
-                                   IProgress<ProgressUpdate> progress)
+        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress, Preferences preferences)
         {
             IList<Photo> photosList = photos as IList<Photo> ?? photos.ToList();
             if (!photosList.Any()) return;
 
-            await _downloadLogic.Download(photosList, cancellationToken, progress);
+            await _downloadLogic.Download(photosList, cancellationToken, progress, preferences);
         }
 
         #endregion

@@ -5,5 +5,6 @@ namespace FloydPink.Flickr.Downloadr.Presentation
         void InitializeScreen();
         void Login();
         void Logout();
+        void Continue();
     }
 }
