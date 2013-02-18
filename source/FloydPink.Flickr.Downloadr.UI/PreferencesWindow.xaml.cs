@@ -35,11 +35,6 @@ namespace FloydPink.Flickr.Downloadr.UI
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             _presenter.Save(Preferences);
-            OpenBrowserWindow();
-        }
-
-        private void OpenBrowserWindow()
-        {
             var browserWindow = new BrowserWindow(User, Preferences);
             browserWindow.Show();
             Close();
@@ -47,7 +42,9 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
-            OpenBrowserWindow();
+            var loginWindow = new LoginWindow(User);
+            loginWindow.Show();
+            Close();
         }
 
         private void SelectFolderButtonClick(object sender, RoutedEventArgs e)

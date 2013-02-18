@@ -50,15 +50,17 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
             ListenForChangeEvents(_masterList);
             ListenForChangeEvents(_targetList);
 
-            // Update the Target list from the Master list
-            SetListValuesFromSource(_masterList, _targetList, ConvertFromMasterToTarget);
-
             // In some cases the target list might have its own view on which items should included:
             // so update the master list from the target list
             // (This is the case with a ListBox SelectedItems collection: only items from the ItemsSource can be included in SelectedItems)
             if (!TargetAndMasterCollectionsAreEqual())
             {
                 SetListValuesFromSource(_targetList, _masterList, ConvertFromTargetToMaster);
+            }
+            // Update the Target list from the Master list
+            else
+            {
+                SetListValuesFromSource(_targetList, _masterList, ConvertFromMasterToTarget);
             }
         }
 
