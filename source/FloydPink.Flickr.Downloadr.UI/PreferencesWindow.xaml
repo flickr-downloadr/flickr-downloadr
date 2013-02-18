@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Preferences - flickr downloadr" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner" mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="317" d:DesignWidth="507"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="350" d:DesignWidth="500"
         SizeToContent="WidthAndHeight"
         xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls"
         xmlns:enums="clr-namespace:FloydPink.Flickr.Downloadr.Model.Enums;assembly=FloydPink.Flickr.Downloadr.Model"
@@ -19,7 +19,7 @@
         <ObjectDataProvider MethodName="GetItems" ObjectType="{x:Type enums:PhotoMetadata}" x:Key="Metadatas" />
     </Window.Resources>
 
-    <Grid Height="350" Width="495">
+    <Grid Height="320" Width="495">
         <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Path=Preferences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
@@ -80,9 +80,28 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Metadata:</Label>
-                        <ListBox Grid.Column="1" SelectionMode="Multiple" 
-                                 ItemsSource="{Binding Source={StaticResource Metadatas}}" 
-                                 behaviors:MultiSelectorBehaviours.SynchronizedSelectedItems="{Binding Metadata}"/>
+                        <ListBox Grid.Column="1" SelectionMode="Multiple" ItemsSource="{Binding Source={StaticResource Metadatas}}" 
+                                 behaviors:MultiSelectorBehaviours.SynchronizedSelectedItems="{Binding Metadata}">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}">
+                                    <Setter Property="IsSelected" Value="{Binding Metadata}"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <WrapPanel>
+                                        <CheckBox IsEnabled="False" Name="SelectedCheck"  Focusable="False" VerticalAlignment="Center"/>
+                                        <ContentPresenter Content="{Binding Mode=OneTime}"  Margin="2,0" />
+                                    </WrapPanel>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}" 
+                                                     Value="True">
+                                            <Setter TargetName="SelectedCheck" Property="IsChecked" Value="True"></Setter>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </Grid>
                 </StackPanel>
             </Grid>
