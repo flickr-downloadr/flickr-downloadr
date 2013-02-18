@@ -1,7 +1,10 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Forms;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
+using FloydPink.Flickr.Downloadr.Model.Extensions;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
@@ -12,10 +15,20 @@ namespace FloydPink.Flickr.Downloadr.UI
     /// <summary>
     ///     Interaction logic for PreferencesWindow.xaml
     /// </summary>
-    public partial class PreferencesWindow : Window, IPreferencesView
+    public partial class PreferencesWindow : Window, IPreferencesView, INotifyPropertyChanged
     {
         private readonly IPreferencesPresenter _presenter;
-        public Preferences Preferences { get; set; }
+        private Preferences _preferences;
+        public Preferences Preferences
+        {
+            get { return _preferences; }
+            set
+            {
+                _preferences = value;
+                PropertyChanged.Notify(() => Preferences);
+            }
+        }
+
         protected User User { get; set; }
 
         public PreferencesWindow(User user, Preferences preferences)
@@ -62,5 +75,12 @@ namespace FloydPink.Flickr.Downloadr.UI
                 Preferences.DownloadLocation = dialog.SelectedPath;
             }
         }
+
+        private void DefaultsButtonClick(object sender, RoutedEventArgs e)
+        {
+            Preferences = Preferences.GetDefault();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

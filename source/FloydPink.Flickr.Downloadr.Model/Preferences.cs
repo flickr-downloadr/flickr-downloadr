@@ -64,7 +64,7 @@ namespace FloydPink.Flickr.Downloadr.Model
         {
             return new Preferences
                        {
-                           PhotosPerPage = 50,
+                           PhotosPerPage = 25,
                            DownloadLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
                            Metadata =
                                new ObservableCollection<string>

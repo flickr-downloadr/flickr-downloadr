@@ -105,18 +105,22 @@
                     </Grid>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Left">
-                    <Button Content="Cancel" ToolTip="Cancel" Width="80" Height="28" Margin="5,0" Click="CancelButtonClick">
+                    <Button Content="Cancel" ToolTip="Cancel and go back to Login screen" Width="80" Height="28" Margin="5,0" Click="CancelButtonClick">
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                    <Button Content="Defaults" ToolTip="Change to default values" Width="80" Height="28" Click="DefaultsButtonClick">
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                    <Button Content="Save" ToolTip="Save" Width="80" Height="28" Margin="5,0" Click="SaveButtonClick">
+                    <Button Content="Save" ToolTip="Save and go to Photo Browser screen" Width="80" Height="28" Margin="5,0" Click="SaveButtonClick">
                     </Button>
                 </StackPanel>
             </Grid>
