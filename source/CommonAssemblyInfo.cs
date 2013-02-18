@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -11,17 +12,18 @@ using System.Runtime.InteropServices;
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: ComVisible(false)]
-[assembly: AssemblyTitle("flickrDownloadr")]
-[assembly: AssemblyDescription("A desktop application for windows that would help download all (or selected) phot" +
-                               "os from the user\'s photostream (in one of the selected sizes) along with the tag" +
-                               "s, titles and descriptions.")]
-[assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyCompany("http://flickrdownloadr.com")]
-[assembly: AssemblyProduct("flickr downloadr")]
-[assembly: AssemblyCopyright("Copyright © 2012-2013 Haridas Pachuveetil")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.6.5.1")]
-[assembly: AssemblyFileVersion("0.6.5.1")]
-[assembly: AssemblyInformationalVersion("0.6")]
+[assembly: ComVisibleAttribute(false)]
+[assembly: AssemblyTitleAttribute("flickrDownloadr")]
+[assembly: AssemblyDescriptionAttribute("A desktop application for windows that would help download all (or selected) phot" +
+    "os from the user\'s photostream (in one of the selected sizes) along with the tag" +
+    "s, titles and descriptions.")]
+[assembly: AssemblyConfigurationAttribute("Release")]
+[assembly: AssemblyCompanyAttribute("http://flickrdownloadr.com")]
+[assembly: AssemblyProductAttribute("flickr downloadr")]
+[assembly: AssemblyCopyrightAttribute("Copyright © 2012-2013 Haridas Pachuveetil")]
+[assembly: AssemblyTrademarkAttribute("")]
+[assembly: AssemblyCultureAttribute("")]
+[assembly: AssemblyVersionAttribute("0.6.5.2")]
+[assembly: AssemblyFileVersionAttribute("0.6.5.2")]
+[assembly: AssemblyInformationalVersionAttribute("0.6")]
+
