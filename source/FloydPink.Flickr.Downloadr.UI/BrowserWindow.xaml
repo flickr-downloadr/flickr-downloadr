@@ -83,10 +83,10 @@
                             </Style>
                         </ToggleButton.Style>
                     </ToggleButton>
-                    <Button Content="R" Height="28" ToolTip="Select all photos in this page"
+                    <Button Content="R" Height="28" ToolTip="Select all photos on this page"
                             Margin="20,0,0,0" Click="SelectAllButtonClick" FontFamily="Wingdings 2" FontSize="24"
                             IsEnabled="{Binding Path=AllPhotosSelected}" />
-                    <Button Content="Q" Height="28" ToolTip="Deselect all photos in this page"
+                    <Button Content="Q" Height="28" ToolTip="Deselect all photos on this page"
                             Margin="5,0,0,0" Click="DeselectAllButtonClick" FontFamily="Wingdings 2" FontSize="24"
                             IsEnabled="{Binding Path=SelectedPhotosExistInPage}" />
                 </StackPanel>
@@ -139,7 +139,7 @@
                             ToolTip="Download selected photos"
                             Margin="0,0,5,0" Click="DownloadSelectionButtonClick" Width="95"
                             IsEnabled="{Binding Path=SelectedPhotosExist}" />
-                    <Button Content="This Page" Height="28" ToolTip="Download all the photos in this page"
+                    <Button Content="This Page" Height="28" ToolTip="Download all the photos on this page"
                             Margin="0,0,5,0" Click="DownloadThisPageButtonClick" Width="60" />
                     <Button Content="All Pages" Height="28" ToolTip="Download all the photos"
                             Margin="0,6,5,6" Click="DownloadAllPagesButtonClick" Width="60" />
