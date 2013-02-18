@@ -1,35 +1,37 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
-using System;
+using System.Windows.Controls.Primitives;
 
 namespace FloydPink.Flickr.Downloadr.UI.Behaviors
 {
     // Thanks to http://blog.functionalfun.net/2009/02/how-to-databind-to-selecteditems.html
     /// <summary>
-    /// A sync behaviour for a multiselector.
+    ///     A sync behaviour for a multiselector.
     /// </summary>
     public class MultiSelectorBehaviours
     {
         public static readonly DependencyProperty SynchronizedSelectedItems = DependencyProperty.RegisterAttached(
-            "SynchronizedSelectedItems", typeof(IList), typeof(MultiSelectorBehaviours), new PropertyMetadata(null, OnSynchronizedSelectedItemsChanged));
+            "SynchronizedSelectedItems", typeof (IList), typeof (MultiSelectorBehaviours),
+            new PropertyMetadata(null, OnSynchronizedSelectedItemsChanged));
 
         private static readonly DependencyProperty SynchronizationManagerProperty = DependencyProperty.RegisterAttached(
-            "SynchronizationManager", typeof(SynchronizationManager), typeof(MultiSelectorBehaviours), new PropertyMetadata(null));
+            "SynchronizationManager", typeof (SynchronizationManager), typeof (MultiSelectorBehaviours),
+            new PropertyMetadata(null));
 
         /// <summary>
-        /// Gets the synchronized selected items.
+        ///     Gets the synchronized selected items.
         /// </summary>
         /// <param name="dependencyObject">The dependency object.</param>
         /// <returns>The list that is acting as the sync list.</returns>
         public static IList GetSynchronizedSelectedItems(DependencyObject dependencyObject)
         {
-            return (IList)dependencyObject.GetValue(SynchronizedSelectedItems);
+            return (IList) dependencyObject.GetValue(SynchronizedSelectedItems);
         }
 
         /// <summary>
-        /// Sets the synchronized selected items.
+        ///     Sets the synchronized selected items.
         /// </summary>
         /// <param name="dependencyObject">The dependency object.</param>
         /// <param name="value">The value to be set as synchronized items.</param>
@@ -40,7 +42,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
 
         private static SynchronizationManager GetSynchronizationManager(DependencyObject dependencyObject)
         {
-            return (SynchronizationManager)dependencyObject.GetValue(SynchronizationManagerProperty);
+            return (SynchronizationManager) dependencyObject.GetValue(SynchronizationManagerProperty);
         }
 
         private static void SetSynchronizationManager(DependencyObject dependencyObject, SynchronizationManager value)
@@ -48,7 +50,8 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
             dependencyObject.SetValue(SynchronizationManagerProperty, value);
         }
 
-        private static void OnSynchronizedSelectedItemsChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        private static void OnSynchronizedSelectedItemsChanged(DependencyObject dependencyObject,
+                                                               DependencyPropertyChangedEventArgs e)
         {
             if (e.OldValue != null)
             {
@@ -58,8 +61,8 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
                 SetSynchronizationManager(dependencyObject, null);
             }
 
-            IList list = e.NewValue as IList;
-            Selector selector = dependencyObject as Selector;
+            var list = e.NewValue as IList;
+            var selector = dependencyObject as Selector;
 
             // check that this property is an IList, and that it is being set on a ListBox
             if (list != null && selector != null)
@@ -76,7 +79,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         }
 
         /// <summary>
-        /// A synchronization manager.
+        ///     A synchronization manager.
         /// </summary>
         private class SynchronizationManager
         {
@@ -84,7 +87,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
             private TwoListSynchronizer _synchronizer;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="SynchronizationManager"/> class.
+            ///     Initializes a new instance of the <see cref="SynchronizationManager" /> class.
             /// </summary>
             /// <param name="selector">The selector.</param>
             internal SynchronizationManager(Selector selector)
@@ -93,7 +96,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
             }
 
             /// <summary>
-            /// Starts synchronizing the list.
+            ///     Starts synchronizing the list.
             /// </summary>
             public void StartSynchronizingList()
             {
@@ -107,7 +110,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
             }
 
             /// <summary>
-            /// Stops synchronizing the list.
+            ///     Stops synchronizing the list.
             /// </summary>
             public void StopSynchronizing()
             {
@@ -129,8 +132,6 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
                     throw new InvalidOperationException("Target object has no SelectedItems property to bind.");
                 }
             }
-
         }
-         
     }
 }

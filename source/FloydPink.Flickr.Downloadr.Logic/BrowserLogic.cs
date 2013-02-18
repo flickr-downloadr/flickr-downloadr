@@ -26,7 +26,8 @@ namespace FloydPink.Flickr.Downloadr.Logic
 
         #region IBrowserLogic Members
 
-        public async Task<PhotosResponse> GetPhotosAsync(string methodName, User user, Preferences preferences, int page, IProgress<ProgressUpdate> progress)
+        public async Task<PhotosResponse> GetPhotosAsync(string methodName, User user, Preferences preferences, int page,
+                                                         IProgress<ProgressUpdate> progress)
         {
             var progressUpdate = new ProgressUpdate
                                      {
@@ -52,7 +53,8 @@ namespace FloydPink.Flickr.Downloadr.Logic
             return photosResponse.GetPhotosResponseFromDictionary();
         }
 
-        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress, Preferences preferences)
+        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken,
+                                   IProgress<ProgressUpdate> progress, Preferences preferences)
         {
             IList<Photo> photosList = photos as IList<Photo> ?? photos.ToList();
             if (!photosList.Any()) return;

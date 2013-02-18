@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using FloydPink.Flickr.Downloadr.Bootstrap;
@@ -19,17 +18,6 @@ namespace FloydPink.Flickr.Downloadr.UI
     {
         private readonly IPreferencesPresenter _presenter;
         private Preferences _preferences;
-        public Preferences Preferences
-        {
-            get { return _preferences; }
-            set
-            {
-                _preferences = value;
-                PropertyChanged.Notify(() => Preferences);
-            }
-        }
-
-        protected User User { get; set; }
 
         public PreferencesWindow(User user, Preferences preferences)
         {
@@ -39,6 +27,19 @@ namespace FloydPink.Flickr.Downloadr.UI
             InitializeComponent();
 
             _presenter = Bootstrapper.GetPresenter<IPreferencesView, IPreferencesPresenter>(this);
+        }
+
+        protected User User { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Preferences Preferences
+        {
+            get { return _preferences; }
+            set
+            {
+                _preferences = value;
+                PropertyChanged.Notify(() => Preferences);
+            }
         }
 
         public void ShowSpinner(bool show)
@@ -80,7 +81,5 @@ namespace FloydPink.Flickr.Downloadr.UI
         {
             Preferences = Preferences.GetDefault();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

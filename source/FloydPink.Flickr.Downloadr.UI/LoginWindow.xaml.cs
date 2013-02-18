@@ -36,6 +36,8 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         #region ILoginView Members
 
+        protected Preferences Preferences { get; set; }
+
         public User User
         {
             get { return _user; }
@@ -49,12 +51,11 @@ namespace FloydPink.Flickr.Downloadr.UI
         public void ShowLoggedInControl(Preferences preferences)
         {
             Preferences = preferences;
-            PreferencesButton.Dispatch((p) => p.Visibility = (Preferences != null ? Visibility.Visible : Visibility.Collapsed));
+            PreferencesButton.Dispatch(
+                (p) => p.Visibility = (Preferences != null ? Visibility.Visible : Visibility.Collapsed));
             LoggedInCanvas.Dispatch((c) => c.Visibility = Visibility.Visible);
             LoggedOutCanvas.Dispatch((c) => c.Visibility = Visibility.Collapsed);
         }
-
-        protected Preferences Preferences { get; set; }
 
         public void ShowLoggedOutControl()
         {

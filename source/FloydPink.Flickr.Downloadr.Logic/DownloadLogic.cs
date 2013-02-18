@@ -15,19 +15,17 @@ namespace FloydPink.Flickr.Downloadr.Logic
 {
     public class DownloadLogic : IDownloadLogic
     {
-        private static readonly Random Random = new Random((int)DateTime.Now.Ticks);
+        private static readonly Random Random = new Random((int) DateTime.Now.Ticks);
         private string _currentTimestampFolder;
 
-        public DownloadLogic()
-        {
-        }
-
-        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress, Preferences preferences)
+        public async Task Download(IEnumerable<Photo> photos, CancellationToken cancellationToken,
+                                   IProgress<ProgressUpdate> progress, Preferences preferences)
         {
             await DownloadPhotos(photos, cancellationToken, progress, preferences);
         }
 
-        private async Task DownloadPhotos(IEnumerable<Photo> photos, CancellationToken cancellationToken, IProgress<ProgressUpdate> progress, Preferences preferences)
+        private async Task DownloadPhotos(IEnumerable<Photo> photos, CancellationToken cancellationToken,
+                                          IProgress<ProgressUpdate> progress, Preferences preferences)
         {
             try
             {
@@ -48,8 +46,8 @@ namespace FloydPink.Flickr.Downloadr.Logic
 
                 foreach (Photo photo in photosList)
                 {
-                    var photoUrl = photo.OriginalUrl;
-                    var photoExtension = "jpg";
+                    string photoUrl = photo.OriginalUrl;
+                    string photoExtension = "jpg";
                     switch (preferences.DownloadSize)
                     {
                         case PhotoDownloadSize.Medium:
@@ -64,7 +62,9 @@ namespace FloydPink.Flickr.Downloadr.Logic
                             break;
                     }
 
-                    string targetFileName = Path.Combine(imageDirectory.FullName, string.Format("{0}.{1}", GetSafeFilename(photo.Title), photoExtension));
+                    string targetFileName = Path.Combine(imageDirectory.FullName,
+                                                         string.Format("{0}.{1}", GetSafeFilename(photo.Title),
+                                                                       photoExtension));
                     WriteMetaDataFile(photo, targetFileName, preferences);
 
                     WebRequest request = WebRequest.Create(photoUrl);
@@ -74,7 +74,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
                     await DownloadAndSavePhoto(targetFileName, request, buffer);
 
                     doneCount++;
-                    progressUpdate.PercentDone = doneCount * 100 / totalCount;
+                    progressUpdate.PercentDone = doneCount*100/totalCount;
                     progressUpdate.DownloadedPath = imageDirectory.FullName;
                     progress.Report(progressUpdate);
                     if (progressUpdate.PercentDone != 100) cancellationToken.ThrowIfCancellationRequested();
@@ -118,7 +118,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
             var builder = new StringBuilder();
             for (int i = 0; i < size; i++)
             {
-                char ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * Random.NextDouble() + 65)));
+                char ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26*Random.NextDouble() + 65)));
                 builder.Append(ch);
             }
 
@@ -135,8 +135,14 @@ namespace FloydPink.Flickr.Downloadr.Logic
 
         private static void WriteMetaDataFile(Photo photo, string targetFileName, Preferences preferences)
         {
-            var metadata = preferences.Metadata.ToDictionary(metadatum => metadatum, metadatum => photo.GetType().GetProperty(metadatum).GetValue(photo, null).ToString());
-            if (metadata.Count > 0) File.WriteAllText(string.Format("{0}.json", targetFileName), metadata.ToJson(), Encoding.Unicode);
+            Dictionary<string, string> metadata = preferences.Metadata.ToDictionary(metadatum => metadatum,
+                                                                                    metadatum =>
+                                                                                    photo.GetType()
+                                                                                         .GetProperty(metadatum)
+                                                                                         .GetValue(photo, null)
+                                                                                         .ToString());
+            if (metadata.Count > 0)
+                File.WriteAllText(string.Format("{0}.json", targetFileName), metadata.ToJson(), Encoding.Unicode);
         }
     }
 }

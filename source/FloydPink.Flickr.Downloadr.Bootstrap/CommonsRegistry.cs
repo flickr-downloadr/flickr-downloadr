@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
-using StructureMap.Configuration.DSL;
+﻿using StructureMap.Configuration.DSL;
 using log4net;
 using log4net.Config;
 

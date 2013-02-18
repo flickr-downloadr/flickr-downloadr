@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Reflection;
 using StructureMap;
 
 namespace FloydPink.Flickr.Downloadr.Bootstrap

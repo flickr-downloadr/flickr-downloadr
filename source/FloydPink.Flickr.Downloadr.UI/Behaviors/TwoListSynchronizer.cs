@@ -8,7 +8,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
 {
     // Thanks to http://blog.functionalfun.net/2009/02/how-to-databind-to-selecteditems.html
     /// <summary>
-    /// Keeps two lists synchronized. 
+    ///     Keeps two lists synchronized.
     /// </summary>
     public class TwoListSynchronizer : IWeakEventListener
     {
@@ -18,7 +18,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         private readonly IList _targetList;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TwoListSynchronizer"/> class.
+        ///     Initializes a new instance of the <see cref="TwoListSynchronizer" /> class.
         /// </summary>
         /// <param name="masterList">The master list.</param>
         /// <param name="targetList">The target list.</param>
@@ -31,7 +31,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TwoListSynchronizer"/> class.
+        ///     Initializes a new instance of the <see cref="TwoListSynchronizer" /> class.
         /// </summary>
         /// <param name="masterList">The master list.</param>
         /// <param name="targetList">The target list.</param>
@@ -40,10 +40,28 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         {
         }
 
-        private delegate void ChangeListAction(IList list, NotifyCollectionChangedEventArgs e, Converter<object, object> converter);
+        /// <summary>
+        ///     Receives events from the centralized event manager.
+        /// </summary>
+        /// <param name="managerType">
+        ///     The type of the <see cref="T:System.Windows.WeakEventManager" /> calling this method.
+        /// </param>
+        /// <param name="sender">Object that originated the event.</param>
+        /// <param name="e">Event data.</param>
+        /// <returns>
+        ///     true if the listener handled the event. It is considered an error by the
+        ///     <see
+        ///         cref="T:System.Windows.WeakEventManager" />
+        ///     handling in WPF to register a listener for an event that the listener does not handle. Regardless, the method should return false if it receives an event that it does not recognize or handle.
+        /// </returns>
+        public bool ReceiveWeakEvent(Type managerType, object sender, EventArgs e)
+        {
+            HandleCollectionChanged(sender as IList, e as NotifyCollectionChangedEventArgs);
+            return true;
+        }
 
         /// <summary>
-        /// Starts synchronizing the lists.
+        ///     Starts synchronizing the lists.
         /// </summary>
         public void StartSynchronizing()
         {
@@ -57,7 +75,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
             {
                 SetListValuesFromSource(_targetList, _masterList, ConvertFromTargetToMaster);
             }
-            // Update the Target list from the Master list
+                // Update the Target list from the Master list
             else
             {
                 SetListValuesFromSource(_targetList, _masterList, ConvertFromMasterToTarget);
@@ -65,7 +83,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         }
 
         /// <summary>
-        /// Stop synchronizing the lists.
+        ///     Stop synchronizing the lists.
         /// </summary>
         public void StopSynchronizing()
         {
@@ -74,22 +92,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         }
 
         /// <summary>
-        /// Receives events from the centralized event manager.
-        /// </summary>
-        /// <param name="managerType">The type of the <see cref="T:System.Windows.WeakEventManager"/> calling this method.</param>
-        /// <param name="sender">Object that originated the event.</param>
-        /// <param name="e">Event data.</param>
-        /// <returns>
-        /// true if the listener handled the event. It is considered an error by the <see cref="T:System.Windows.WeakEventManager"/> handling in WPF to register a listener for an event that the listener does not handle. Regardless, the method should return false if it receives an event that it does not recognize or handle.
-        /// </returns>
-        public bool ReceiveWeakEvent(Type managerType, object sender, EventArgs e)
-        {
-            HandleCollectionChanged(sender as IList, e as NotifyCollectionChangedEventArgs);
-            return true;
-        }
-
-        /// <summary>
-        /// Listens for change events on a list.
+        ///     Listens for change events on a list.
         /// </summary>
         /// <param name="list">The list to listen to.</param>
         protected void ListenForChangeEvents(IList list)
@@ -101,7 +104,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         }
 
         /// <summary>
-        /// Stops listening for change events.
+        ///     Stops listening for change events.
         /// </summary>
         /// <param name="list">The list to stop listening to.</param>
         protected void StopListeningForChangeEvents(IList list)
@@ -143,7 +146,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
 
         private void HandleCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            IList sourceList = sender as IList;
+            var sourceList = sender as IList;
 
             switch (e.Action)
             {
@@ -173,7 +176,8 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
             AddItems(list, e, converter);
         }
 
-        private void PerformActionOnAllLists(ChangeListAction action, IList sourceList, NotifyCollectionChangedEventArgs collectionChangedArgs)
+        private void PerformActionOnAllLists(ChangeListAction action, IList sourceList,
+                                             NotifyCollectionChangedEventArgs collectionChangedArgs)
         {
             if (sourceList == _masterList)
             {
@@ -185,7 +189,9 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
             }
         }
 
-        private void PerformActionOnList(IList list, ChangeListAction action, NotifyCollectionChangedEventArgs collectionChangedArgs, Converter<object, object> converter)
+        private void PerformActionOnList(IList list, ChangeListAction action,
+                                         NotifyCollectionChangedEventArgs collectionChangedArgs,
+                                         Converter<object, object> converter)
         {
             StopListeningForChangeEvents(list);
             action(list, collectionChangedArgs, converter);
@@ -226,11 +232,13 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
 
         private bool TargetAndMasterCollectionsAreEqual()
         {
-            return _masterList.Cast<object>().SequenceEqual(_targetList.Cast<object>().Select(item => ConvertFromTargetToMaster(item)));
+            return
+                _masterList.Cast<object>()
+                           .SequenceEqual(_targetList.Cast<object>().Select(item => ConvertFromTargetToMaster(item)));
         }
 
         /// <summary>
-        /// Makes sure that all synchronized lists have the same values as the source list.
+        ///     Makes sure that all synchronized lists have the same values as the source list.
         /// </summary>
         /// <param name="sourceList">The source list.</param>
         private void UpdateListsFromSource(IList sourceList)
@@ -245,13 +253,16 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
             }
         }
 
+        private delegate void ChangeListAction(
+            IList list, NotifyCollectionChangedEventArgs e, Converter<object, object> converter);
+
         /// <summary>
-        /// An implementation that does nothing in the conversions.
+        ///     An implementation that does nothing in the conversions.
         /// </summary>
         internal class DoNothingListItemConverter : IListItemConverter
         {
             /// <summary>
-            /// Converts the specified master list item.
+            ///     Converts the specified master list item.
             /// </summary>
             /// <param name="masterListItem">The master list item.</param>
             /// <returns>The result of the conversion.</returns>
@@ -261,7 +272,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
             }
 
             /// <summary>
-            /// Converts the specified target list item.
+            ///     Converts the specified target list item.
             /// </summary>
             /// <param name="targetListItem">The target list item.</param>
             /// <returns>The result of the conversion.</returns>

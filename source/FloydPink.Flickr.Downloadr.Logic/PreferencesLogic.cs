@@ -15,7 +15,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
 
         public Preferences GetPreferences()
         {
-            var preferences = _repository.Get();
+            Preferences preferences = _repository.Get();
             return preferences.PhotosPerPage == 0 ? null : preferences;
         }
 

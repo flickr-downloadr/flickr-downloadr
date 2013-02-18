@@ -1,5 +1,4 @@
-﻿using System;
-using FloydPink.Flickr.Downloadr.Logic;
+﻿using FloydPink.Flickr.Downloadr.Logic;
 using FloydPink.Flickr.Downloadr.Logic.Interfaces;
 using StructureMap.Configuration.DSL;
 
