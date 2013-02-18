@@ -11,38 +11,12 @@
 
     <Grid Height="287" Width="495">
         <Grid>
-            <Canvas HorizontalAlignment="Left" VerticalAlignment="Top"
-                    Name="LoggedInCanvas" Visibility="Visible">
-                <Image Canvas.Left="109" Canvas.Top="98" Height="48" Name="buddyIcon" Stretch="Fill" Width="48">
-                    <Image.Effect>
-                        <DropShadowEffect Color="Gray" BlurRadius="15" ShadowDepth="0" />
-                    </Image.Effect>
-                </Image>
-                <Label Canvas.Left="171" Canvas.Top="115" Content="" FontSize="16" Name="WelcomeUserLabel"
-                       FontWeight="Bold" FontStyle="Normal" FontFamily="Segoe UI"
-                       HorizontalContentAlignment="Left" />
-                <Label Canvas.Left="101" Canvas.Top="174" Content="Click 'Continue' to browse and download photos..."
-                       Name="LoggedInLabel" FontSize="13" FontStretch="Normal"
-                       HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <Button Canvas.Left="341" Canvas.Top="239" Content="Continue" Height="38" Name="ContinueButton"
-                        Width="141"
-                        FontSize="16" Click="ContinueButtonClick" />
-                <Button Canvas.Left="10" Canvas.Top="248" Content="Logout" FontSize="12" Height="28"
-                        Name="logoutButton" Width="100" Click="LogoutButtonClick" />
-                <Button Canvas.Left="120" Canvas.Top="248" Content="Preferences" FontSize="12" Height="28"
-                        Name="PreferencesButton" Width="100" Click="PreferencesButtonClick" />
-            </Canvas>
-            <Canvas HorizontalAlignment="Left" VerticalAlignment="Top"
-                    Name="LoggedOutCanvas" Visibility="Visible">
-                <Label Canvas.Left="55" Canvas.Top="111"
-                       Content="Welcome to Flickr Downloadr. Click 'Login' to continue." Name="WelcomeLabel"
-                       FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <Button Canvas.Left="176" Canvas.Top="191" Content="Login" Height="38" Name="loginButton" Width="141"
-                        FontSize="16" Click="LoginButtonClick" />
-            </Canvas>
-            <Image Height="106" Name="logo" Stretch="Uniform" Width="314" Canvas.Left="90" Canvas.Top="-1"
-                   VerticalAlignment="Center" HorizontalAlignment="Center"
-                   Source="/flickr%20downloadr;component/Images/logo-Small.png" Margin="0,0,0,150">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Width="330" Source="/flickr%20downloadr;component/Images/logo-Small.png"
+                   Stretch="Uniform">
                 <Image.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Edit Log Configuration..." Click="EditLogConfigClick"></MenuItem>
@@ -50,6 +24,52 @@
                     </ContextMenu>
                 </Image.ContextMenu>
             </Image>
+            <Grid Grid.Row="1" Name="LoggedOutCanvas" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="1" Content="Welcome to Flickr Downloadr. Click 'Login' to continue."
+                       FontSize="16" HorizontalAlignment="Center" />
+                <Button Grid.Row="2" Content="Login" Height="38" Width="141" FontSize="16" Click="LoginButtonClick" />
+            </Grid>
+            <Grid Grid.Row="1" Name="LoggedInCanvas" Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <Image Height="48" Name="buddyIcon" Stretch="Fill" Width="48">
+                        <Image.Effect>
+                            <DropShadowEffect Color="Gray" BlurRadius="15" ShadowDepth="0" />
+                        </Image.Effect>
+                    </Image>
+                    <Label Content="" FontSize="16" Name="WelcomeUserLabel" FontWeight="Bold"
+                           FontStyle="Normal" FontFamily="Segoe UI" Margin="5,0,0,0" VerticalContentAlignment="Center" />
+                </StackPanel>
+                <Label Grid.Row="1" Content="Click 'Continue' to browse and download photos..."
+                       Name="LoggedInLabel" FontSize="13" FontStretch="Normal" VerticalContentAlignment="Center"
+                       HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Button Content="Logout" FontSize="12" Height="28" Width="100" Click="LogoutButtonClick"
+                                Margin="10,0" />
+                        <Button Content="Preferences" FontSize="12" Height="28"
+                                Name="PreferencesButton" Width="100" Click="PreferencesButtonClick" />
+                    </StackPanel>
+                    <Button Grid.Column="1" Content="Continue" Height="38" Name="ContinueButton"
+                            Width="141" FontSize="16" Click="ContinueButtonClick" />
+                </Grid>
+
+            </Grid>
         </Grid>
         <AdornerDecorator Name="Spinner" Visibility="Collapsed">
             <controls:Spinner Cancellable="True"></controls:Spinner>

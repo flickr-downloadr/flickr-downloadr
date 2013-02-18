@@ -21,10 +21,10 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         public PreferencesWindow(User user, Preferences preferences)
         {
+            InitializeComponent();
+            Title += VersionHelper.GetVersionString();
             Preferences = preferences;
             User = user;
-            Title += VersionHelper.GetVersionString();
-            InitializeComponent();
 
             _presenter = Bootstrapper.GetPresenter<IPreferencesView, IPreferencesPresenter>(this);
         }

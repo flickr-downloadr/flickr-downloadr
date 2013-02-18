@@ -33,9 +33,9 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         public BrowserWindow(User user, Preferences preferences)
         {
-            Preferences = preferences;
             InitializeComponent();
             Title += VersionHelper.GetVersionString();
+            Preferences = preferences;
             User = user;
             SelectedPhotos = new Dictionary<string, Dictionary<string, Photo>>();
 
@@ -204,13 +204,13 @@ namespace FloydPink.Flickr.Downloadr.UI
             {
                 PhotoList.SelectedItems.Clear();
                 MessageBox.Show(
-                    string.Format("Download completed to the directory: {0}\r\n(Click CTRL+C to copy the location.)",
+                    string.Format("Download completed to the directory: {0}\r\n\r\n(Click CTRL+C to copy the location.)",
                                   downloadedLocation), "Done");
             }
             else
             {
                 MessageBox.Show(
-                    string.Format("Incomplete download could be found at {0}\r\n(Click CTRL+C to copy the location.)",
+                    string.Format("Incomplete download could be found at {0}\r\n\r\n(Click CTRL+C to copy the location.)",
                                   downloadedLocation), "Cancelled");
             }
         }
