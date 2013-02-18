@@ -14,16 +14,27 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"></RowDefinition>
                 <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Width="330" Source="/flickr%20downloadr;component/Images/logo-Small.png"
-                   Stretch="Uniform">
-                <Image.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Edit Log Configuration..." Click="EditLogConfigClick"></MenuItem>
-                        <MenuItem Header="View Log..." Click="ViewLogClick"></MenuItem>
-                    </ContextMenu>
-                </Image.ContextMenu>
-            </Image>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="1" Width="330" Source="/flickr%20downloadr;component/Images/logo-Small.png"
+                       Stretch="Uniform" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Image.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Edit Log Configuration..." Click="EditLogConfigClick"></MenuItem>
+                            <MenuItem Header="View Log..." Click="ViewLogClick"></MenuItem>
+                        </ContextMenu>
+                    </Image.ContextMenu>
+                </Image>
+                <StackPanel Grid.Column="2" VerticalAlignment="Top">
+                    <Button Content="About" Width="60" Height="28" Margin="0, 10" Click="AboutButtonClick" ></Button>
+                </StackPanel>
+            </Grid>
             <Grid Grid.Row="1" Name="LoggedOutCanvas" Visibility="Collapsed">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"></RowDefinition>
@@ -54,7 +65,7 @@
                        Name="LoggedInLabel" FontSize="13" FontStretch="Normal" VerticalContentAlignment="Center"
                        HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -68,7 +79,6 @@
                     <Button Grid.Column="1" Content="Continue" Height="38" Name="ContinueButton"
                             Width="141" FontSize="16" Click="ContinueButtonClick" />
                 </Grid>
-
             </Grid>
         </Grid>
         <AdornerDecorator Name="Spinner" Visibility="Collapsed">

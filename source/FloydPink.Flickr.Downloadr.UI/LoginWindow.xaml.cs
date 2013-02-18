@@ -130,5 +130,11 @@ namespace FloydPink.Flickr.Downloadr.UI
             preferencesWindow.Show();
             Close();
         }
+
+        private void AboutButtonClick(object sender, RoutedEventArgs e)
+        {
+            var aboutWindow = new AboutWindow();
+            aboutWindow.ShowDialog();
+        }
     }
 }
