@@ -11,18 +11,20 @@ namespace FloydPink.Flickr.Downloadr.UnitTests.LogicTests
     {
         private IRepository<Token> _tokenRepository;
         private IRepository<User> _userRepository;
+        private IRepository<Preferences> _preferencesRepository;
 
         [TestFixtureSetUp]
         public void Setup()
         {
             _tokenRepository = MockRepository.GenerateStub<IRepository<Token>>();
             _userRepository = MockRepository.GenerateStub<IRepository<User>>();
+            _preferencesRepository = MockRepository.GenerateStub<IRepository<Preferences>>();
         }
 
         [Test]
         public void WillCallDeleteOnBothRepositoriesOnLogout()
         {
-            var logic = new LoginLogic(null, _tokenRepository, _userRepository);
+            var logic = new LoginLogic(null, _tokenRepository, _userRepository, _preferencesRepository);
             logic.Logout();
 
             _tokenRepository.AssertWasCalled((t) => t.Delete());

@@ -37,6 +37,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
 
         public void Logout()
         {
+            _preferences = null;
             _logic.Logout();
             _view.ShowSpinner(false);
             _view.ShowLoggedOutControl();

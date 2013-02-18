@@ -84,6 +84,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
 
         private static string DumpObject(object argument)
         {
+            if (argument == null) return "<null>";
             Type objtype = argument.GetType();
             if (objtype == typeof (String) || objtype.IsPrimitive || !objtype.IsClass)
                 return argument.ToString();
