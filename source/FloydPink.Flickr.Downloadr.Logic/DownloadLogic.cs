@@ -136,7 +136,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
         private static void WriteMetaDataFile(Photo photo, string targetFileName, Preferences preferences)
         {
             var metadata = preferences.Metadata.ToDictionary(metadatum => metadatum, metadatum => photo.GetType().GetProperty(metadatum).GetValue(photo, null).ToString());
-            File.WriteAllText(string.Format("{0}.json", targetFileName), metadata.ToJson(), Encoding.Unicode);
+            if (metadata.Count > 0) File.WriteAllText(string.Format("{0}.json", targetFileName), metadata.ToJson(), Encoding.Unicode);
         }
     }
 }
