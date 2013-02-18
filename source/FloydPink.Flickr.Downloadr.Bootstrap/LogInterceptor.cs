@@ -51,12 +51,12 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                                                           antecedent.GetType()
                                                                     .GetProperty("Result")
                                                                     .GetValue(antecedent, null);
-                                                      Log.Debug(taskDescriptor + " returning with: " + result);
+                                                      Log.Debug(taskDescriptor + " returning with: " + DumpObject(result));
                                                   });
                         }
                         else
                         {
-                            Log.Debug("Returning with: " + returnValue);
+                            Log.Debug("Returning with: " + DumpObject(returnValue));
                         }
                     }
                 }

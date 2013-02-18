@@ -48,12 +48,8 @@ namespace FloydPink.Flickr.Downloadr.Logic
 
                 foreach (Photo photo in photosList)
                 {
-                    string targetFileName = Path.Combine(imageDirectory.FullName,
-                                                         string.Format("{0}.{1}", GetSafeFilename(photo.Title),
-                                                                       photo.DownloadFormat));
-                    WriteMetaDataFile(photo, targetFileName, preferences);
-
-                    var photoUrl = photo.LargestAvailableSizeUrl;
+                    var photoUrl = photo.OriginalUrl;
+                    var photoExtension = "jpg";
                     switch (preferences.DownloadSize)
                     {
                         case PhotoDownloadSize.Medium:
@@ -63,9 +59,14 @@ namespace FloydPink.Flickr.Downloadr.Logic
                             photoUrl = photo.Large1024Url;
                             break;
                         case PhotoDownloadSize.Original:
-                            photoUrl = photo.LargestAvailableSizeUrl;
+                            photoUrl = photo.OriginalUrl;
+                            photoExtension = photo.DownloadFormat;
                             break;
                     }
+
+                    string targetFileName = Path.Combine(imageDirectory.FullName, string.Format("{0}.{1}", GetSafeFilename(photo.Title), photoExtension));
+                    WriteMetaDataFile(photo, targetFileName, preferences);
+
                     WebRequest request = WebRequest.Create(photoUrl);
 
                     var buffer = new byte[4096];

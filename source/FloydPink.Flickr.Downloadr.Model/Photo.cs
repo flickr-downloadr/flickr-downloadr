@@ -146,37 +146,32 @@ namespace FloydPink.Flickr.Downloadr.Model
 
         public string Small320Url
         {
-            get { return _small320Url; }
+            get { return string.IsNullOrWhiteSpace(_small320Url) ? Small240Url : _small320Url; }
         }
 
         public string Medium500Url
         {
-            get { return _medium500Url; }
+            get { return string.IsNullOrWhiteSpace(_medium500Url) ? Small320Url : _medium500Url; }
         }
 
         public string Medium640Url
         {
-            get { return _medium640Url; }
+            get { return string.IsNullOrWhiteSpace(_medium640Url) ? Medium500Url : _medium640Url; }
         }
 
         public string Medium800Url
         {
-            get { return _medium800Url; }
+            get { return string.IsNullOrWhiteSpace(_medium800Url) ? Medium640Url : _medium800Url; }
         }
 
         public string Large1024Url
         {
-            get { return _large1024Url; }
+            get { return string.IsNullOrWhiteSpace(_large1024Url) ? Medium800Url : _large1024Url; }
         }
 
         public string OriginalUrl
         {
-            get { return _originalUrl; }
-        }
-
-        public string LargestAvailableSizeUrl
-        {
-            get { return string.IsNullOrWhiteSpace(OriginalUrl) ? Large1024Url : OriginalUrl; }
+            get { return string.IsNullOrWhiteSpace(_originalUrl) ? Large1024Url : _originalUrl; }
         }
 
         public string DownloadFormat
