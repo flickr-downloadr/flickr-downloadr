@@ -11,7 +11,9 @@
     <Window.Resources>
         <ObjectDataProvider x:Key="VersionText" MethodName="GetVersionString"
                             ObjectType="{x:Type helpers:VersionHelper}">
-
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="AboutUrl" MethodName="GetAboutUrl"
+                            ObjectType="{x:Type helpers:VersionHelper}">
         </ObjectDataProvider>
     </Window.Resources>
     <Grid Width="320" Height="200">
@@ -34,7 +36,8 @@
                 <TextBlock Text="{Binding Source={StaticResource VersionText}}"></TextBlock>
             </TextBlock>
             <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Hyperlink NavigateUri="http://flickrdownloadr.com" ToolTip="http://flickrdownloadr.com"
+                <Hyperlink NavigateUri="{Binding Source={StaticResource AboutUrl}}"
+                           ToolTip="http://flickrdownloadr.com"
                            FontSize="18" FontFamily="Garamond" behaviors:HyperlinkBehavior.IsExternal="True">
                     http://flickrdownloadr.com
                 </Hyperlink>
