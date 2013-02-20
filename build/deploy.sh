@@ -47,7 +47,8 @@ fi
 
 cd ../source/bin/Release
 REPO=git@github.com:flickr-downloadr/flickr-downloadr.git
-MSG="application (v${BUILDNUMBER})"
+VERSION="v${BUILDNUMBER}"
+MSG="application ($VERSION)"
 
 #clone repo in a tmp dir
 mkdir tmp-gh-pages
@@ -75,6 +76,7 @@ git checkout master
 cp ../../../../../build/build.number ./build
 cp ../../../../CommonAssemblyInfo.cs ./source
 git commit -a -m "deploying $MSG" -s
+git tag -a $VERSION -m "tagging version $VERSION"
 git push
 
 #remove the tmp dir
