@@ -78,6 +78,7 @@ cp ../../../../CommonAssemblyInfo.cs ./source
 git commit -a -m "deploying $MSG" -s
 git tag -a $VERSION -m "tagging version $VERSION"
 git push
+git push --tags
 
 #remove the tmp dir
 cd ../..
