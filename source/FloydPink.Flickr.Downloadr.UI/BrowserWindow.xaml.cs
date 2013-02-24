@@ -204,14 +204,16 @@ namespace FloydPink.Flickr.Downloadr.UI
             {
                 PhotoList.SelectedItems.Clear();
                 MessageBox.Show(
-                    string.Format("Download completed to the directory: {0}\r\n\r\n(Click CTRL+C to copy the location.)",
-                                  downloadedLocation), "Done");
+                    string.Format(
+                        "Download completed to the directory: {0}\r\n\r\n(Click CTRL+C to copy the location.)",
+                        downloadedLocation), "Done");
             }
             else
             {
                 MessageBox.Show(
-                    string.Format("Incomplete download could be found at {0}\r\n\r\n(Click CTRL+C to copy the location.)",
-                                  downloadedLocation), "Cancelled");
+                    string.Format(
+                        "Incomplete download could be found at {0}\r\n\r\n(Click CTRL+C to copy the location.)",
+                        downloadedLocation), "Cancelled");
             }
         }
 
