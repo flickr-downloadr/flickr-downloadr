@@ -77,8 +77,7 @@ cp ../../../../../build/build.number ./build
 cp ../../../../CommonAssemblyInfo.cs ./source
 git commit -a -m "deploying $MSG" -s
 git tag -a $VERSION -m "tagging version $VERSION"
-git push
-git push --tags
+git push --tags origin master
 
 #remove the tmp dir
 cd ../..
