@@ -9,6 +9,7 @@ namespace FloydPink.Flickr.Downloadr.Model
 {
     public class Preferences : INotifyPropertyChanged
     {
+        private bool _titleAsFilename;
         private string _downloadLocation;
         private PhotoDownloadSize _downloadSize;
         private int _photosPerPage;
@@ -26,13 +27,13 @@ namespace FloydPink.Flickr.Downloadr.Model
             _downloadSize = downloadSize;
         }
 
-        public int PhotosPerPage
+        public bool TitleAsFilename
         {
-            get { return _photosPerPage; }
+            get { return _titleAsFilename; }
             set
             {
-                _photosPerPage = value;
-                PropertyChanged.Notify(() => PhotosPerPage);
+                _titleAsFilename = value;
+                PropertyChanged.Notify(() => TitleAsFilename);
             }
         }
 
@@ -46,8 +47,6 @@ namespace FloydPink.Flickr.Downloadr.Model
             }
         }
 
-        public ObservableCollection<string> Metadata { get; set; }
-
         public PhotoDownloadSize DownloadSize
         {
             get { return _downloadSize; }
@@ -58,12 +57,25 @@ namespace FloydPink.Flickr.Downloadr.Model
             }
         }
 
+        public int PhotosPerPage
+        {
+            get { return _photosPerPage; }
+            set
+            {
+                _photosPerPage = value;
+                PropertyChanged.Notify(() => PhotosPerPage);
+            }
+        }
+
+        public ObservableCollection<string> Metadata { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public static Preferences GetDefault()
         {
             return new Preferences
                        {
+                           TitleAsFilename = false,
                            PhotosPerPage = 25,
                            DownloadLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
                            Metadata =

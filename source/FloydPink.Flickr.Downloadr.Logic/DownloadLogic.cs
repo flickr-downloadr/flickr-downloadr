@@ -30,12 +30,12 @@ namespace FloydPink.Flickr.Downloadr.Logic
             try
             {
                 var progressUpdate = new ProgressUpdate
-                                         {
-                                             Cancellable = true,
-                                             OperationText = "Downloading photos...",
-                                             PercentDone = 0,
-                                             ShowPercent = true
-                                         };
+                    {
+                        Cancellable = true,
+                        OperationText = "Downloading photos...",
+                        PercentDone = 0,
+                        ShowPercent = true
+                    };
                 progress.Report(progressUpdate);
 
                 int doneCount = 0;
@@ -62,9 +62,9 @@ namespace FloydPink.Flickr.Downloadr.Logic
                             break;
                     }
 
+                    string photoName = preferences.TitleAsFilename ? GetSafeFilename(photo.Title) : photo.Id;
                     string targetFileName = Path.Combine(imageDirectory.FullName,
-                                                         string.Format("{0}.{1}", GetSafeFilename(photo.Title),
-                                                                       photoExtension));
+                                                         string.Format("{0}.{1}", photoName, photoExtension));
                     WriteMetaDataFile(photo, targetFileName, preferences);
 
                     WebRequest request = WebRequest.Create(photoUrl);
@@ -80,7 +80,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
                     if (progressUpdate.PercentDone != 100) cancellationToken.ThrowIfCancellationRequested();
                 }
             }
-            catch (OperationCanceledException e)
+            catch (OperationCanceledException)
             {
             }
         }
