@@ -62,7 +62,7 @@
       <arg value="&quot;${nunittest.testassemblypath}&quot; /xml=&quot;${nunit.results.dir}\${nunittest.output.file.name}&quot;"/>
     </exec>
   </target>
-  
+
   <target name="increment-version">
     <echo message="Incrementing the version:" />
     <version buildtype="NoIncrement" revisiontype="Increment" startdate="2012-04-02" verbose="true"/>
@@ -108,7 +108,6 @@
   </target>
 
   <target name="deploy" depends="publish">
-	<!-- not sure if this step would succeed -->
     <exec program="bash.exe" basedir="C:\Program Files (x86)\Git\bin\" verbose="true">
       <environment>
         <variable name="HOME" value="${environment::get-variable('userprofile')}"/>
@@ -120,7 +119,9 @@
   </target>
 
   <target name="publish" depends="compilesolution">
-    <msbuild project="${source.directory}\${flickrdownloadr.app.project}">
+    <echo message="Publishing flickr downloadr:" />
+
+    <exec program="msbuild.exe"  basedir="C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319" workingdir=".">
       <arg value="/v:m"/>
       <arg value="/p:IsWebBootstrapper=true"/>
       <arg value="/p:UpdateEnabled=true"/>
@@ -141,7 +142,8 @@
       <arg value="/p:CreateWebPageOnPublish=true"/>
       <arg value="/p:WebPage=index.html"/>
       <arg value="/t:publish" />
-    </msbuild>
+      <arg value="${source.directory}\${flickrdownloadr.app.project}" />
+    </exec>
   </target>
 
 </project>
