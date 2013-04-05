@@ -108,6 +108,7 @@
   </target>
 
   <target name="deploy" depends="publish">
+	<!-- not sure if this step would succeed -->
     <exec program="bash.exe" basedir="C:\Program Files (x86)\Git\bin\" verbose="true">
       <environment>
         <variable name="HOME" value="${environment::get-variable('userprofile')}"/>
