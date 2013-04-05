@@ -122,7 +122,7 @@
     <echo message="Publishing flickr downloadr:" />
 
     <exec program="msbuild.exe"  basedir="C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319" workingdir=".">
-      <arg value="/v:d"/>
+      <arg value="/v:diag"/>
       <arg value="/p:IsWebBootstrapper=true"/>
       <arg value="/p:UpdateEnabled=true"/>
       <arg value="/p:UpdateMode=Foreground"/>
