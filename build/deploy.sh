@@ -67,7 +67,7 @@ mv index.html downloads/latest
 #add published files & build.number to gh-pages; commit; push
 cp -r ../../Deploy/* ./downloads/latest
 cp ../../../../../build/build.number .
-git add .
+git add -f .
 git commit -m "deploying $MSG" -s
 git push
 
