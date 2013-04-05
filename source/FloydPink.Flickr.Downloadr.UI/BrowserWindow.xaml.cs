@@ -37,17 +37,17 @@ namespace FloydPink.Flickr.Downloadr.UI
             Title += VersionHelper.GetVersionString();
             Preferences = preferences;
             User = user;
-            SelectedPhotos = new Dictionary<string, Dictionary<string, Photo>>();
+            AllSelectedPhotos = new Dictionary<string, Dictionary<string, Photo>>();
 
-            PhotoList.SelectionChanged += (sender, args) =>
+            PagePhotoList.SelectionChanged += (sender, args) =>
                                               {
                                                   if (_doNotSyncSelectedItems) return;
-                                                  SelectedPhotos[Page] = PhotoList.SelectedItems.Cast<Photo>().
+                                                  AllSelectedPhotos[Page] = PagePhotoList.SelectedItems.Cast<Photo>().
                                                                                    ToDictionary(p => p.Id, p => p);
                                                   PropertyChanged.Notify(() => SelectedPhotosExist);
                                                   PropertyChanged.Notify(() => SelectedPhotosCountText);
-                                                  PropertyChanged.Notify(() => SelectedPhotosExistInPage);
-                                                  PropertyChanged.Notify(() => AllPhotosSelected);
+                                                  PropertyChanged.Notify(() => AreAnyPagePhotosSelected);
+                                                  PropertyChanged.Notify(() => AreAllPagePhotosSelected);
                                               };
 
             SpinnerInner.SpinnerCanceled += (sender, args) => _presenter.CancelDownload();
@@ -58,7 +58,7 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         public int SelectedPhotosCount
         {
-            get { return SelectedPhotos.Values.SelectMany(d => d.Values).Count(); }
+            get { return AllSelectedPhotos.Values.SelectMany(d => d.Values).Count(); }
         }
 
         public string SelectedPhotosCountText
@@ -79,17 +79,17 @@ namespace FloydPink.Flickr.Downloadr.UI
             get { return SelectedPhotosCount != 0; }
         }
 
-        public bool SelectedPhotosExistInPage
+        public bool AreAnyPagePhotosSelected
         {
-            get { return Page != null && SelectedPhotos.ContainsKey(Page) && SelectedPhotos[Page].Count != 0; }
+            get { return Page != null && AllSelectedPhotos.ContainsKey(Page) && AllSelectedPhotos[Page].Count != 0; }
         }
 
-        public bool AllPhotosSelected
+        public bool AreAllPagePhotosSelected
         {
             get
             {
                 return Photos != null &&
-                       (!SelectedPhotos.ContainsKey(Page) || Photos.Count != SelectedPhotos[Page].Count);
+                       (!AllSelectedPhotos.ContainsKey(Page) || Photos.Count != AllSelectedPhotos[Page].Count);
             }
         }
 
@@ -120,15 +120,15 @@ namespace FloydPink.Flickr.Downloadr.UI
             set
             {
                 _photos = value;
-                PropertyChanged.Notify(() => AllPhotosSelected);
+                PropertyChanged.Notify(() => AreAllPagePhotosSelected);
                 _doNotSyncSelectedItems = true;
-                PhotoList.DataContext = Photos;
+                PagePhotoList.DataContext = Photos;
                 SelectAlreadySelectedPhotos();
                 _doNotSyncSelectedItems = false;
             }
         }
 
-        public IDictionary<string, Dictionary<string, Photo>> SelectedPhotos { get; set; }
+        public IDictionary<string, Dictionary<string, Photo>> AllSelectedPhotos { get; set; }
 
         public bool ShowAllPhotos
         {
@@ -142,7 +142,7 @@ namespace FloydPink.Flickr.Downloadr.UI
             {
                 _page = value;
                 PropertyChanged.Notify(() => Page);
-                PropertyChanged.Notify(() => SelectedPhotosExistInPage);
+                PropertyChanged.Notify(() => AreAnyPagePhotosSelected);
             }
         }
 
@@ -203,7 +203,7 @@ namespace FloydPink.Flickr.Downloadr.UI
             const string proTip = "\r\n\r\n(ProTip™: CTRL+C will copy all of this message with the location.)";
             if (downloadComplete)
             {
-                PhotoList.SelectedItems.Clear();
+                ClearSelectedPhotos();
                 MessageBox.Show(
                     string.Format(
                         "Download completed to the directory: \r\n{0}{1}",
@@ -226,11 +226,11 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         private void SelectAlreadySelectedPhotos()
         {
-            if (!SelectedPhotos.ContainsKey(Page) || SelectedPhotos[Page].Count <= 0) return;
-            List<Photo> photos = Photos.Where(photo => SelectedPhotos[Page].ContainsKey(photo.Id)).ToList();
+            if (!AllSelectedPhotos.ContainsKey(Page) || AllSelectedPhotos[Page].Count <= 0) return;
+            List<Photo> photos = Photos.Where(photo => AllSelectedPhotos[Page].ContainsKey(photo.Id)).ToList();
             foreach (Photo photo in photos)
             {
-                ((ListBoxItem) PhotoList.ItemContainerGenerator.ContainerFromItem(photo)).IsSelected = true;
+                ((ListBoxItem) PagePhotoList.ItemContainerGenerator.ContainerFromItem(photo)).IsSelected = true;
             }
         }
 
@@ -244,6 +244,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         private async void TogglePhotosButtonClick(object sender, RoutedEventArgs e)
         {
             LoseFocus((UIElement) sender);
+            ClearSelectedPhotos();
             await _presenter.InitializePhotoset();
         }
 
@@ -295,19 +296,27 @@ namespace FloydPink.Flickr.Downloadr.UI
             DependencyObject scope = FocusManager.GetFocusScope(element);
             FocusManager.SetFocusedElement(scope, null);
             Keyboard.ClearFocus();
-            FocusManager.SetFocusedElement(scope, PhotoList);
+            FocusManager.SetFocusedElement(scope, PagePhotoList);
         }
 
         private void SelectAllButtonClick(object sender, RoutedEventArgs e)
         {
             LoseFocus((UIElement) sender);
-            PhotoList.SelectAll();
+            PagePhotoList.SelectAll();
         }
 
         private void DeselectAllButtonClick(object sender, RoutedEventArgs e)
         {
             LoseFocus((UIElement) sender);
-            PhotoList.SelectedItems.Clear();
+            PagePhotoList.SelectedItems.Clear();
+        }
+
+        private void ClearSelectedPhotos()
+        {
+            AllSelectedPhotos.Clear();
+            PagePhotoList.SelectedItems.Clear();
+            PropertyChanged.Notify(() => SelectedPhotosExist);
+            PropertyChanged.Notify(() => SelectedPhotosCountText);
         }
     }
 }

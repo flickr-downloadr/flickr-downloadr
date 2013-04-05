@@ -42,7 +42,6 @@ namespace FloydPink.Flickr.Downloadr.Presentation
 
         public async Task InitializePhotoset()
         {
-            _view.SelectedPhotos.Clear();
             await GetAndSetPhotos(1);
         }
 
@@ -77,7 +76,7 @@ namespace FloydPink.Flickr.Downloadr.Presentation
 
         public async Task DownloadSelection()
         {
-            await DownloadPhotos(_view.SelectedPhotos.Values.SelectMany(d => d.Values).ToList());
+            await DownloadPhotos(_view.AllSelectedPhotos.Values.SelectMany(d => d.Values).ToList());
         }
 
         public async Task DownloadThisPage()

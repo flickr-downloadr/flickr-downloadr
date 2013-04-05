@@ -52,7 +52,7 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="40"></RowDefinition>
             </Grid.RowDefinitions>
-            <ListBox Grid.Row="0" Grid.ColumnSpan="3" x:Name="PhotoList" ItemsSource="{Binding}"
+            <ListBox Grid.Row="0" Grid.ColumnSpan="3" x:Name="PagePhotoList" ItemsSource="{Binding}"
                      ItemTemplate="{DynamicResource PhotoListDataTemplate}"
                      ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}" SelectionMode="Multiple"
                      behaviors:ScrollToTopBehavior.ScrollToTop="True">
@@ -85,10 +85,10 @@
                     </ToggleButton>
                     <Button Content="R" Height="28" ToolTip="Select all photos on this page"
                             Margin="20,0,0,0" Click="SelectAllButtonClick" FontFamily="Wingdings 2" FontSize="24"
-                            IsEnabled="{Binding Path=AllPhotosSelected}" />
+                            IsEnabled="{Binding Path=AreAllPagePhotosSelected}" />
                     <Button Content="Q" Height="28" ToolTip="Deselect all photos on this page"
                             Margin="5,0,0,0" Click="DeselectAllButtonClick" FontFamily="Wingdings 2" FontSize="24"
-                            IsEnabled="{Binding Path=SelectedPhotosExistInPage}" />
+                            IsEnabled="{Binding Path=AreAnyPagePhotosSelected}" />
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Content="l&lt;&lt;" ToolTip="Go to first page"
