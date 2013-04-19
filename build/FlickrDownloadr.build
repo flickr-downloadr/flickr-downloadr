@@ -121,7 +121,7 @@
   <target name="publish" depends="compilesolution">
     <echo message="Publishing flickr downloadr:" />
 
-    <exec program="msbuild.exe"  basedir="C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319" workingdir=".">
+    <msbuild project="${source.directory}\${flickrdownloadr.app.project}">
       <arg value="/v:m"/>
       <arg value="/p:IsWebBootstrapper=true"/>
       <arg value="/p:UpdateEnabled=true"/>
@@ -142,8 +142,7 @@
       <arg value="/p:CreateWebPageOnPublish=true"/>
       <arg value="/p:WebPage=index.html"/>
       <arg value="/t:publish" />
-      <arg value="${source.directory}\${flickrdownloadr.app.project}" />
-    </exec>
+    </msbuild>
   </target>
 
 </project>
