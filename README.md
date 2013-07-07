@@ -10,3 +10,7 @@ A desktop application for windows that would help download all (or selected) pho
 #### Build Status
 
 <a href="http://teamcity.codebetter.com/project.html?projectId=project228" title="Build Status"><img src="http://teamcity.codebetter.com/app/rest/builds/buildType:(id:bt695)/statusIcon"/></a>
+
+Just so I could earn some bragging rights, please endorse me on coderwall!
+
+[![endorse](https://api.coderwall.com/floydpink/endorsecount.png)](https://coderwall.com/floydpink)
