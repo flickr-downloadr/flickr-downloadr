@@ -4,7 +4,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner" mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="370" d:DesignWidth="500"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="390" d:DesignWidth="520"
         SizeToContent="WidthAndHeight"
         xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls"
         xmlns:enums="clr-namespace:FloydPink.Flickr.Downloadr.Model.Enums;assembly=FloydPink.Flickr.Downloadr.Model"
@@ -20,10 +20,11 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <ObjectDataProvider MethodName="GetItems" ObjectType="{x:Type enums:PhotoMetadata}" x:Key="Metadatas" />
+        <ObjectDataProvider MethodName="GetItems" ObjectType="{x:Type enums:SafeSearch}" x:Key="SafetyLevels" />
         <converters:BoolInverterConverter x:Key="BoolInverterConverter"></converters:BoolInverterConverter>
     </Window.Resources>
 
-    <Grid Height="340" Width="495">
+    <Grid Height="360" Width="495">
         <Grid
             DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Path=Preferences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
@@ -32,13 +33,13 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Margin="20,5,0,5">
+                <StackPanel Grid.Row="0" Margin="15,0,0,0">
                     <Label Content="Preferences" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" />
                 </StackPanel>
-                <StackPanel Grid.Row="1" Orientation="Vertical" Grid.IsSharedSizeScope="True" Margin="10">
+                <StackPanel Grid.Row="1" Orientation="Vertical" Grid.IsSharedSizeScope="True" Margin="10 0">
                     <Grid Margin="7">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
@@ -126,6 +127,15 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
+                    </Grid>
+                    <Grid Margin="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0">Safety Level:</Label>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding Source={StaticResource SafetyLevels}}"
+                                  SelectedItem="{Binding Path=SafetyLevel}" />
                     </Grid>
                 </StackPanel>
             </Grid>

@@ -13,19 +13,7 @@ namespace FloydPink.Flickr.Downloadr.Model
         private string _downloadLocation;
         private PhotoDownloadSize _downloadSize;
         private int _photosPerPage;
-
-        public Preferences()
-        {
-        }
-
-        public Preferences(int photosPerPage, string downloadLocation, List<string> metadata,
-                           PhotoDownloadSize downloadSize)
-        {
-            _photosPerPage = photosPerPage;
-            _downloadLocation = downloadLocation;
-            Metadata = new ObservableCollection<string>(metadata);
-            _downloadSize = downloadSize;
-        }
+        private string _safetyLevel;
 
         public bool TitleAsFilename
         {
@@ -67,6 +55,16 @@ namespace FloydPink.Flickr.Downloadr.Model
             }
         }
 
+        public string SafetyLevel
+        {
+            get { return _safetyLevel; }
+            set
+            {
+                _safetyLevel = value;
+                PropertyChanged.Notify(() => SafetyLevel);
+            }
+        }
+
         public ObservableCollection<string> Metadata { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -85,7 +83,8 @@ namespace FloydPink.Flickr.Downloadr.Model
                                        PhotoMetadata.Description,
                                        PhotoMetadata.Tags
                                    },
-                           DownloadSize = PhotoDownloadSize.Original
+                           DownloadSize = PhotoDownloadSize.Original,
+                           SafetyLevel = "Safe"
                        };
         }
     }
