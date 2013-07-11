@@ -16,7 +16,7 @@
   <property name="nunit.results.dir" value="${working.dir}\source\bin\NUnit" />
 
   <!-- Test references -->
-  <property name="nunit.dir" value="${build.tools.dir}\nunit\NUnit-2.6.0.12051\bin" dynamic="true" />
+  <property name="nunit.dir" value="${build.tools.dir}\nunit\NUnit-2.6.2\bin" dynamic="true" />
   <property name="unittests.assembly" value="${bin.dir}\FloydPink.Flickr.Downloadr.UnitTests.exe" />
   <property name="boundarycrossingtests.assembly" value="${bin.dir}\FloydPink.Flickr.Downloadr.BoundaryCrossingTests.exe" />
 
