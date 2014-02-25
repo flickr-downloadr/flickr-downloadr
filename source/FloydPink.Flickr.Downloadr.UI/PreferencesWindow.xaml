@@ -4,7 +4,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner" mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="390" d:DesignWidth="520"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="447" d:DesignWidth="520"
         SizeToContent="WidthAndHeight"
         xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls"
         xmlns:enums="clr-namespace:FloydPink.Flickr.Downloadr.Model.Enums;assembly=FloydPink.Flickr.Downloadr.Model"
@@ -21,20 +21,21 @@
         </ObjectDataProvider>
         <ObjectDataProvider MethodName="GetItems" ObjectType="{x:Type enums:PhotoMetadata}" x:Key="Metadatas" />
         <ObjectDataProvider MethodName="GetItems" ObjectType="{x:Type enums:SafeSearch}" x:Key="SafetyLevels" />
-        <converters:BoolInverterConverter x:Key="BoolInverterConverter"></converters:BoolInverterConverter>
+        <converters:BoolInverterConverter x:Key="BoolInverterConverter" />
     </Window.Resources>
 
-    <Grid Height="360" Width="495">
+    <Grid Height="360" Width="495" Margin="10,7,9,51">
         <Grid
-            DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Path=Preferences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Path=Preferences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Margin="0,0,0,-45">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="35" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Margin="15,0,0,0">
                     <Label Content="Preferences" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" />
@@ -45,7 +46,6 @@
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="160" />
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Filename:</Label>
                         <RadioButton GroupName="Filename" Content="Photo ID" Grid.Column="1" Margin="3, 6, 0, 0"
@@ -61,9 +61,8 @@
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0">Download Location:</Label>
                         <TextBox Name="DownloadLocationTextbox" Grid.Column="1" IsReadOnly="True"
-                                 IsReadOnlyCaretVisible="True" Text="{Binding Path=DownloadLocation}">
-                        </TextBox>
-                        <Button Grid.Column="2" Content="..." Width="25" Height="25" Click="SelectFolderButtonClick"></Button>
+                                 IsReadOnlyCaretVisible="True" Text="{Binding Path=DownloadLocation}" />
+                        <Button Grid.Column="2" Content="..." Width="25" Height="25" Click="SelectFolderButtonClick" />
                     </Grid>
                     <Grid Margin="7">
                         <Grid.ColumnDefinitions>
@@ -121,7 +120,7 @@
                                         <DataTrigger
                                             Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}"
                                             Value="True">
-                                            <Setter TargetName="SelectedCheck" Property="IsChecked" Value="True"></Setter>
+                                            <Setter TargetName="SelectedCheck" Property="IsChecked" Value="True" />
                                         </DataTrigger>
                                     </DataTemplate.Triggers>
                                 </DataTemplate>
@@ -137,33 +136,43 @@
                         <ComboBox Grid.Column="1" ItemsSource="{Binding Source={StaticResource SafetyLevels}}"
                                   SelectedItem="{Binding Path=SafetyLevel}" />
                     </Grid>
+                    <Grid Margin="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0">Tags:</Label>
+                        <RadioButton GroupName="Tags" Content="Internal" Grid.Column="1" Margin="3, 6, 0, 0"
+                                     IsChecked="{Binding Path=NeedOriginalTags, Converter={StaticResource BoolInverterConverter}}" />
+                        <RadioButton GroupName="Tags" Content="Original (Slower download)" Grid.Column="2"
+                                     Margin="3, 6, 0, 0"
+                                     IsChecked="{Binding Path=NeedOriginalTags}" />
+                    </Grid>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Left">
                     <Button Content="Cancel" ToolTip="Cancel and go back to Login screen" Width="80" Height="28"
-                            Margin="5,0" Click="CancelButtonClick">
-                    </Button>
+                            Margin="5,0" Click="CancelButtonClick" />
                 </StackPanel>
                 <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                     <Button Content="Defaults" ToolTip="Change to default values" Width="80" Height="28"
-                            Click="DefaultsButtonClick">
-                    </Button>
+                            Click="DefaultsButtonClick" />
                 </StackPanel>
                 <StackPanel Grid.Column="2" HorizontalAlignment="Right">
                     <Button Content="Save" ToolTip="Save and go to Photo Browser screen" Width="80" Height="28"
-                            Margin="5,0" Click="SaveButtonClick">
-                    </Button>
+                            Margin="5,0" Click="SaveButtonClick" />
                 </StackPanel>
             </Grid>
         </Grid>
         <AdornerDecorator Name="Spinner" Visibility="Collapsed">
-            <controls:Spinner Cancellable="True"></controls:Spinner>
+            <controls:Spinner Cancellable="True" />
         </AdornerDecorator>
     </Grid>
 </Window>

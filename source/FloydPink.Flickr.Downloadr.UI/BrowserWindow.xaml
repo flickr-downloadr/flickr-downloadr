@@ -20,8 +20,7 @@
                         <Image.ToolTip>
                             <Grid>
                                 <Image Source="{Binding Medium500Url, IsAsync=True}" Stretch="Fill"
-                                       HorizontalAlignment="Center">
-                                </Image>
+                                       HorizontalAlignment="Center" />
                                 <AdornerDecorator>
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
                                         <TextBlock Text="{Binding Title, IsAsync=True}" HorizontalAlignment="Center"
@@ -49,19 +48,18 @@
         <Grid
             DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="40" />
             </Grid.RowDefinitions>
             <ListBox Grid.Row="0" Grid.ColumnSpan="3" x:Name="PagePhotoList" ItemsSource="{Binding}"
                      ItemTemplate="{DynamicResource PhotoListDataTemplate}"
                      ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}" SelectionMode="Multiple"
-                     behaviors:ScrollToTopBehavior.ScrollToTop="True">
-            </ListBox>
+                     behaviors:ScrollToTopBehavior.ScrollToTop="True" />
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Content="Back" Width="60" Height="28" ToolTip="Go back to previous screen"
@@ -92,43 +90,36 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Content="l&lt;&lt;" ToolTip="Go to first page"
-                            Width="30" Height="28" Margin="5,0" Click="FirstPageButtonClick">
-                    </Button>
+                            Width="30" Height="28" Margin="5,0" Click="FirstPageButtonClick" />
                     <Button Content="&lt;" ToolTip="Go to previous page"
-                            Width="25" Height="28" Margin="5,0" Click="PreviousPageButtonClick">
-                    </Button>
+                            Width="25" Height="28" Margin="5,0" Click="PreviousPageButtonClick" />
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
                             <TextBlock Margin="5,0" Foreground="DimGray" VerticalAlignment="Center"
-                                       Text="{Binding Path=FirstPhoto}">
-                            </TextBlock>
+                                       Text="{Binding Path=FirstPhoto}" />
                             <TextBlock Margin="5,0" Foreground="DimGray" VerticalAlignment="Center">-</TextBlock>
                             <TextBlock Margin="5,0" Foreground="DimGray" VerticalAlignment="Center"
-                                       Text="{Binding Path=LastPhoto}">
-                            </TextBlock>
+                                       Text="{Binding Path=LastPhoto}" />
                             <TextBlock Margin="5,0" Foreground="DimGray" VerticalAlignment="Center">of</TextBlock>
                             <TextBlock Margin="5,0" Foreground="DimGray" VerticalAlignment="Center"
-                                       Text="{Binding Path=Total}">
-                            </TextBlock>
+                                       Text="{Binding Path=Total}" />
                             <TextBlock Margin="5,0" Foreground="DimGray" VerticalAlignment="Center">Photos</TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-                            <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Page}"></TextBlock>
+                            <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Page}" />
                             <TextBlock Margin="5,0" VerticalAlignment="Center">of</TextBlock>
-                            <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Pages}"></TextBlock>
+                            <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{Binding Path=Pages}" />
                             <TextBlock Margin="5,0" VerticalAlignment="Center">Pages</TextBlock>
                         </StackPanel>
                     </Grid>
                     <Button Content="&gt;" ToolTip="Go to next page"
-                            Width="25" Height="28" Margin="5,0" Click="NextPageButtonClick">
-                    </Button>
+                            Width="25" Height="28" Margin="5,0" Click="NextPageButtonClick" />
                     <Button Content="&gt;&gt;l" ToolTip="Go to last page"
-                            Width="30" Height="28" Margin="5,0" Click="LastPageButtonClick">
-                    </Button>
+                            Width="30" Height="28" Margin="5,0" Click="LastPageButtonClick" />
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0" FontSize="14"
@@ -149,13 +140,12 @@
                 </Grid.Background>
                 <Grid.Effect>
                     <DropShadowEffect BlurRadius="25" Direction="90" ShadowDepth="3"
-                                      RenderingBias="Performance" Opacity="0.2" Color="Olive">
-                    </DropShadowEffect>
+                                      RenderingBias="Performance" Opacity="0.2" Color="Olive" />
                 </Grid.Effect>
             </Grid>
         </Grid>
         <AdornerDecorator Name="Spinner" Visibility="Collapsed">
-            <controls:Spinner x:Name="SpinnerInner"></controls:Spinner>
+            <controls:Spinner x:Name="SpinnerInner" />
         </AdornerDecorator>
     </Grid>
 </Window>

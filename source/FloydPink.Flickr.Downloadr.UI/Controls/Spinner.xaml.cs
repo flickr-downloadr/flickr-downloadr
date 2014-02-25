@@ -11,19 +11,19 @@ namespace FloydPink.Flickr.Downloadr.UI.Controls
     {
         public static readonly DependencyProperty CancellableProperty =
             DependencyProperty.Register("Cancellable", typeof (bool), typeof (Spinner),
-                                        new PropertyMetadata(CancellableChanged));
+                new PropertyMetadata(CancellableChanged));
 
         public static readonly DependencyProperty PercentDoneProperty =
             DependencyProperty.Register("PercentDone", typeof (string), typeof (Spinner),
-                                        new PropertyMetadata(PercentDoneChanged));
+                new PropertyMetadata(PercentDoneChanged));
 
         public static readonly DependencyProperty OperationTextProperty =
             DependencyProperty.Register("OperationText", typeof (string), typeof (Spinner),
-                                        new PropertyMetadata(OperationTextChanged));
+                new PropertyMetadata(OperationTextChanged));
 
         public static readonly RoutedEvent SpinnerCanceledEvent =
             EventManager.RegisterRoutedEvent("SpinnerCanceled", RoutingStrategy.Bubble,
-                                             typeof (RoutedEventHandler), typeof (Spinner));
+                typeof (RoutedEventHandler), typeof (Spinner));
 
         public Spinner()
         {
@@ -57,8 +57,8 @@ namespace FloydPink.Flickr.Downloadr.UI.Controls
         private static void CancellableChanged(DependencyObject instance, DependencyPropertyChangedEventArgs e)
         {
             ((Spinner) instance).CancelButton.Visibility = (bool) e.NewValue
-                                                               ? Visibility.Visible
-                                                               : Visibility.Collapsed;
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
 
         private static void OperationTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -66,8 +66,8 @@ namespace FloydPink.Flickr.Downloadr.UI.Controls
             var spinner = (Spinner) d;
             spinner.OperationTextControl.Text = e.NewValue.ToString();
             spinner.OperationTextControl.Visibility = string.IsNullOrWhiteSpace(e.NewValue.ToString())
-                                                          ? Visibility.Collapsed
-                                                          : Visibility.Visible;
+                ? Visibility.Collapsed
+                : Visibility.Visible;
         }
 
         private static void PercentDoneChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

@@ -30,7 +30,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         }
 
         private static void OnScrollToTopPropertyChanged(DependencyObject dpo,
-                                                         DependencyPropertyChangedEventArgs e)
+            DependencyPropertyChangedEventArgs e)
         {
             var itemsControl = dpo as ItemsControl;
             if (itemsControl != null)
@@ -56,14 +56,14 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
             var itemsControl = sender as ItemsControl;
             EventHandler eventHandler = null;
             eventHandler = delegate
-                               {
-                                   if (itemsControl.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
-                                   {
-                                       var scrollViewer = GetVisualChild<ScrollViewer>(itemsControl);
-                                       scrollViewer.ScrollToTop();
-                                       itemsControl.ItemContainerGenerator.StatusChanged -= eventHandler;
-                                   }
-                               };
+            {
+                if (itemsControl.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
+                {
+                    var scrollViewer = GetVisualChild<ScrollViewer>(itemsControl);
+                    scrollViewer.ScrollToTop();
+                    itemsControl.ItemContainerGenerator.StatusChanged -= eventHandler;
+                }
+            };
             itemsControl.ItemContainerGenerator.StatusChanged += eventHandler;
         }
 

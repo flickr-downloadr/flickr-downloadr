@@ -13,7 +13,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Helpers
         public static string GetAboutUrl()
         {
             return string.Format("http://flickrdownloadr.com/?utm_source=app&utm_medium=about&utm_campaign={0}",
-                                 HttpUtility.UrlEncode(GetVersionString()));
+                HttpUtility.UrlEncode(GetVersionString()));
         }
     }
 }

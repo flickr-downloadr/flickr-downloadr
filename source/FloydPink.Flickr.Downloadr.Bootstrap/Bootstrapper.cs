@@ -11,13 +11,13 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
         public static void Initialize()
         {
             _container = new Container(expression =>
-                                           {
-                                               expression.AddRegistry<CommonsRegistry>();
-                                               expression.AddRegistry<OAuthRegistry>();
-                                               expression.AddRegistry<RepositoryRegistry>();
-                                               expression.AddRegistry<LogicRegistry>();
-                                               expression.AddRegistry<PresentationRegistry>();
-                                           });
+            {
+                expression.AddRegistry<CommonsRegistry>();
+                expression.AddRegistry<OAuthRegistry>();
+                expression.AddRegistry<RepositoryRegistry>();
+                expression.AddRegistry<LogicRegistry>();
+                expression.AddRegistry<PresentationRegistry>();
+            });
         }
 
         public static T GetInstance<T>()

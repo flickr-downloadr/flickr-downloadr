@@ -20,6 +20,9 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
             For<IPreferencesLogic>()
                 .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IPreferencesLogic>())
                 .Use<PreferencesLogic>();
+            For<IOriginalTagsLogic>()
+                .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IOriginalTagsLogic>())
+                .Use<OriginalTagsLogic>();
         }
     }
 }

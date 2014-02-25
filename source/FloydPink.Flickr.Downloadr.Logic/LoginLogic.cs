@@ -20,7 +20,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
         private Action<User> _applyUser;
 
         public LoginLogic(IOAuthManager oAuthManager, IRepository<Token> tokenRepository,
-                          IRepository<User> userRepository, IRepository<Preferences> preferencesRepository)
+            IRepository<User> userRepository, IRepository<Preferences> preferencesRepository)
         {
             _oAuthManager = oAuthManager;
             _tokenRepository = tokenRepository;
@@ -35,9 +35,9 @@ namespace FloydPink.Flickr.Downloadr.Logic
             _applyUser = applyUser;
             _oAuthManager.Authenticated += OAuthManagerAuthenticated;
             Process.Start(new ProcessStartInfo
-                              {
-                                  FileName = _oAuthManager.BeginAuthorization()
-                              });
+            {
+                FileName = _oAuthManager.BeginAuthorization()
+            });
         }
 
         public void Logout()
@@ -81,31 +81,31 @@ namespace FloydPink.Flickr.Downloadr.Logic
         private async void CallApplyUser(User authenticatedUser)
         {
             var exraParams = new Dictionary<string, string>
-                                 {
-                                     {ParameterNames.UserId, authenticatedUser.UserNsId}
-                                 };
+            {
+                {ParameterNames.UserId, authenticatedUser.UserNsId}
+            };
             var userInfo = (Dictionary<string, object>)
-                           (await _oAuthManager.MakeAuthenticatedRequestAsync(Methods.PeopleGetInfo, exraParams))[
-                               "person"];
+                (await _oAuthManager.MakeAuthenticatedRequestAsync(Methods.PeopleGetInfo, exraParams))[
+                    "person"];
             authenticatedUser.Info = new UserInfo
-                                         {
-                                             Id = authenticatedUser.UserNsId,
-                                             IsPro = Convert.ToBoolean(userInfo["ispro"]),
-                                             IconServer = userInfo["iconserver"].ToString(),
-                                             IconFarm = Convert.ToInt32(userInfo["iconfarm"]),
-                                             PathAlias =
-                                                 userInfo["path_alias"] == null
-                                                     ? string.Empty
-                                                     : userInfo["path_alias"].ToString(),
-                                             Description = userInfo.GetSubValue("description").ToString(),
-                                             PhotosUrl = userInfo.GetSubValue("photosurl").ToString(),
-                                             ProfileUrl = userInfo.GetSubValue("profileurl").ToString(),
-                                             MobileUrl = userInfo.GetSubValue("mobileurl").ToString(),
-                                             PhotosCount =
-                                                 Convert.ToInt32(
-                                                     ((Dictionary<string, object>) userInfo["photos"]).GetSubValue(
-                                                         "count"))
-                                         };
+            {
+                Id = authenticatedUser.UserNsId,
+                IsPro = Convert.ToBoolean(userInfo["ispro"]),
+                IconServer = userInfo["iconserver"].ToString(),
+                IconFarm = Convert.ToInt32(userInfo["iconfarm"]),
+                PathAlias =
+                    userInfo["path_alias"] == null
+                        ? string.Empty
+                        : userInfo["path_alias"].ToString(),
+                Description = userInfo.GetSubValue("description").ToString(),
+                PhotosUrl = userInfo.GetSubValue("photosurl").ToString(),
+                ProfileUrl = userInfo.GetSubValue("profileurl").ToString(),
+                MobileUrl = userInfo.GetSubValue("mobileurl").ToString(),
+                PhotosCount =
+                    Convert.ToInt32(
+                        ((Dictionary<string, object>) userInfo["photos"]).GetSubValue(
+                            "count"))
+            };
             _applyUser(authenticatedUser);
         }
     }

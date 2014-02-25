@@ -18,14 +18,14 @@ namespace FloydPink.Flickr.Downloadr.OAuth
         private readonly DesktopConsumer _consumer;
 
         private readonly Dictionary<string, string> _defaultParameters = new Dictionary<string, string>
-                                                                             {
-                                                                                 {ParameterNames.NoJsonCallback, "1"},
-                                                                                 {ParameterNames.Format, "json"},
-                                                                                 {
-                                                                                     ParameterNames.Extras,
-                                                                                     AppConstants.ExtraInfo
-                                                                                 }
-                                                                             };
+        {
+            {ParameterNames.NoJsonCallback, "1"},
+            {ParameterNames.Format, "json"},
+            {
+                ParameterNames.Extras,
+                AppConstants.ExtraInfo
+            }
+        };
 
         private readonly IHttpListenerManager _listenerManager;
         private readonly MessageReceivingEndpoint _serviceEndPoint;
@@ -33,7 +33,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
         private string _requestToken = string.Empty;
 
         public OAuthManager(IHttpListenerManager listenerManager, DesktopConsumer consumer,
-                            MessageReceivingEndpoint serviceEndPoint)
+            MessageReceivingEndpoint serviceEndPoint)
         {
             _listenerManager = listenerManager;
             _consumer = consumer;
@@ -55,13 +55,13 @@ namespace FloydPink.Flickr.Downloadr.OAuth
             _listenerManager.ResponseString = AppConstants.AuthenticatedMessage;
             _listenerManager.SetupCallback();
             var requestArgs = new Dictionary<string, string>
-                                  {
-                                      {ParameterNames.OAuthCallback, _listenerManager.ListenerAddress}
-                                  };
+            {
+                {ParameterNames.OAuthCallback, _listenerManager.ListenerAddress}
+            };
             var redirectArgs = new Dictionary<string, string>
-                                   {
-                                       {ParameterNames.Permissions, "read"}
-                                   };
+            {
+                {ParameterNames.Permissions, "read"}
+            };
 
             return _consumer.RequestUserAuthorization(requestArgs, redirectArgs, out _requestToken).AbsoluteUri;
         }
@@ -72,7 +72,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
         }
 
         public async Task<dynamic> MakeAuthenticatedRequestAsync(string methodName,
-                                                                 IDictionary<string, string> parameters = null)
+            IDictionary<string, string> parameters = null)
         {
             HttpWebRequest request = PrepareAuthorizedRequest(AddRequestParameters(methodName, parameters));
             var response = (HttpWebResponse) await request.GetResponseAsync();
@@ -83,7 +83,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
         }
 
         private Dictionary<string, string> AddRequestParameters(string methodName,
-                                                                IDictionary<string, string> parameters = null)
+            IDictionary<string, string> parameters = null)
         {
             parameters = parameters ?? new Dictionary<string, string>();
             var allParameters = new Dictionary<string, string>(parameters);

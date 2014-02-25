@@ -13,7 +13,7 @@ namespace FloydPink.Flickr.Downloadr.Model.Enums
         public static List<string> GetItems()
         {
             return typeof (PhotoMetadata).GetFields(BindingFlags.Public | BindingFlags.Static).
-                                          Select(field => field.GetValue(null).ToString()).ToList();
+                Select(field => field.GetValue(null).ToString()).ToList();
         }
     }
 }

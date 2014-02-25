@@ -12,5 +12,7 @@ namespace FloydPink.Flickr.Downloadr.Model.Constants
         public static readonly string PerPage = "per_page";
         public static readonly string Page = "page";
         public static readonly string Extras = "extras";
+        public static readonly string PhotoId = "photo_id";
+        public static readonly string Secret = "secret";
     }
 }

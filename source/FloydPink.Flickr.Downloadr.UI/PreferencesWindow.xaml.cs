@@ -66,10 +66,10 @@ namespace FloydPink.Flickr.Downloadr.UI
         private void SelectFolderButtonClick(object sender, RoutedEventArgs e)
         {
             var dialog = new FolderBrowserDialog
-                             {
-                                 Description = "Select folder to save downloaded photos:",
-                                 SelectedPath = Preferences.DownloadLocation
-                             };
+            {
+                Description = "Select folder to save downloaded photos:",
+                SelectedPath = Preferences.DownloadLocation
+            };
             DialogResult result = dialog.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
             {

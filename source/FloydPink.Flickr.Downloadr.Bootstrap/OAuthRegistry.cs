@@ -19,20 +19,20 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
 
         private static readonly ServiceProviderDescription FlickrServiceDescription =
             new ServiceProviderDescription
-                {
-                    ProtocolVersion = ProtocolVersion.V10a,
-                    RequestTokenEndpoint =
-                        new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/request_token",
-                                                     HttpDeliveryMethods.PostRequest),
-                    UserAuthorizationEndpoint =
-                        new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/authorize",
-                                                     HttpDeliveryMethods.GetRequest),
-                    AccessTokenEndpoint =
-                        new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/access_token",
-                                                     HttpDeliveryMethods.GetRequest),
-                    TamperProtectionElements =
-                        new ITamperProtectionChannelBindingElement[] {new HmacSha1SigningBindingElement()}
-                };
+            {
+                ProtocolVersion = ProtocolVersion.V10a,
+                RequestTokenEndpoint =
+                    new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/request_token",
+                        HttpDeliveryMethods.PostRequest),
+                UserAuthorizationEndpoint =
+                    new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/authorize",
+                        HttpDeliveryMethods.GetRequest),
+                AccessTokenEndpoint =
+                    new MessageReceivingEndpoint("http://www.flickr.com/services/oauth/access_token",
+                        HttpDeliveryMethods.GetRequest),
+                TamperProtectionElements =
+                    new ITamperProtectionChannelBindingElement[] {new HmacSha1SigningBindingElement()}
+            };
 
         private static readonly MessageReceivingEndpoint FlickrServiceEndPoint =
             new MessageReceivingEndpoint("http://api.flickr.com/services/rest", HttpDeliveryMethods.PostRequest);
@@ -43,7 +43,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                 .Singleton()
                 .EnrichAllWith(DynamicProxy.LoggingInterceptorFor<IOAuthManager>())
                 .Use<OAuthManager>().
-                 Ctor<MessageReceivingEndpoint>("serviceEndPoint").Is(FlickrServiceEndPoint);
+                Ctor<MessageReceivingEndpoint>("serviceEndPoint").Is(FlickrServiceEndPoint);
 
             For<DesktopConsumer>()
                 .Use<DesktopConsumer>()

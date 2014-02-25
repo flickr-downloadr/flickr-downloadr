@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Rectangle Fill="White" Opacity="0.85"></Rectangle>
+        <Rectangle Fill="White" Opacity="0.85" />
         <Canvas Name="SpinningProgress" Margin="0,0,0,100" Height="130" Width="130"
                 VerticalAlignment="Center" HorizontalAlignment="Center">
             <Canvas Name="InnerCanvas" Height="110" Width="110" VerticalAlignment="Center"
@@ -56,12 +56,10 @@
             </Canvas.Triggers>
         </Canvas>
         <TextBlock Name="PercentDoneControl" Margin="0,0,0,100" HorizontalAlignment="Center" VerticalAlignment="Center"
-                   FontSize="32" Foreground="DimGray">
-        </TextBlock>
+                   FontSize="32" Foreground="DimGray" />
         <TextBlock Name="OperationTextControl" Margin="0,75,0,0" HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   FontSize="14" Foreground="Blue">
-        </TextBlock>
+                   FontSize="14" Foreground="Blue" />
         <Button Name="CancelButton" Margin="0,150,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
                 FontSize="14" Width="80" Height="25" Visibility="Collapsed" Click="CancelButtonClick">
             Cancel

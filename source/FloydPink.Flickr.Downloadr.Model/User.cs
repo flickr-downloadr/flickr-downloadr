@@ -71,11 +71,11 @@ namespace FloydPink.Flickr.Downloadr.Model
             get
             {
                 string userNameString = string.IsNullOrEmpty(Name)
-                                            ? (string.IsNullOrEmpty(Username) ? string.Empty : Username)
-                                            : Name;
+                    ? (string.IsNullOrEmpty(Username) ? string.Empty : Username)
+                    : Name;
                 return string.IsNullOrEmpty(userNameString)
-                           ? string.Empty
-                           : string.Format("Welcome, {0}!", userNameString);
+                    ? string.Empty
+                    : string.Format("Welcome, {0}!", userNameString);
             }
         }
 

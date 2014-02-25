@@ -36,7 +36,7 @@ namespace FloydPink.Flickr.Downloadr.OAuth
         public string ConsumerSecret { get; private set; }
 
         public void ExpireRequestTokenAndStoreNewAccessToken(string consumerKey, string requestToken, string accessToken,
-                                                             string accessTokenSecret)
+            string accessTokenSecret)
         {
             _tokens.Remove(requestToken);
             _tokens[accessToken] = new Tuple<string, TokenType>(accessTokenSecret, TokenType.AccessToken);

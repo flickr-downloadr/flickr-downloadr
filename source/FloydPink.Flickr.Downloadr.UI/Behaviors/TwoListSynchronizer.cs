@@ -177,7 +177,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         }
 
         private void PerformActionOnAllLists(ChangeListAction action, IList sourceList,
-                                             NotifyCollectionChangedEventArgs collectionChangedArgs)
+            NotifyCollectionChangedEventArgs collectionChangedArgs)
         {
             if (sourceList == _masterList)
             {
@@ -190,8 +190,8 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         }
 
         private void PerformActionOnList(IList list, ChangeListAction action,
-                                         NotifyCollectionChangedEventArgs collectionChangedArgs,
-                                         Converter<object, object> converter)
+            NotifyCollectionChangedEventArgs collectionChangedArgs,
+            Converter<object, object> converter)
         {
             StopListeningForChangeEvents(list);
             action(list, collectionChangedArgs, converter);
@@ -234,7 +234,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         {
             return
                 _masterList.Cast<object>()
-                           .SequenceEqual(_targetList.Cast<object>().Select(item => ConvertFromTargetToMaster(item)));
+                    .SequenceEqual(_targetList.Cast<object>().Select(item => ConvertFromTargetToMaster(item)));
         }
 
         /// <summary>

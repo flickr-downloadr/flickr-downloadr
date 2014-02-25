@@ -4,44 +4,23 @@ namespace FloydPink.Flickr.Downloadr.Model
 {
     public class PhotosResponse
     {
-        private readonly int _page;
-        private readonly int _pages;
-        private readonly int _perPage;
-        private readonly IEnumerable<Photo> _photos;
-        private readonly int _total;
-
         public PhotosResponse(int page, int pages, int perPage, int total, IEnumerable<Photo> photos)
         {
-            _page = page;
-            _pages = pages;
-            _perPage = perPage;
-            _total = total;
-            _photos = photos;
+            Page = page;
+            Pages = pages;
+            PerPage = perPage;
+            Total = total;
+            Photos = photos;
         }
 
-        public int Page
-        {
-            get { return _page; }
-        }
+        public int Page { get; private set; }
 
-        public int Pages
-        {
-            get { return _pages; }
-        }
+        public int Pages { get; private set; }
 
-        public int PerPage
-        {
-            get { return _perPage; }
-        }
+        public int PerPage { get; private set; }
 
-        public int Total
-        {
-            get { return _total; }
-        }
+        public int Total { get; private set; }
 
-        public IEnumerable<Photo> Photos
-        {
-            get { return _photos; }
-        }
+        public IEnumerable<Photo> Photos { get; private set; }
     }
 }

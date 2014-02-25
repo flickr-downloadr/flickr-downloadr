@@ -40,15 +40,15 @@ namespace FloydPink.Flickr.Downloadr.UI
             AllSelectedPhotos = new Dictionary<string, Dictionary<string, Photo>>();
 
             PagePhotoList.SelectionChanged += (sender, args) =>
-                                              {
-                                                  if (_doNotSyncSelectedItems) return;
-                                                  AllSelectedPhotos[Page] = PagePhotoList.SelectedItems.Cast<Photo>().
-                                                                                   ToDictionary(p => p.Id, p => p);
-                                                  PropertyChanged.Notify(() => SelectedPhotosExist);
-                                                  PropertyChanged.Notify(() => SelectedPhotosCountText);
-                                                  PropertyChanged.Notify(() => AreAnyPagePhotosSelected);
-                                                  PropertyChanged.Notify(() => AreAllPagePhotosSelected);
-                                              };
+            {
+                if (_doNotSyncSelectedItems) return;
+                AllSelectedPhotos[Page] = PagePhotoList.SelectedItems.Cast<Photo>().
+                    ToDictionary(p => p.Id, p => p);
+                PropertyChanged.Notify(() => SelectedPhotosExist);
+                PropertyChanged.Notify(() => SelectedPhotosCountText);
+                PropertyChanged.Notify(() => AreAnyPagePhotosSelected);
+                PropertyChanged.Notify(() => AreAllPagePhotosSelected);
+            };
 
             SpinnerInner.SpinnerCanceled += (sender, args) => _presenter.CancelDownload();
 
@@ -66,11 +66,11 @@ namespace FloydPink.Flickr.Downloadr.UI
             get
             {
                 string selectionCount = SelectedPhotosExist
-                                            ? SelectedPhotosCount.ToString(CultureInfo.InvariantCulture)
-                                            : string.Empty;
+                    ? SelectedPhotosCount.ToString(CultureInfo.InvariantCulture)
+                    : string.Empty;
                 return string.IsNullOrEmpty(selectionCount)
-                           ? "Selection"
-                           : string.Format("Selection ({0})", selectionCount);
+                    ? "Selection"
+                    : string.Format("Selection ({0})", selectionCount);
             }
         }
 
@@ -194,7 +194,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         public bool ShowWarning(string warningMessage)
         {
             MessageBoxResult result = MessageBox.Show(warningMessage, "Please confirm...",
-                                                      MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
             return result != MessageBoxResult.Yes;
         }
 

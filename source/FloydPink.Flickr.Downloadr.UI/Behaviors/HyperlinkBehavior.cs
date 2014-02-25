@@ -9,7 +9,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
     {
         public static readonly DependencyProperty IsExternalProperty =
             DependencyProperty.RegisterAttached("IsExternal", typeof (bool), typeof (HyperlinkBehavior),
-                                                new UIPropertyMetadata(false, OnIsExternalChanged));
+                new UIPropertyMetadata(false, OnIsExternalChanged));
 
         public static bool GetIsExternal(DependencyObject obj)
         {

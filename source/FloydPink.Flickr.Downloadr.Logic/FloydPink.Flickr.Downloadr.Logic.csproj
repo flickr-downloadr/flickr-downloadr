@@ -48,8 +48,10 @@
     <Compile Include="Interfaces\IBrowserLogic.cs" />
     <Compile Include="Interfaces\IDownloadLogic.cs" />
     <Compile Include="Interfaces\ILoginLogic.cs" />
+    <Compile Include="Interfaces\IOriginalTagsLogic.cs" />
     <Compile Include="Interfaces\IPreferencesLogic.cs" />
     <Compile Include="LoginLogic.cs" />
+    <Compile Include="OriginalTagsLogic.cs" />
     <Compile Include="PreferencesLogic.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Extensions
         }
 
         public static TResult Dispatch<TSource, T, TResult>(this TSource source, Func<TSource, T, TResult> func,
-                                                            T param1) where TSource : DispatcherObject
+            T param1) where TSource : DispatcherObject
         {
             if (source.Dispatcher.CheckAccess())
                 return func(source, param1);
@@ -32,8 +32,8 @@ namespace FloydPink.Flickr.Downloadr.UI.Extensions
         }
 
         public static TResult Dispatch<TSource, T1, T2, TResult>(this TSource source,
-                                                                 Func<TSource, T1, T2, TResult> func, T1 param1,
-                                                                 T2 param2) where TSource : DispatcherObject
+            Func<TSource, T1, T2, TResult> func, T1 param1,
+            T2 param2) where TSource : DispatcherObject
         {
             if (source.Dispatcher.CheckAccess())
                 return func(source, param1, param2);
@@ -42,8 +42,8 @@ namespace FloydPink.Flickr.Downloadr.UI.Extensions
         }
 
         public static TResult Dispatch<TSource, T1, T2, T3, TResult>(this TSource source,
-                                                                     Func<TSource, T1, T2, T3, TResult> func, T1 param1,
-                                                                     T2 param2, T3 param3)
+            Func<TSource, T1, T2, T3, TResult> func, T1 param1,
+            T2 param2, T3 param3)
             where TSource : DispatcherObject
         {
             if (source.Dispatcher.CheckAccess())
@@ -78,7 +78,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Extensions
         }
 
         public static void Dispatch<TSource, T1, T2>(this TSource source, Action<TSource, T1, T2> func, T1 param1,
-                                                     T2 param2) where TSource : DispatcherObject
+            T2 param2) where TSource : DispatcherObject
         {
             if (source.Dispatcher.CheckAccess())
                 func(source, param1, param2);
@@ -87,7 +87,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Extensions
         }
 
         public static void Dispatch<TSource, T1, T2, T3>(this TSource source, Action<TSource, T1, T2, T3> func,
-                                                         T1 param1, T2 param2, T3 param3)
+            T1 param1, T2 param2, T3 param3)
             where TSource : DispatcherObject
         {
             if (source.Dispatcher.CheckAccess())

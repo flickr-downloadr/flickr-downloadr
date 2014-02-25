@@ -12,8 +12,8 @@ namespace FloydPink.Flickr.Downloadr.Model.Enums
 
         public static List<string> GetItems()
         {
-            return typeof(SafeSearch).GetFields(BindingFlags.Public | BindingFlags.Static).
-                                          Select(field => field.Name).ToList();
+            return typeof (SafeSearch).GetFields(BindingFlags.Public | BindingFlags.Static).
+                Select(field => field.Name).ToList();
         }
 
         public static string GetValue(string fieldName)

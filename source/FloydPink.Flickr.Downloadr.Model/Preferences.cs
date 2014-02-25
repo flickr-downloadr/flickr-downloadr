@@ -14,6 +14,7 @@ namespace FloydPink.Flickr.Downloadr.Model
         private PhotoDownloadSize _downloadSize;
         private int _photosPerPage;
         private string _safetyLevel;
+        private bool _needOriginalTags;
 
         public bool TitleAsFilename
         {
@@ -67,25 +68,36 @@ namespace FloydPink.Flickr.Downloadr.Model
 
         public ObservableCollection<string> Metadata { get; set; }
 
+        public bool NeedOriginalTags
+        {
+            get { return _needOriginalTags; }
+            set
+            {
+                _needOriginalTags = value;
+                PropertyChanged.Notify(() => NeedOriginalTags);
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public static Preferences GetDefault()
         {
             return new Preferences
-                       {
-                           TitleAsFilename = false,
-                           PhotosPerPage = 25,
-                           DownloadLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
-                           Metadata =
-                               new ObservableCollection<string>
-                                   {
-                                       PhotoMetadata.Title,
-                                       PhotoMetadata.Description,
-                                       PhotoMetadata.Tags
-                                   },
-                           DownloadSize = PhotoDownloadSize.Original,
-                           SafetyLevel = "Safe"
-                       };
+            {
+                TitleAsFilename = false,
+                PhotosPerPage = 25,
+                DownloadLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                Metadata =
+                    new ObservableCollection<string>
+                    {
+                        PhotoMetadata.Title,
+                        PhotoMetadata.Description,
+                        PhotoMetadata.Tags
+                    },
+                DownloadSize = PhotoDownloadSize.Original,
+                SafetyLevel = "Safe",
+                NeedOriginalTags = false
+            };
         }
     }
 }

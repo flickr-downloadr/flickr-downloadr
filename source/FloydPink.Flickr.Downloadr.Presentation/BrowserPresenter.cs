@@ -27,17 +27,17 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             _logic = logic;
             _view = view;
             _progress.ProgressChanged += (sender, progress) =>
-                                             {
-                                                 _view.UpdateProgress(
-                                                     progress.ShowPercent
-                                                         ? string.Format("{0}%",
-                                                                         progress.PercentDone.ToString(
-                                                                             CultureInfo.InvariantCulture))
-                                                         : string.Empty,
-                                                     progress.OperationText, progress.Cancellable);
-                                                 _downloadedLocation = progress.DownloadedPath;
-                                                 _downloadComplete = progress.PercentDone == 100;
-                                             };
+            {
+                _view.UpdateProgress(
+                    progress.ShowPercent
+                        ? string.Format("{0}%",
+                            progress.PercentDone.ToString(
+                                CultureInfo.InvariantCulture))
+                        : string.Empty,
+                    progress.OperationText, progress.Cancellable);
+                _downloadedLocation = progress.DownloadedPath;
+                _downloadComplete = progress.PercentDone == 100;
+            };
         }
 
         public async Task InitializePhotoset()
@@ -130,9 +130,9 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             if (!string.IsNullOrWhiteSpace(warningFormat))
             {
                 lotOfPhotosWarningFailed = _view.ShowWarning(string.Format(warningFormat,
-                                                                           photosList.Count()
-                                                                                     .ToString(
-                                                                                         CultureInfo.InvariantCulture)));
+                    photosList.Count()
+                        .ToString(
+                            CultureInfo.InvariantCulture)));
             }
 
             if (!lotOfPhotosWarningFailed)

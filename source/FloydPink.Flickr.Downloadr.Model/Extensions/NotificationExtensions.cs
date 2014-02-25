@@ -49,9 +49,9 @@ namespace FloydPink.Flickr.Downloadr.Model.Extensions
             foreach (Delegate del in EventHandler.GetInvocationList())
             {
                 del.DynamicInvoke(new[]
-                                      {
-                                          constantExpression.Value, new PropertyChangedEventArgs(propertyInfo.Name)
-                                      });
+                {
+                    constantExpression.Value, new PropertyChangedEventArgs(propertyInfo.Name)
+                });
             }
         }
 
@@ -64,32 +64,32 @@ namespace FloydPink.Flickr.Downloadr.Model.Extensions
         /// <param name="Property">The property you are interested in.</param>
         /// <param name="Handler">The delegate that will handle the event.</param>
         public static void SubscribeToChange<T>(this T ObjectThatNotifies, Expression<Func<object>> Property,
-                                                PropertyChangedHandler<T> Handler) where T : INotifyPropertyChanged
+            PropertyChangedHandler<T> Handler) where T : INotifyPropertyChanged
         {
             // Add a new PropertyChangedEventHandler
             ObjectThatNotifies.PropertyChanged += (s, e) =>
-                                                      {
-                                                          // Get name of Property
-                                                          var lambda = Property as LambdaExpression;
-                                                          MemberExpression memberExpression;
-                                                          if (lambda.Body is UnaryExpression)
-                                                          {
-                                                              var unaryExpression = lambda.Body as UnaryExpression;
-                                                              memberExpression =
-                                                                  unaryExpression.Operand as MemberExpression;
-                                                          }
-                                                          else
-                                                          {
-                                                              memberExpression = lambda.Body as MemberExpression;
-                                                          }
-                                                          var propertyInfo = memberExpression.Member as PropertyInfo;
+            {
+                // Get name of Property
+                var lambda = Property as LambdaExpression;
+                MemberExpression memberExpression;
+                if (lambda.Body is UnaryExpression)
+                {
+                    var unaryExpression = lambda.Body as UnaryExpression;
+                    memberExpression =
+                        unaryExpression.Operand as MemberExpression;
+                }
+                else
+                {
+                    memberExpression = lambda.Body as MemberExpression;
+                }
+                var propertyInfo = memberExpression.Member as PropertyInfo;
 
-                                                          // Notify handler if PropertyName is the one we were interested in
-                                                          if (e.PropertyName.Equals(propertyInfo.Name))
-                                                          {
-                                                              Handler(ObjectThatNotifies);
-                                                          }
-                                                      };
+                // Notify handler if PropertyName is the one we were interested in
+                if (e.PropertyName.Equals(propertyInfo.Name))
+                {
+                    Handler(ObjectThatNotifies);
+                }
+            };
         }
     }
 }

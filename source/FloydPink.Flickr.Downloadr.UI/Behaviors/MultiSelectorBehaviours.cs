@@ -51,7 +51,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
         }
 
         private static void OnSynchronizedSelectedItemsChanged(DependencyObject dependencyObject,
-                                                               DependencyPropertyChangedEventArgs e)
+            DependencyPropertyChangedEventArgs e)
         {
             if (e.OldValue != null)
             {

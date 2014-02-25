@@ -17,12 +17,12 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
             var proxyGenerator = new ProxyGenerator();
             object result = proxyGenerator.
                 CreateInterfaceProxyWithTargetInterface(interfaceType,
-                                                        concreteObject,
-                                                        new[]
-                                                            {
-                                                                new LogInterceptor(
-                                                                    LogManager.GetLogger(concreteObject.GetType()))
-                                                            });
+                    concreteObject,
+                    new[]
+                    {
+                        new LogInterceptor(
+                            LogManager.GetLogger(concreteObject.GetType()))
+                    });
 
             return result;
         }

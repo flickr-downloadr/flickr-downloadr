@@ -10,30 +10,27 @@
         SizeToContent="WidthAndHeight" Icon="/flickr%20downloadr;component/Images/icon.png">
     <Window.Resources>
         <ObjectDataProvider x:Key="VersionText" MethodName="GetVersionString"
-                            ObjectType="{x:Type helpers:VersionHelper}">
-        </ObjectDataProvider>
+                            ObjectType="{x:Type helpers:VersionHelper}" />
         <ObjectDataProvider x:Key="AboutUrl" MethodName="GetAboutUrl"
-                            ObjectType="{x:Type helpers:VersionHelper}">
-        </ObjectDataProvider>
+                            ObjectType="{x:Type helpers:VersionHelper}" />
     </Window.Resources>
     <Grid Width="320" Height="200">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="35" />
         </Grid.RowDefinitions>
         <Image Grid.Row="0" Width="250" Source="/flickr%20downloadr;component/Images/logo-Small.png"
-               Stretch="Uniform">
-        </Image>
+               Stretch="Uniform" />
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"
                        FontFamily="Garamond">
                 <TextBlock>flickr downloadr</TextBlock>
-                <TextBlock Text="{Binding Source={StaticResource VersionText}}"></TextBlock>
+                <TextBlock Text="{Binding Source={StaticResource VersionText}}" />
             </TextBlock>
             <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Hyperlink NavigateUri="{Binding Source={StaticResource AboutUrl}}"
@@ -44,7 +41,7 @@
             </TextBlock>
         </Grid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Button Content="Close" Width="60" Height="25" Margin="0,0,10,0" Click="CloseButtonClick"></Button>
+            <Button Content="Close" Width="60" Height="25" Margin="0,0,10,0" Click="CloseButtonClick" />
         </StackPanel>
     </Grid>
 </Window>

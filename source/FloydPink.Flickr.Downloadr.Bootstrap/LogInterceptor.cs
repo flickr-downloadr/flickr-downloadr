@@ -44,16 +44,16 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                             Log.Debug("Returning with a generic task.");
                             var task = (Task) returnValue;
                             task.ContinueWith((antecedent) =>
-                                                  {
-                                                      string taskDescriptor = CreateInvocationLogString("Task from",
-                                                                                                        invocation);
-                                                      object result =
-                                                          antecedent.GetType()
-                                                                    .GetProperty("Result")
-                                                                    .GetValue(antecedent, null);
-                                                      Log.Debug(taskDescriptor + " returning with: " +
-                                                                DumpObject(result));
-                                                  });
+                            {
+                                string taskDescriptor = CreateInvocationLogString("Task from",
+                                    invocation);
+                                object result =
+                                    antecedent.GetType()
+                                        .GetProperty("Result")
+                                        .GetValue(antecedent, null);
+                                Log.Debug(taskDescriptor + " returning with: " +
+                                          DumpObject(result));
+                            });
                         }
                         else
                         {
