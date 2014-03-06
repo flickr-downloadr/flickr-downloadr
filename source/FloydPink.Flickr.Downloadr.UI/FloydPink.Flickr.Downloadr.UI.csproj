@@ -153,6 +153,10 @@
     <Compile Include="BrowserWindow.xaml.cs">
       <DependentUpon>BrowserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Cache\CachedImage.cs" />
+    <Compile Include="Cache\FileCache.cs" />
+    <Compile Include="Cache\HttpHelper.cs" />
+    <Compile Include="Cache\WebResponseExtension.cs" />
     <Compile Include="Controls\Spinner.xaml.cs">
       <DependentUpon>Spinner.xaml</DependentUpon>
     </Compile>
