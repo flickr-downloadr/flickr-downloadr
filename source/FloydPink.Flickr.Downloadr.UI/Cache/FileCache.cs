@@ -13,7 +13,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Cache
         static FileCache()
         {
             // default cache directory - can be changed if needed from App.xaml
-            AppCacheDirectory = string.Format("{0}/{1}/Cache/",
+            AppCacheDirectory = string.Format("{0}\\{1}\\Cache\\",
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 Assembly.GetExecutingAssembly().GetName().Name);
         }
@@ -29,7 +29,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Cache
 
             // Cast the string into a Uri so we can access the image name without regex
             var uri = new Uri(url);
-            var localFile = string.Format("{0}{1}", AppCacheDirectory, uri.Segments[uri.Segments.Length - 1]);
+            var localFile = string.Format("{0}\\{1}", AppCacheDirectory, uri.Segments[uri.Segments.Length - 1]);
 
             if (!File.Exists(localFile))
             {

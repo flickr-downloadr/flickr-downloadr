@@ -6,6 +6,7 @@ using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
+using FloydPink.Flickr.Downloadr.UI.Cache;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
 using FloydPink.Flickr.Downloadr.UI.Helpers;
 
@@ -51,6 +52,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         public void ShowLoggedInControl(Preferences preferences)
         {
             Preferences = preferences;
+            FileCache.AppCacheDirectory = Preferences.CacheLocation;
             PreferencesButton.Dispatch(
                 (p) => p.Visibility = (Preferences != null ? Visibility.Visible : Visibility.Collapsed));
             LoggedInCanvas.Dispatch((c) => c.Visibility = Visibility.Visible);
@@ -100,8 +102,7 @@ namespace FloydPink.Flickr.Downloadr.UI
             WelcomeUserLabel.Dispatch(
                 (l) => l.Content = string.IsNullOrEmpty(user.UserNsId) ? string.Empty : user.WelcomeMessage);
             if (user.Info == null) return;
-            var buddyIconUri = new Uri(user.Info.BuddyIconUrl, UriKind.Absolute);
-            buddyIcon.Dispatch((i) => i.Source = new BitmapImage(buddyIconUri));
+            BuddyIcon.Dispatch((i) => i.ImageUrl = user.Info.BuddyIconUrl);
         }
 
         private void ContinueButtonClick(object sender, RoutedEventArgs e)

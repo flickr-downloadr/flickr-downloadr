@@ -32,7 +32,12 @@ namespace FloydPink.Flickr.Downloadr.UI.Cache
                 return;
 
             var cachedImage = (CachedImage) obj;
-            cachedImage.Source = new BitmapImage(new Uri(FileCache.FromUrl(url)));
+            var bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.UriSource = new Uri(FileCache.FromUrl(url));
+            bitmapImage.EndInit();
+            cachedImage.Source = bitmapImage;
         }
     }
 }

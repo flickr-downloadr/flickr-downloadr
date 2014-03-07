@@ -25,7 +25,8 @@
     </Window.Resources>
 
     <Grid Height="480" Width="510">
-        <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Path=Preferences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <Grid
+            DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Path=Preferences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="50" />
@@ -60,7 +61,8 @@
                         <Label Grid.Column="0">Download Location:</Label>
                         <TextBox Name="DownloadLocationTextbox" Grid.Column="1" IsReadOnly="True"
                                  IsReadOnlyCaretVisible="True" Text="{Binding Path=DownloadLocation}" />
-                        <Button Grid.Column="2" Content="..." Width="25" Height="25" Click="SelectDownloadFolderButtonClick" />
+                        <Button Grid.Column="2" Content="..." Width="25" Height="25"
+                                Click="SelectDownloadFolderButtonClick" />
                     </Grid>
                     <Grid Margin="7">
                         <Grid.ColumnDefinitions>
@@ -156,7 +158,19 @@
                         <Label Grid.Column="0">Cache Location:</Label>
                         <TextBox Name="CacheLocationTextbox" Grid.Column="1" IsReadOnly="True"
                                  IsReadOnlyCaretVisible="True" Text="{Binding Path=CacheLocation}" />
-                        <Button Grid.Column="2" Content="..." Width="25" Height="25" Click="SelectCacheFolderButtonClick" />
+                        <Button Grid.Column="2" Content="..." Width="25" Height="25"
+                                Click="SelectCacheFolderButtonClick" />
+                    </Grid>
+                    <Grid Margin="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0">Cache Size:</Label>
+                        <Label Grid.Column="1" x:Name="CacheSize" Margin="0,0,2,0" />
+                        <Button Grid.Column="2" Content="Empty Cache" x:Name="EmptyCacheButton" Width="80" Height="22"
+                                ToolTip="Empty the cache folder" HorizontalAlignment="Left" Click="EmptyCacheClick" />
                     </Grid>
                 </StackPanel>
             </Grid>

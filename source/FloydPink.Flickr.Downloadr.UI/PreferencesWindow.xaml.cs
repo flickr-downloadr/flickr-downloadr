@@ -8,6 +8,7 @@ using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
 using FloydPink.Flickr.Downloadr.UI.Helpers;
+using MessageBox = System.Windows.MessageBox;
 
 namespace FloydPink.Flickr.Downloadr.UI
 {
@@ -27,6 +28,8 @@ namespace FloydPink.Flickr.Downloadr.UI
             User = user;
 
             _presenter = Bootstrapper.GetPresenter<IPreferencesView, IPreferencesPresenter>(this);
+
+            SetCacheSize();
         }
 
         protected User User { get; set; }
@@ -94,6 +97,25 @@ namespace FloydPink.Flickr.Downloadr.UI
         private void DefaultsButtonClick(object sender, RoutedEventArgs e)
         {
             Preferences = Preferences.GetDefault();
+        }
+
+        private void EmptyCacheClick(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to empty the cache folder?",
+                "Please confirm...", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                _presenter.EmptyCacheDirectory(Preferences.CacheLocation);
+                SetCacheSize();
+            }
+        }
+
+        private void SetCacheSize()
+        {
+            CacheSize.Content = _presenter.GetCacheFolderSize(Preferences.CacheLocation);
+            EmptyCacheButton.Visibility = (CacheSize.Content.ToString() == "0 B" || CacheSize.Content.ToString() == "-")
+                ? System.Windows.Visibility.Collapsed
+                : System.Windows.Visibility.Visible;
         }
     }
 }

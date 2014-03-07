@@ -110,7 +110,7 @@ namespace FloydPink.Flickr.Downloadr.Model
                 SafetyLevel = "Safe",
                 NeedOriginalTags = false,
                 CacheLocation =
-                    string.Format("{0}\\flickr-downloadr\\Cache\\",
+                    string.Format("{0}\\flickr downloadr\\Cache\\",
                         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
             };
         }
