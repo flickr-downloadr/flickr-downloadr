@@ -15,9 +15,8 @@ namespace FloydPink.Flickr.Downloadr.Logic
 {
     public class DownloadLogic : IDownloadLogic
     {
-        private readonly IOriginalTagsLogic _originalTagsLogic;
-
         private static readonly Random Random = new Random((int) DateTime.Now.Ticks);
+        private readonly IOriginalTagsLogic _originalTagsLogic;
         private string _currentTimestampFolder;
 
         public DownloadLogic(IOriginalTagsLogic originalTagsLogic)
@@ -69,7 +68,7 @@ namespace FloydPink.Flickr.Downloadr.Logic
                             break;
                     }
 
-                    var photoWithPreferredTags = photo;
+                    Photo photoWithPreferredTags = photo;
 
                     if (preferences.NeedOriginalTags)
                     {

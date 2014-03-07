@@ -24,11 +24,11 @@ namespace FloydPink.Flickr.Downloadr.Presentation
 
         public string GetCacheFolderSize(string cacheLocation)
         {
-            var folderSize = "-";
+            string folderSize = "-";
             if (Directory.Exists(cacheLocation))
             {
                 var cacheDirectory = new DirectoryInfo(cacheLocation);
-                var bytes = cacheDirectory.EnumerateFiles("*", SearchOption.AllDirectories).Sum(x => x.Length);
+                long bytes = cacheDirectory.EnumerateFiles("*", SearchOption.AllDirectories).Sum(x => x.Length);
                 folderSize = GetBytesReadable(bytes);
             }
             return folderSize;
@@ -52,32 +52,32 @@ namespace FloydPink.Flickr.Downloadr.Presentation
             if (bytes >= 0x1000000000000000) // Exabyte
             {
                 suffix = "EB";
-                readable = (double) (bytes >> 50);
+                readable = bytes >> 50;
             }
             else if (bytes >= 0x4000000000000) // Petabyte
             {
                 suffix = "PB";
-                readable = (double) (bytes >> 40);
+                readable = bytes >> 40;
             }
             else if (bytes >= 0x10000000000) // Terabyte
             {
                 suffix = "TB";
-                readable = (double) (bytes >> 30);
+                readable = bytes >> 30;
             }
             else if (bytes >= 0x40000000) // Gigabyte
             {
                 suffix = "GB";
-                readable = (double) (bytes >> 20);
+                readable = bytes >> 20;
             }
             else if (bytes >= 0x100000) // Megabyte
             {
                 suffix = "MB";
-                readable = (double) (bytes >> 10);
+                readable = bytes >> 10;
             }
             else if (bytes >= 0x400) // Kilobyte
             {
                 suffix = "KB";
-                readable = (double) bytes;
+                readable = bytes;
             }
             else
             {

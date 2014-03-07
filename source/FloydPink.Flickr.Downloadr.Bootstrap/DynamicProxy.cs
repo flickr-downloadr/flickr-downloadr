@@ -1,7 +1,7 @@
 ﻿using System;
 using Castle.DynamicProxy;
-using StructureMap.Interceptors;
 using log4net;
+using StructureMap.Interceptors;
 
 namespace FloydPink.Flickr.Downloadr.Bootstrap
 {

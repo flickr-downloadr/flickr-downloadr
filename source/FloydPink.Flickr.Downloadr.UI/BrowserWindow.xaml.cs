@@ -184,7 +184,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         public void ShowSpinner(bool show)
         {
             Visibility visibility = show ? Visibility.Visible : Visibility.Collapsed;
-            Spinner.Dispatch((s) => s.Visibility = visibility);
+            Spinner.Dispatch(s => s.Visibility = visibility);
         }
 
         public void UpdateProgress(string percentDone, string operationText, bool cancellable)

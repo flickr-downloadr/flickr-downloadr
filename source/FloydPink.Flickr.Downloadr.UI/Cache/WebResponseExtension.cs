@@ -11,7 +11,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Cache
         {
             Stream responseStream = webresponse.GetResponseStream();
 
-            using (MemoryStream memoryStream = new MemoryStream((int) webresponse.ContentLength))
+            using (var memoryStream = new MemoryStream((int) webresponse.ContentLength))
             {
                 responseStream.CopyTo(memoryStream);
                 return memoryStream.ToArray();

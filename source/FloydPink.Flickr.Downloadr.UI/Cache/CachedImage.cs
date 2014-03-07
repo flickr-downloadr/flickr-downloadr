@@ -9,14 +9,14 @@ namespace FloydPink.Flickr.Downloadr.UI.Cache
 {
     public class CachedImage : Image
     {
+        public static readonly DependencyProperty ImageUrlProperty = DependencyProperty.Register("ImageUrl",
+            typeof (string), typeof (CachedImage), new PropertyMetadata("", ImageUrlPropertyChanged));
+
         static CachedImage()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof (CachedImage),
                 new FrameworkPropertyMetadata(typeof (CachedImage)));
         }
-
-        public static readonly DependencyProperty ImageUrlProperty = DependencyProperty.Register("ImageUrl",
-            typeof (string), typeof (CachedImage), new PropertyMetadata("", ImageUrlPropertyChanged));
 
         public string ImageUrl
         {

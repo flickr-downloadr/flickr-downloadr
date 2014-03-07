@@ -57,9 +57,9 @@ namespace FloydPink.Flickr.Downloadr.Presentation
 
         private void ApplyUser(User user)
         {
+            _view.ShowLoggedInControl(_preferences);
             _view.User = user;
             _view.ShowSpinner(false);
-            _view.ShowLoggedInControl(_preferences);
         }
     }
 }

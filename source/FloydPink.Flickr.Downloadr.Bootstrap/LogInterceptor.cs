@@ -3,8 +3,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Castle.DynamicProxy;
-using ServiceStack.Text;
 using log4net;
+using ServiceStack.Text;
 
 namespace FloydPink.Flickr.Downloadr.Bootstrap
 {
@@ -43,7 +43,7 @@ namespace FloydPink.Flickr.Downloadr.Bootstrap
                         {
                             Log.Debug("Returning with a generic task.");
                             var task = (Task) returnValue;
-                            task.ContinueWith((antecedent) =>
+                            task.ContinueWith(antecedent =>
                             {
                                 string taskDescriptor = CreateInvocationLogString("Task from",
                                     invocation);

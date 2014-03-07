@@ -27,8 +27,8 @@ namespace FloydPink.Flickr.Downloadr.UnitTests.LogicTests
             var logic = new LoginLogic(null, _tokenRepository, _userRepository, _preferencesRepository);
             logic.Logout();
 
-            _tokenRepository.AssertWasCalled((t) => t.Delete());
-            _userRepository.AssertWasCalled((u) => u.Delete());
+            _tokenRepository.AssertWasCalled(t => t.Delete());
+            _userRepository.AssertWasCalled(u => u.Delete());
         }
     }
 }

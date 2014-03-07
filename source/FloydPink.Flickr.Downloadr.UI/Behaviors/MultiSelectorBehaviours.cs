@@ -123,14 +123,11 @@ namespace FloydPink.Flickr.Downloadr.UI.Behaviors
                 {
                     return (selector as MultiSelector).SelectedItems;
                 }
-                else if (selector is ListBox)
+                if (selector is ListBox)
                 {
                     return (selector as ListBox).SelectedItems;
                 }
-                else
-                {
-                    throw new InvalidOperationException("Target object has no SelectedItems property to bind.");
-                }
+                throw new InvalidOperationException("Target object has no SelectedItems property to bind.");
             }
         }
     }

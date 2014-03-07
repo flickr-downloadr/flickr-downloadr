@@ -1,15 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 
 // Thank you, Jeroen van Langen - http://stackoverflow.com/a/5175424/218882
-using System.Reflection;
 
 namespace FloydPink.Flickr.Downloadr.UI.Cache
 {
     public class FileCache
     {
-        public static string AppCacheDirectory { get; set; }
-
         static FileCache()
         {
             // default cache directory - can be changed if needed from App.xaml
@@ -17,6 +15,8 @@ namespace FloydPink.Flickr.Downloadr.UI.Cache
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 Assembly.GetExecutingAssembly().GetName().Name);
         }
+
+        public static string AppCacheDirectory { get; set; }
 
         public static string FromUrl(string url)
         {
@@ -29,7 +29,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Cache
 
             // Cast the string into a Uri so we can access the image name without regex
             var uri = new Uri(url);
-            var localFile = string.Format("{0}\\{1}", AppCacheDirectory, uri.Segments[uri.Segments.Length - 1]);
+            string localFile = string.Format("{0}\\{1}", AppCacheDirectory, uri.Segments[uri.Segments.Length - 1]);
 
             if (!File.Exists(localFile))
             {

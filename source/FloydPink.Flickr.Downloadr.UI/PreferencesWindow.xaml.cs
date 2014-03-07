@@ -48,7 +48,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         public void ShowSpinner(bool show)
         {
             Visibility visibility = show ? Visibility.Visible : Visibility.Collapsed;
-            Spinner.Dispatch((s) => s.Visibility = visibility);
+            Spinner.Dispatch(s => s.Visibility = visibility);
         }
 
         private void SaveButtonClick(object sender, RoutedEventArgs e)
@@ -114,8 +114,8 @@ namespace FloydPink.Flickr.Downloadr.UI
         {
             CacheSize.Content = _presenter.GetCacheFolderSize(Preferences.CacheLocation);
             EmptyCacheButton.Visibility = (CacheSize.Content.ToString() == "0 B" || CacheSize.Content.ToString() == "-")
-                ? System.Windows.Visibility.Collapsed
-                : System.Windows.Visibility.Visible;
+                ? Visibility.Collapsed
+                : Visibility.Visible;
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using StructureMap.Configuration.DSL;
-using log4net;
+﻿using log4net;
 using log4net.Config;
+using StructureMap.Configuration.DSL;
 
 namespace FloydPink.Flickr.Downloadr.Bootstrap
 {

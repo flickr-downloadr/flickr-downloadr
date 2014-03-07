@@ -17,7 +17,7 @@ namespace FloydPink.Flickr.Downloadr.UI.Cache
 
         public static void GetAndSaveToFile(string url, string fileName)
         {
-            using (FileStream stream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+            using (var stream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
             {
                 byte[] data = Get(url);
                 stream.Write(data, 0, data.Length);

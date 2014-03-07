@@ -1,7 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
-using System.Windows.Media.Imaging;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Presentation;
@@ -52,17 +50,19 @@ namespace FloydPink.Flickr.Downloadr.UI
         public void ShowLoggedInControl(Preferences preferences)
         {
             Preferences = preferences;
-            FileCache.AppCacheDirectory = Preferences.CacheLocation;
+            FileCache.AppCacheDirectory = Preferences != null
+                ? Preferences.CacheLocation
+                : Preferences.GetDefault().CacheLocation;
             PreferencesButton.Dispatch(
-                (p) => p.Visibility = (Preferences != null ? Visibility.Visible : Visibility.Collapsed));
-            LoggedInCanvas.Dispatch((c) => c.Visibility = Visibility.Visible);
-            LoggedOutCanvas.Dispatch((c) => c.Visibility = Visibility.Collapsed);
+                p => p.Visibility = (Preferences != null ? Visibility.Visible : Visibility.Collapsed));
+            LoggedInCanvas.Dispatch(c => c.Visibility = Visibility.Visible);
+            LoggedOutCanvas.Dispatch(c => c.Visibility = Visibility.Collapsed);
         }
 
         public void ShowLoggedOutControl()
         {
-            LoggedOutCanvas.Dispatch((c) => c.Visibility = Visibility.Visible);
-            LoggedInCanvas.Dispatch((c) => c.Visibility = Visibility.Collapsed);
+            LoggedOutCanvas.Dispatch(c => c.Visibility = Visibility.Visible);
+            LoggedInCanvas.Dispatch(c => c.Visibility = Visibility.Collapsed);
         }
 
         #endregion
@@ -70,7 +70,7 @@ namespace FloydPink.Flickr.Downloadr.UI
         public void ShowSpinner(bool show)
         {
             Visibility visibility = show ? Visibility.Visible : Visibility.Collapsed;
-            Spinner.Dispatch((s) => s.Visibility = visibility);
+            Spinner.Dispatch(s => s.Visibility = visibility);
         }
 
         public void OpenBrowserWindow()
@@ -100,9 +100,9 @@ namespace FloydPink.Flickr.Downloadr.UI
         private void SetWelcomeLabel(User user)
         {
             WelcomeUserLabel.Dispatch(
-                (l) => l.Content = string.IsNullOrEmpty(user.UserNsId) ? string.Empty : user.WelcomeMessage);
+                l => l.Content = string.IsNullOrEmpty(user.UserNsId) ? string.Empty : user.WelcomeMessage);
             if (user.Info == null) return;
-            BuddyIcon.Dispatch((i) => i.ImageUrl = user.Info.BuddyIconUrl);
+            BuddyIcon.Dispatch(i => i.ImageUrl = user.Info.BuddyIconUrl);
         }
 
         private void ContinueButtonClick(object sender, RoutedEventArgs e)
