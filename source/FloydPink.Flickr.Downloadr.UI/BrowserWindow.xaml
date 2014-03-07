@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls"
         xmlns:behaviors="clr-namespace:FloydPink.Flickr.Downloadr.UI.Behaviors"
-        xmlns:cache="clr-namespace:FloydPink.Flickr.Downloadr.UI.Cache"
+        xmlns:cachedImage="clr-namespace:CachedImage;assembly=CachedImage"
         d:DesignHeight="500"
         d:DesignWidth="700"
         Title="Photo Browser - flickr downloadr" Icon="/flickr%20downloadr;component/Images/icon.png"
@@ -19,12 +19,12 @@
             <Grid>
                 <Border BorderBrush="Lavender" BorderThickness="1" Width="150" Height="150" Padding="10" Margin="15"
                         CornerRadius="10">
-                    <cache:CachedImage ImageUrl="{Binding LargeSquare150X150Url, IsAsync=True}" Stretch="Fill"
-                                       HorizontalAlignment="Center">
+                    <cachedImage:Image ImageUrl="{Binding LargeSquare150X150Url, IsAsync=True}" Stretch="Fill"
+                                             HorizontalAlignment="Center">
                         <Image.ToolTip>
                             <Grid>
-                                <cache:CachedImage ImageUrl="{Binding Medium500Url, IsAsync=True}" Stretch="Fill"
-                                                   HorizontalAlignment="Center" />
+                                <cachedImage:Image ImageUrl="{Binding Medium500Url, IsAsync=True}" Stretch="Fill"
+                                                         HorizontalAlignment="Center" />
                                 <AdornerDecorator>
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
                                         <TextBlock Text="{Binding Title, IsAsync=True}" HorizontalAlignment="Center"
@@ -39,7 +39,7 @@
                                 </AdornerDecorator>
                             </Grid>
                         </Image.ToolTip>
-                    </cache:CachedImage>
+                    </cachedImage:Image>
                 </Border>
             </Grid>
         </DataTemplate>

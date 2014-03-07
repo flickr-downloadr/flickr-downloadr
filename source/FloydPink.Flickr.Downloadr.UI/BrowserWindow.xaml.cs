@@ -7,13 +7,13 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CachedImage;
 using FloydPink.Flickr.Downloadr.Bootstrap;
 using FloydPink.Flickr.Downloadr.Model;
 using FloydPink.Flickr.Downloadr.Model.Enums;
 using FloydPink.Flickr.Downloadr.Model.Extensions;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
-using FloydPink.Flickr.Downloadr.UI.Cache;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
 using FloydPink.Flickr.Downloadr.UI.Helpers;
 

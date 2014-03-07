@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="317" d:DesignWidth="507"
         SizeToContent="WidthAndHeight"
         xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls"
-        xmlns:cache="clr-namespace:FloydPink.Flickr.Downloadr.UI.Cache"
+        xmlns:cachedImage="clr-namespace:CachedImage;assembly=CachedImage"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Icon="/flickr%20downloadr;component/Images/icon.png">
 
@@ -54,11 +54,11 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center"
                             VerticalAlignment="Center">
-                    <cache:CachedImage Height="48" x:Name="BuddyIcon" Stretch="Fill" Width="48">
+                    <cachedImage:Image Height="48" x:Name="BuddyIcon" Stretch="Fill" Width="48">
                         <Image.Effect>
                             <DropShadowEffect Color="Gray" BlurRadius="15" ShadowDepth="0" />
                         </Image.Effect>
-                    </cache:CachedImage>
+                    </cachedImage:Image>
                     <Label Content="" FontSize="16" Name="WelcomeUserLabel" FontWeight="Bold"
                            FontStyle="Normal" FontFamily="Segoe UI" Margin="5,0,0,0" VerticalContentAlignment="Center" />
                 </StackPanel>
