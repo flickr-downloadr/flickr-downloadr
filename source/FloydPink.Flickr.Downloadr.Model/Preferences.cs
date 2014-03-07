@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Reflection;
 using FloydPink.Flickr.Downloadr.Model.Enums;
 using FloydPink.Flickr.Downloadr.Model.Extensions;
 
@@ -15,6 +16,7 @@ namespace FloydPink.Flickr.Downloadr.Model
         private int _photosPerPage;
         private string _safetyLevel;
         private bool _needOriginalTags;
+        private string _cacheLocation;
 
         public bool TitleAsFilename
         {
@@ -78,6 +80,16 @@ namespace FloydPink.Flickr.Downloadr.Model
             }
         }
 
+        public string CacheLocation
+        {
+            get { return _cacheLocation; }
+            set
+            {
+                _cacheLocation = value;
+                PropertyChanged.Notify(() => CacheLocation);
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public static Preferences GetDefault()
@@ -96,7 +108,10 @@ namespace FloydPink.Flickr.Downloadr.Model
                     },
                 DownloadSize = PhotoDownloadSize.Original,
                 SafetyLevel = "Safe",
-                NeedOriginalTags = false
+                NeedOriginalTags = false,
+                CacheLocation =
+                    string.Format("{0}\\flickr-downloadr\\Cache\\",
+                        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))
             };
         }
     }

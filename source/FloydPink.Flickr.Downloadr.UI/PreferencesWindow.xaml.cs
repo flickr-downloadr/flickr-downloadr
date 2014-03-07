@@ -63,7 +63,7 @@ namespace FloydPink.Flickr.Downloadr.UI
             Close();
         }
 
-        private void SelectFolderButtonClick(object sender, RoutedEventArgs e)
+        private void SelectDownloadFolderButtonClick(object sender, RoutedEventArgs e)
         {
             var dialog = new FolderBrowserDialog
             {
@@ -74,6 +74,20 @@ namespace FloydPink.Flickr.Downloadr.UI
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 Preferences.DownloadLocation = dialog.SelectedPath;
+            }
+        }
+
+        private void SelectCacheFolderButtonClick(object sender, RoutedEventArgs e)
+        {
+            var dialog = new FolderBrowserDialog
+            {
+                Description = "Select folder to save the cached thumbnails:",
+                SelectedPath = Preferences.CacheLocation
+            };
+            DialogResult result = dialog.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                Preferences.CacheLocation = dialog.SelectedPath;
             }
         }
 

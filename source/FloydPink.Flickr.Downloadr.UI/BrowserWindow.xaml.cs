@@ -13,6 +13,7 @@ using FloydPink.Flickr.Downloadr.Model.Enums;
 using FloydPink.Flickr.Downloadr.Model.Extensions;
 using FloydPink.Flickr.Downloadr.Presentation;
 using FloydPink.Flickr.Downloadr.Presentation.Views;
+using FloydPink.Flickr.Downloadr.UI.Cache;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
 using FloydPink.Flickr.Downloadr.UI.Helpers;
 
@@ -51,6 +52,8 @@ namespace FloydPink.Flickr.Downloadr.UI
             };
 
             SpinnerInner.SpinnerCanceled += (sender, args) => _presenter.CancelDownload();
+
+            FileCache.AppCacheDirectory = Preferences.CacheLocation;
 
             _presenter = Bootstrapper.GetPresenter<IBrowserView, IBrowserPresenter>(this);
             _presenter.InitializePhotoset();

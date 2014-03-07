@@ -4,7 +4,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner" mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="447" d:DesignWidth="520"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignWidth="520"
         SizeToContent="WidthAndHeight"
         xmlns:controls="clr-namespace:FloydPink.Flickr.Downloadr.UI.Controls"
         xmlns:enums="clr-namespace:FloydPink.Flickr.Downloadr.Model.Enums;assembly=FloydPink.Flickr.Downloadr.Model"
@@ -24,13 +24,11 @@
         <converters:BoolInverterConverter x:Key="BoolInverterConverter" />
     </Window.Resources>
 
-    <Grid Height="360" Width="495" Margin="10,7,9,51">
-        <Grid
-            DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Path=Preferences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Margin="0,0,0,-45">
+    <Grid Height="480" Width="510">
+        <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Path=Preferences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="35" />
+                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
@@ -62,7 +60,7 @@
                         <Label Grid.Column="0">Download Location:</Label>
                         <TextBox Name="DownloadLocationTextbox" Grid.Column="1" IsReadOnly="True"
                                  IsReadOnlyCaretVisible="True" Text="{Binding Path=DownloadLocation}" />
-                        <Button Grid.Column="2" Content="..." Width="25" Height="25" Click="SelectFolderButtonClick" />
+                        <Button Grid.Column="2" Content="..." Width="25" Height="25" Click="SelectDownloadFolderButtonClick" />
                     </Grid>
                     <Grid Margin="7">
                         <Grid.ColumnDefinitions>
@@ -148,6 +146,17 @@
                         <RadioButton GroupName="Tags" Content="Original (Slower download)" Grid.Column="2"
                                      Margin="3, 6, 0, 0"
                                      IsChecked="{Binding Path=NeedOriginalTags}" />
+                    </Grid>
+                    <Grid Margin="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="30" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0">Cache Location:</Label>
+                        <TextBox Name="CacheLocationTextbox" Grid.Column="1" IsReadOnly="True"
+                                 IsReadOnlyCaretVisible="True" Text="{Binding Path=CacheLocation}" />
+                        <Button Grid.Column="2" Content="..." Width="25" Height="25" Click="SelectCacheFolderButtonClick" />
                     </Grid>
                 </StackPanel>
             </Grid>
