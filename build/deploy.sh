@@ -45,6 +45,9 @@ else
     fi
 fi
 
+echo 'Printing Secure Variable'
+echo $test_var
+
 cd ../source/bin/Release
 REPO=git@github.com:flickr-downloadr/flickr-downloadr.git
 VERSION="v${BUILDNUMBER}"

@@ -16,6 +16,11 @@ os: Windows Server 2012
 init:
   - git config --global core.autocrlf input
 
+#environment variables
+environment:
+  test_var:
+    secure: 3o/wo7v61eP2p4qlOVhXFQ==
+
 #---------------------------------#
 #       build configuration       #
 #---------------------------------#
