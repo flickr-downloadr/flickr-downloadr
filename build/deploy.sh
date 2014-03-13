@@ -6,8 +6,8 @@ then
   return 0
 fi
 
-git config --global user.email "flickr.downloadr@gmail.com"
-git config --global user.name "Flickr Downloadr (via Appveyor CI)"
+git config --global user.email "contact.us@flickrdownloadr.com"
+git config --global user.name "The CI Bot"
 
 cd ../source/bin/Release
 REPO=https://$OAUTH_TOKEN:x-oauth-basic@github.com/flickr-downloadr/flickr-downloadr.git
