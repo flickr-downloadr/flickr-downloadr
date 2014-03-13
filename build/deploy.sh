@@ -25,6 +25,11 @@ function test_identities {
     fi
 }
 
+# Print the secure thingy
+echo 'Does this work?'
+echo $DOES_THIS_WORK
+echo 'Maybe not!'
+
 # check if we can connect to github now
 echo 'Checking connectivity to Github 1'
 ssh -vvvT git@github.com
