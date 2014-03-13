@@ -28,7 +28,7 @@ environment:
 build_script:
   - cd ./build
   - go deploy Release
-  - echo.
+  - echo 'Build (and Deploy) completed...'
 
 #---------------------------------#
 #       tests configuration       #

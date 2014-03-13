@@ -43,7 +43,7 @@ echo 'Check out master branch and commit the changed Assembly Info and build.num
 git checkout master
 cp ../../../../../build/build.number ./build
 cp ../../../../CommonAssemblyInfo.cs ./source
-git commit -a -m "deploying $MSG" -s
+git commit -a -m "deploying $MSG [ci skip]" -s
 git tag -a $VERSION -m "tagging version $VERSION"
 git push --tags origin master
 
