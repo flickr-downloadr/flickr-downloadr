@@ -1,6 +1,7 @@
 PATH=$HOME/bin:$ADDPATH:$PATH
 
-if [[ $APPVEYOR_REPO_COMMIT_MESSAGE != *\[deploy\]* ]] then
+if [[ $APPVEYOR_REPO_COMMIT_MESSAGE != *\[deploy\]* ]]
+then
   echo 'There is nothing to deploy here. Moving on!';
   return 0
 fi
