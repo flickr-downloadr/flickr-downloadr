@@ -45,6 +45,8 @@ else
     fi
 fi
 
+env
+
 echo 'Printing Secure Variable'
 echo $test_var
 
