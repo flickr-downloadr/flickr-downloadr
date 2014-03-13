@@ -1,0 +1,38 @@
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# branches to build
+branches:
+  only:
+    - master
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+os: Windows Server 2012
+
+init:
+  - git config --global core.autocrlf input
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+build_script:
+  - cd ./build
+  - go deploy Release
+  - echo.
+
+#---------------------------------#
+#       tests configuration       #
+#---------------------------------#
+
+test: off
+
+#---------------------------------#
+#     deployment configuration    #
+#---------------------------------#
+
+deploy: off
