@@ -3,7 +3,7 @@ PATH=$HOME/bin:$ADDPATH:$PATH
 if [[ $APPVEYOR_REPO_COMMIT_MESSAGE != *\[deploy\]* ]]
 then
   echo 'There is nothing to deploy here. Moving on!';
-  return 0
+  exit
 fi
 
 git config --global user.email "contact.us@flickrdownloadr.com"
