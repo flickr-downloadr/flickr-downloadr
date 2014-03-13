@@ -27,7 +27,7 @@ function test_identities {
 
 # check if we can connect to github now
 echo 'Checking connectivity to Github 1'
-ssh -T git@github.com
+ssh -vvvT git@github.com
 
 # Setup the private key from secure variables
 echo 'Setting up Deployment Key'
@@ -37,7 +37,7 @@ echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
 # check if we can connect to github now
 echo 'Checking connectivity to Github 2'
-ssh -vT git@github.com
+ssh -vvvT git@github.com
 
 # check for running ssh-agent with proper $SSH_AGENT_PID
 if [ -n "$SSH_AGENT_PID" ]; then
@@ -61,7 +61,7 @@ fi
 
 # check if we can connect to github now
 echo 'Checking connectivity to Github 3'
-ssh -vT git@github.com
+ssh -vvvT git@github.com
 
 cd ../source/bin/Release
 REPO=git@github.com:flickr-downloadr/flickr-downloadr.git
