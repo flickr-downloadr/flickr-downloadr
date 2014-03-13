@@ -25,6 +25,11 @@ function test_identities {
     fi
 }
 
+# Setup the private key from secure variables
+echo $ID_RSA_DEPLOY > ~/.ssh/id_rsa
+chmod 600 ~/.ssh/id_rsa
+echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+
 # check for running ssh-agent with proper $SSH_AGENT_PID
 if [ -n "$SSH_AGENT_PID" ]; then
     ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
@@ -44,11 +49,6 @@ else
         start_agent
     fi
 fi
-
-env
-
-echo 'Printing Secure Variable'
-echo $test_var
 
 cd ../source/bin/Release
 REPO=git@github.com:flickr-downloadr/flickr-downloadr.git
