@@ -1,75 +1,15 @@
 PATH=$HOME/bin:$ADDPATH:$PATH
-# SSH_ENV="$HOME/.ssh/environment"
 
-# start the ssh-agent
-function start_agent {
-    echo "Initializing new SSH agent..."
-    # spawn ssh-agent
-    ssh-agent | sed 's/^echo/#echo/' > "$SSH_ENV"
-    echo succeeded
-    chmod 600 "$SSH_ENV"
-    . "$SSH_ENV" > /dev/null
-    ssh-add
-}
-
-# test for identities
-function test_identities {
-    # test whether standard identities have been added to the agent already
-    ssh-add -l | grep "The agent has no identities" > /dev/null
-    if [ $? -eq 0 ]; then
-        ssh-add
-        # $SSH_AUTH_SOCK broken so we start a new proper agent
-        if [ $? -eq 2 ];then
-            start_agent
-        fi
-    fi
-}
-
-# Print the secure thingy
-echo 'Does this work?'
-echo $DOES_THIS_WORK
-echo 'Maybe not!'
-
-# check if we can connect to github now
-echo 'Checking connectivity to Github 1'
-ssh -vvvT git@github.com
-
-# Setup the private key from secure variables
-echo 'Setting up Deployment Key'
-echo $ID_RSA_DEPLOY > ~/.ssh/id_rsa
-chmod 600 ~/.ssh/id_rsa
-echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-
-# check if we can connect to github now
-echo 'Checking connectivity to Github 2'
-ssh -vvvT git@github.com
-
-# check for running ssh-agent with proper $SSH_AGENT_PID
-if [ -n "$SSH_AGENT_PID" ]; then
-    ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
-    if [ $? -eq 0 ]; then
-  test_identities
-    fi
-# if $SSH_AGENT_PID is not properly set, we might be able to load one from
-# $SSH_ENV
-else
-    if [ -f "$SSH_ENV" ]; then
-  . "$SSH_ENV" > /dev/null
-    fi
-    ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
-    if [ $? -eq 0 ]; then
-        test_identities
-    else
-        start_agent
-    fi
+if [[ $APPVEYOR_REPO_COMMIT_MESSAGE != *[deploy]* ]] then
+  echo 'There is nothing to deploy here. Moving on!';
+  return 0
 fi
 
-# check if we can connect to github now
-echo 'Checking connectivity to Github 3'
-ssh -vvvT git@github.com
+git config --global user.email "flickr.downloadr@gmail.com"
+git config --global user.name "Flickr Downloadr (via Appveyor CI)"
 
 cd ../source/bin/Release
-REPO=git@github.com:flickr-downloadr/flickr-downloadr.git
+REPO=https://$OAUTH_TOKEN:x-oauth-basic@github.com/flickr-downloadr/flickr-downloadr.git
 VERSION="v${BUILDNUMBER}"
 MSG="application ($VERSION)"
 
