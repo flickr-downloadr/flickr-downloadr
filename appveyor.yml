@@ -18,8 +18,8 @@ init:
 
 #environment variables
 environment:
-  oauth_token:
-    secure: lYR11R1tdRsM90UhyXCxCUf30lhL/OJ40Sb9pPzc4mFRSVhVRZw449MqLf+phNRT
+  gh_token:
+    secure: Nww9ToyuLy9Dam9uQ/gp60uD2fMNrdVyZ9zzAfgtOubVCItC2xcWMtvwaZQ8bRDF
 
 #---------------------------------#
 #       build configuration       #
