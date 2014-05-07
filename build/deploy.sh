@@ -37,7 +37,7 @@ mv index.html downloads/latest
 echo 'Creating the correct changeset from built artifacts'
 cp -r ../../Deploy/* ./downloads/latest
 cp ../../../../../build/build.number .
-git add -f .
+git add -f --ignore-removal .
 git commit -m "deploying $MSG" -s
 #git push
 
@@ -45,7 +45,7 @@ git commit -m "deploying $MSG" -s
 echo 'Check out master branch and commit the changed Assembly Info and build.number'
 cd ..
 git clone -b master $SOURCEREPO
-cd flickr-downladr
+cd flickr-downloadr
 cp ../../../../../build/build.number ./build
 cp ../../../../CommonAssemblyInfo.cs ./source
 git commit -a -m "deploying $MSG [ci skip]" -s
