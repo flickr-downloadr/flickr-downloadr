@@ -12,7 +12,7 @@ Please see the [Contributing guide](CONTRIBUTING.md)
 
 #### Build Status
 
-[![Build status](https://ci.appveyor.com/api/projects/status/sveyltsngft80du6)](https://ci.appveyor.com/project/floydpink/flickr-downloadr) <a href="http://teamcity.codebetter.com/project.html?projectId=project228" title="Build Status"><img src="http://teamcity.codebetter.com/app/rest/builds/buildType:(id:bt695)/statusIcon"/></a>
+[![Build status](https://ci.appveyor.com/api/projects/status/5u6onm3qne65m2w4)](https://ci.appveyor.com/project/floydpink/flickr-downloadr) <a href="http://teamcity.codebetter.com/project.html?projectId=project228" title="Build Status"><img src="http://teamcity.codebetter.com/app/rest/builds/buildType:(id:bt695)/statusIcon"/></a>
 
 Just so I could earn some bragging rights, please endorse me on coderwall!
 
