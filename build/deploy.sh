@@ -15,10 +15,13 @@ SOURCEREPO="https://github.com/flickr-downloadr/flickr-downloadr.git"
 VERSION="v${BUILDNUMBER}"
 MSG="application ($VERSION)"
 
-#clone repo in a tmp dir
-echo 'Cloning gh-pages branch'
-mkdir tmp-github-io
-cd tmp-github-io
+# make the temp directory
+cd ../../../..
+mkdir tmp-deploy-dir
+cd tmp-deploy-dir
+
+#clone repo in the tmp dir
+echo 'Cloning github.io repo'
 git clone -b master $REPO
 cd flickr-downloadr.github.io
 git config credential.helper "store --file=.git/fd-credentials"
@@ -35,9 +38,9 @@ mv index.html downloads/latest
 
 #add published files & build.number to gh-pages; commit; push
 echo 'Creating the correct changeset from built artifacts'
-cp -r ../../Deploy/* ./downloads/latest
-cp ../../../../../build/build.number .
-git add -f --ignore-removal .
+cp -r ../../flickr-downloadr/source/bin/Release/Deploy/* ./downloads/latest
+cp ../../flickr-downloadr/build/build.number .
+git add -f --no-ignore-removal .
 git commit -m "deploying $MSG" -s
 git push
 
@@ -46,16 +49,13 @@ echo 'Check out master branch and commit the changed Assembly Info and build.num
 cd ..
 git clone -b master $SOURCEREPO
 cd flickr-downloadr
-cp ../../../../../build/build.number ./build
-cp ../../../../CommonAssemblyInfo.cs ./source
+git config credential.helper "store --file=.git/fd-credentials"
+echo "https://${GH_TOKEN}:@github.com" > .git/fd-credentials
+cp ../../flickr-downloadr/build/build.number ./build
+cp ../../flickr-downloadr/source/CommonAssemblyInfo.cs ./source
 git commit -a -m "deploying $MSG [ci skip]" -s
 git tag -a $VERSION -m "tagging version $VERSION"
 git push --tags origin master
-
-#remove the tmp dir
-echo 'Cleaning up...'
-cd ../..
-rm -rf tmp-github-io
 
 # done
 echo "deployed $MSG successfully"
