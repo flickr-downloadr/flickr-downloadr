@@ -40,7 +40,7 @@ mv index.html downloads/latest
 echo 'Creating the correct changeset from built artifacts'
 cp -r ../../flickr-downloadr/source/bin/Release/Deploy/* ./downloads/latest
 cp ../../flickr-downloadr/build/build.number .
-git add -f --no-ignore-removal .
+git add -f --ignore-removal .
 git commit -m "deploying $MSG" -s
 git push
 
