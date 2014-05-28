@@ -20,11 +20,11 @@
                 <Border BorderBrush="Lavender" BorderThickness="1" Width="150" Height="150" Padding="10" Margin="15"
                         CornerRadius="10">
                     <cachedImage:Image ImageUrl="{Binding LargeSquare150X150Url, IsAsync=True}" Stretch="Fill"
-                                             HorizontalAlignment="Center">
+                                       HorizontalAlignment="Center">
                         <Image.ToolTip>
                             <Grid>
                                 <cachedImage:Image ImageUrl="{Binding Medium500Url, IsAsync=True}" Stretch="Fill"
-                                                         HorizontalAlignment="Center" />
+                                                   HorizontalAlignment="Center" />
                                 <AdornerDecorator>
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
                                         <TextBlock Text="{Binding Title, IsAsync=True}" HorizontalAlignment="Center"
@@ -52,14 +52,26 @@
         <Grid
             DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>
-            <ListBox Grid.Row="0" Grid.ColumnSpan="3" x:Name="PagePhotoList" ItemsSource="{Binding}"
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock FontSize="24" Margin="0,0,10,0">
+                    <Run Foreground="#FFF70808">Unsupported Version! </Run>
+                    <Hyperlink
+                        NavigateUri="http://flickrdownloadr.com/downloads/?utm_source=app&amp;utm_medium=update&amp;utm_campaign=lastVersion"
+                        ToolTip="http://flickrdownloadr.com/downloads/"
+                        behaviors:HyperlinkBehavior.IsExternal="True">
+                        Get Latest Version...
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+            <ListBox Grid.Row="1" Grid.ColumnSpan="3" x:Name="PagePhotoList" ItemsSource="{Binding}"
                      ItemTemplate="{DynamicResource PhotoListDataTemplate}"
                      ItemsPanel="{DynamicResource PhotoListItemsPanelTemplate}" SelectionMode="Multiple"
                      behaviors:ScrollToTopBehavior.ScrollToTop="True" />
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />

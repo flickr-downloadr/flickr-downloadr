@@ -161,6 +161,9 @@
     </Compile>
     <Compile Include="Converters\BoolInverterConverter.cs" />
     <Compile Include="Extensions\DispatcherExtensions.cs" />
+    <Compile Include="WarningWindow.xaml.cs">
+      <DependentUpon>WarningWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -187,6 +190,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PreferencesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WarningWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

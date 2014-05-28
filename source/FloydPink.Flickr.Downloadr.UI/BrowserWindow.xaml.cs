@@ -321,5 +321,6 @@ namespace FloydPink.Flickr.Downloadr.UI
             PropertyChanged.Notify(() => SelectedPhotosExist);
             PropertyChanged.Notify(() => SelectedPhotosCountText);
         }
+
     }
 }
