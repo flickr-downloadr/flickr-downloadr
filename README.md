@@ -1,3 +1,8 @@
+## Update (05/30/2014)
+#### This version is not maintained anymore. A fork of this codebase that has been ported to Mono/GTK# to support Windows, Mac and Linux is now available and active at [/flickr-downloadr-gtk](https://github.com/flickr-downloadr/flickr-downloadr-gtk)
+
+
+
 [![flickr downloadr logo](https://raw.github.com/flickr-downloadr/flickr-downloadr/master/misc/logo.png)] (http://flickrdownloadr.com/)
 ---------------------------
 
