@@ -39,6 +39,7 @@ git rm -r .
 cd ../..
 mv index.html downloads/latest
 mv .gitattributes1 downloads/latest/.gitattributes
+mkdir -p downloads/latest/Application\ Files
 mv .gitattributes2 downloads/latest/Application\ Files/.gitattributes
 
 #add published files to gh-pages; commit; push
