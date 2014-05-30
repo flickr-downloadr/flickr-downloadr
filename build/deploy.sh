@@ -38,8 +38,8 @@ cd downloads/latest/
 git rm -r .
 cd ../..
 mv index.html downloads/latest
-mv .gitattributes1 downloads/latest
-mv .gitattributes2 downloads/latest/Application\ Files
+mv .gitattributes1 downloads/latest/.gitattributes
+mv .gitattributes2 downloads/latest/Application\ Files/.gitattributes
 
 #add published files to gh-pages; commit; push
 echo 'Creating the correct changeset from built artifacts'
