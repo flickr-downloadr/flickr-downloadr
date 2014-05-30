@@ -45,7 +45,7 @@ cp -r ../../flickr-downloadr/source/bin/Release/Deploy/* ./downloads/latest
 # cp ../../flickr-downloadr/build/build.number .
 git add -f --ignore-removal .
 git commit -m "deploying $MSG" -s
-git push
+git push -f --set-upstream origin old-wpf-app
 
 #checkout master to add the modified build.number and CommonAssemblyInfo; commit; push
 echo 'Check out master branch and commit the changed Assembly Info and build.number'
