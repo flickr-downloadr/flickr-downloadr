@@ -24,6 +24,7 @@ cd tmp-deploy-dir
 echo 'Cloning github.io repo'
 git clone -b master $REPO
 cd flickr-downloadr.github.io
+git checkout -b old-wpf-app
 git config credential.helper "store --file=.git/fd-credentials"
 echo "https://${GH_TOKEN}:@github.com" > .git/fd-credentials
 git config push.default tracking
@@ -32,14 +33,16 @@ git config push.default tracking
 echo 'Deleting the previous version artifacts'
 mv downloads/latest/index.html .
 cd downloads/latest/
+git rm --cached **/.gitattributes
 git rm -r .
+git add **/.gitattributes
 cd ../..
 mv index.html downloads/latest
 
-#add published files & build.number to gh-pages; commit; push
+#add published files to gh-pages; commit; push
 echo 'Creating the correct changeset from built artifacts'
 cp -r ../../flickr-downloadr/source/bin/Release/Deploy/* ./downloads/latest
-cp ../../flickr-downloadr/build/build.number .
+# cp ../../flickr-downloadr/build/build.number .
 git add -f --ignore-removal .
 git commit -m "deploying $MSG" -s
 git push
