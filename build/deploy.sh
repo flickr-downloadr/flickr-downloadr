@@ -32,17 +32,18 @@ git config push.default tracking
 #remove all files except index.html in downloads/latest
 echo 'Deleting the previous version artifacts'
 mv downloads/latest/index.html .
+mv downloads/latest/.gitattributes ./.gitattributes1
+mv downloads/latest/Application\ Files/.gitattributes ./.gitattributes2
 cd downloads/latest/
-git rm --cached **/.gitattributes
 git rm -r .
-git add -f **/.gitattributes
 cd ../..
 mv index.html downloads/latest
+mv .gitattributes1 downloads/latest
+mv .gitattributes2 downloads/latest/Application\ Files
 
 #add published files to gh-pages; commit; push
 echo 'Creating the correct changeset from built artifacts'
 cp -r ../../flickr-downloadr/source/bin/Release/Deploy/* ./downloads/latest
-# cp ../../flickr-downloadr/build/build.number .
 git add -f --ignore-removal .
 git commit -m "deploying $MSG" -s
 git push -f --set-upstream origin old-wpf-app
