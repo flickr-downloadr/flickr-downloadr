@@ -35,7 +35,7 @@ mv downloads/latest/index.html .
 cd downloads/latest/
 git rm --cached **/.gitattributes
 git rm -r .
-git add **/.gitattributes
+git add -f **/.gitattributes
 cd ../..
 mv index.html downloads/latest
 
