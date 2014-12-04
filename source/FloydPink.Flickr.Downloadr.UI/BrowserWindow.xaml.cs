@@ -17,13 +17,11 @@ using FloydPink.Flickr.Downloadr.Presentation.Views;
 using FloydPink.Flickr.Downloadr.UI.Extensions;
 using FloydPink.Flickr.Downloadr.UI.Helpers;
 
-namespace FloydPink.Flickr.Downloadr.UI
-{
+namespace FloydPink.Flickr.Downloadr.UI {
     /// <summary>
     ///     Interaction logic for BrowserWindow.xaml
     /// </summary>
-    public partial class BrowserWindow : Window, IBrowserView, INotifyPropertyChanged
-    {
+    public partial class BrowserWindow : Window, IBrowserView, INotifyPropertyChanged {
         private readonly IBrowserPresenter _presenter;
         private bool _doNotSyncSelectedItems;
         private string _page;
@@ -32,42 +30,37 @@ namespace FloydPink.Flickr.Downloadr.UI
         private ObservableCollection<Photo> _photos;
         private string _total;
 
-        public BrowserWindow(User user, Preferences preferences)
-        {
+        public BrowserWindow(User user, Preferences preferences) {
             InitializeComponent();
             Title += VersionHelper.GetVersionString();
             Preferences = preferences;
             User = user;
             AllSelectedPhotos = new Dictionary<string, Dictionary<string, Photo>>();
 
-            PagePhotoList.SelectionChanged += (sender, args) =>
-            {
-                if (_doNotSyncSelectedItems) return;
-                AllSelectedPhotos[Page] = PagePhotoList.SelectedItems.Cast<Photo>().
-                    ToDictionary(p => p.Id, p => p);
-                PropertyChanged.Notify(() => SelectedPhotosExist);
-                PropertyChanged.Notify(() => SelectedPhotosCountText);
-                PropertyChanged.Notify(() => AreAnyPagePhotosSelected);
-                PropertyChanged.Notify(() => AreAllPagePhotosSelected);
-            };
+            this.PagePhotoList.SelectionChanged += (sender, args) => {
+                                                       if (this._doNotSyncSelectedItems) {
+                                                           return;
+                                                       }
+                                                       AllSelectedPhotos[Page] = this.PagePhotoList.SelectedItems.Cast<Photo>().
+                                                                                      ToDictionary(p => p.Id, p => p);
+                                                       PropertyChanged.Notify(() => SelectedPhotosExist);
+                                                       PropertyChanged.Notify(() => SelectedPhotosCountText);
+                                                       PropertyChanged.Notify(() => AreAnyPagePhotosSelected);
+                                                       PropertyChanged.Notify(() => AreAllPagePhotosSelected);
+                                                   };
 
-            SpinnerInner.SpinnerCanceled += (sender, args) => _presenter.CancelDownload();
+            this.SpinnerInner.SpinnerCanceled += (sender, args) => this._presenter.CancelDownload();
 
             FileCache.AppCacheDirectory = Preferences.CacheLocation;
 
-            _presenter = Bootstrapper.GetPresenter<IBrowserView, IBrowserPresenter>(this);
-            _presenter.InitializePhotoset();
+            this._presenter = Bootstrapper.GetPresenter<IBrowserView, IBrowserPresenter>(this);
+            this._presenter.InitializePhotoset();
         }
 
-        public int SelectedPhotosCount
-        {
-            get { return AllSelectedPhotos.Values.SelectMany(d => d.Values).Count(); }
-        }
+        public int SelectedPhotosCount { get { return AllSelectedPhotos.Values.SelectMany(d => d.Values).Count(); } }
 
-        public string SelectedPhotosCountText
-        {
-            get
-            {
+        public string SelectedPhotosCountText {
+            get {
                 string selectionCount = SelectedPhotosExist
                     ? SelectedPhotosCount.ToString(CultureInfo.InvariantCulture)
                     : string.Empty;
@@ -77,39 +70,29 @@ namespace FloydPink.Flickr.Downloadr.UI
             }
         }
 
-        public bool SelectedPhotosExist
-        {
-            get { return SelectedPhotosCount != 0; }
-        }
+        public bool SelectedPhotosExist { get { return SelectedPhotosCount != 0; } }
 
-        public bool AreAnyPagePhotosSelected
-        {
+        public bool AreAnyPagePhotosSelected {
             get { return Page != null && AllSelectedPhotos.ContainsKey(Page) && AllSelectedPhotos[Page].Count != 0; }
         }
 
-        public bool AreAllPagePhotosSelected
-        {
-            get
-            {
+        public bool AreAllPagePhotosSelected {
+            get {
                 return Photos != null &&
                        (!AllSelectedPhotos.ContainsKey(Page) || Photos.Count != AllSelectedPhotos[Page].Count);
             }
         }
 
-        public string FirstPhoto
-        {
-            get
-            {
-                return (((Convert.ToInt32(Page) - 1)*Convert.ToInt32(PerPage)) + 1).
+        public string FirstPhoto {
+            get {
+                return (((Convert.ToInt32(Page) - 1) * Convert.ToInt32(PerPage)) + 1).
                     ToString(CultureInfo.InvariantCulture);
             }
         }
 
-        public string LastPhoto
-        {
-            get
-            {
-                int maxLast = Convert.ToInt32(Page)*Convert.ToInt32(PerPage);
+        public string LastPhoto {
+            get {
+                int maxLast = Convert.ToInt32(Page) * Convert.ToInt32(PerPage);
                 return maxLast > Convert.ToInt32(Total) ? Total : maxLast.ToString(CultureInfo.InvariantCulture);
             }
         }
@@ -117,103 +100,85 @@ namespace FloydPink.Flickr.Downloadr.UI
         public User User { get; set; }
         public Preferences Preferences { get; set; }
 
-        public ObservableCollection<Photo> Photos
-        {
-            get { return _photos; }
-            set
-            {
-                _photos = value;
+        public ObservableCollection<Photo> Photos {
+            get { return this._photos; }
+            set {
+                this._photos = value;
                 PropertyChanged.Notify(() => AreAllPagePhotosSelected);
-                _doNotSyncSelectedItems = true;
-                PagePhotoList.DataContext = Photos;
+                this._doNotSyncSelectedItems = true;
+                this.PagePhotoList.DataContext = Photos;
                 SelectAlreadySelectedPhotos();
-                _doNotSyncSelectedItems = false;
+                this._doNotSyncSelectedItems = false;
             }
         }
 
         public IDictionary<string, Dictionary<string, Photo>> AllSelectedPhotos { get; set; }
 
-        public bool ShowAllPhotos
-        {
-            get { return PublicAllToggleButton.IsChecked != null && (bool) PublicAllToggleButton.IsChecked; }
+        public bool ShowAllPhotos {
+            get { return this.PublicAllToggleButton.IsChecked != null && (bool) this.PublicAllToggleButton.IsChecked; }
         }
 
-        public string Page
-        {
-            get { return _page; }
-            set
-            {
-                _page = value;
+        public string Page {
+            get { return this._page; }
+            set {
+                this._page = value;
                 PropertyChanged.Notify(() => Page);
                 PropertyChanged.Notify(() => AreAnyPagePhotosSelected);
             }
         }
 
-        public string Pages
-        {
-            get { return _pages; }
-            set
-            {
-                _pages = value;
+        public string Pages {
+            get { return this._pages; }
+            set {
+                this._pages = value;
                 PropertyChanged.Notify(() => Pages);
             }
         }
 
-        public string PerPage
-        {
-            get { return _perPage; }
-            set
-            {
-                _perPage = value;
+        public string PerPage {
+            get { return this._perPage; }
+            set {
+                this._perPage = value;
                 PropertyChanged.Notify(() => PerPage);
             }
         }
 
-        public string Total
-        {
-            get { return _total; }
-            set
-            {
-                _total = value;
+        public string Total {
+            get { return this._total; }
+            set {
+                this._total = value;
                 PropertyChanged.Notify(() => Total);
                 PropertyChanged.Notify(() => FirstPhoto);
                 PropertyChanged.Notify(() => LastPhoto);
             }
         }
 
-        public void ShowSpinner(bool show)
-        {
+        public void ShowSpinner(bool show) {
             Visibility visibility = show ? Visibility.Visible : Visibility.Collapsed;
-            Spinner.Dispatch(s => s.Visibility = visibility);
+            this.Spinner.Dispatch(s => s.Visibility = visibility);
         }
 
-        public void UpdateProgress(string percentDone, string operationText, bool cancellable)
-        {
-            SpinnerInner.Dispatch(sc => sc.Cancellable = cancellable);
-            SpinnerInner.Dispatch(sc => sc.OperationText = operationText);
-            SpinnerInner.Dispatch(sc => sc.PercentDone = percentDone);
+        public void UpdateProgress(string percentDone, string operationText, bool cancellable) {
+            this.SpinnerInner.Dispatch(sc => sc.Cancellable = cancellable);
+            this.SpinnerInner.Dispatch(sc => sc.OperationText = operationText);
+            this.SpinnerInner.Dispatch(sc => sc.PercentDone = percentDone);
         }
 
-        public bool ShowWarning(string warningMessage)
-        {
+        public bool ShowWarning(string warningMessage) {
             MessageBoxResult result = MessageBox.Show(warningMessage, "Please confirm...",
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
             return result != MessageBoxResult.Yes;
         }
 
-        public void DownloadComplete(string downloadedLocation, bool downloadComplete)
-        {
+        public void DownloadComplete(string downloadedLocation, bool downloadComplete) {
             const string proTip = "\r\n\r\n(ProTip™: CTRL+C will copy all of this message with the location.)";
-            if (downloadComplete)
-            {
+            if (downloadComplete) {
                 ClearSelectedPhotos();
                 MessageBox.Show(
                     string.Format(
                         "Download completed to the directory: \r\n{0}{1}",
                         downloadedLocation, proTip), "Done");
-            }
-            else
-            {
+            } else {
                 MessageBox.Show(
                     string.Format(
                         "Incomplete download could be found at: \r\n{0}{1}",
@@ -227,100 +192,88 @@ namespace FloydPink.Flickr.Downloadr.UI
 
         #endregion
 
-        private void SelectAlreadySelectedPhotos()
-        {
-            if (!AllSelectedPhotos.ContainsKey(Page) || AllSelectedPhotos[Page].Count <= 0) return;
+        private void SelectAlreadySelectedPhotos() {
+            if (!AllSelectedPhotos.ContainsKey(Page) || AllSelectedPhotos[Page].Count <= 0) {
+                return;
+            }
             List<Photo> photos = Photos.Where(photo => AllSelectedPhotos[Page].ContainsKey(photo.Id)).ToList();
-            foreach (Photo photo in photos)
-            {
-                ((ListBoxItem) PagePhotoList.ItemContainerGenerator.ContainerFromItem(photo)).IsSelected = true;
+            foreach (Photo photo in photos) {
+                ((ListBoxItem) this.PagePhotoList.ItemContainerGenerator.ContainerFromItem(photo)).IsSelected = true;
             }
         }
 
-        private void BackButtonClick(object sender, RoutedEventArgs e)
-        {
-            var loginWindow = new LoginWindow {User = User};
+        private void BackButtonClick(object sender, RoutedEventArgs e) {
+            var loginWindow = new LoginWindow {
+                User = User
+            };
             loginWindow.Show();
             Close();
         }
 
-        private async void TogglePhotosButtonClick(object sender, RoutedEventArgs e)
-        {
+        private async void TogglePhotosButtonClick(object sender, RoutedEventArgs e) {
             LoseFocus((UIElement) sender);
             ClearSelectedPhotos();
-            await _presenter.InitializePhotoset();
+            await this._presenter.InitializePhotoset();
         }
 
-        private async void FirstPageButtonClick(object sender, RoutedEventArgs e)
-        {
+        private async void FirstPageButtonClick(object sender, RoutedEventArgs e) {
             LoseFocus((UIElement) sender);
-            await _presenter.NavigateTo(PhotoPage.First);
+            await this._presenter.NavigateTo(PhotoPage.First);
         }
 
-        private async void PreviousPageButtonClick(object sender, RoutedEventArgs e)
-        {
+        private async void PreviousPageButtonClick(object sender, RoutedEventArgs e) {
             LoseFocus((UIElement) sender);
-            await _presenter.NavigateTo(PhotoPage.Previous);
+            await this._presenter.NavigateTo(PhotoPage.Previous);
         }
 
-        private async void NextPageButtonClick(object sender, RoutedEventArgs e)
-        {
+        private async void NextPageButtonClick(object sender, RoutedEventArgs e) {
             LoseFocus((UIElement) sender);
-            await _presenter.NavigateTo(PhotoPage.Next);
+            await this._presenter.NavigateTo(PhotoPage.Next);
         }
 
-        private async void LastPageButtonClick(object sender, RoutedEventArgs e)
-        {
+        private async void LastPageButtonClick(object sender, RoutedEventArgs e) {
             LoseFocus((UIElement) sender);
-            await _presenter.NavigateTo(PhotoPage.Last);
+            await this._presenter.NavigateTo(PhotoPage.Last);
         }
 
-        private async void DownloadSelectionButtonClick(object sender, RoutedEventArgs e)
-        {
+        private async void DownloadSelectionButtonClick(object sender, RoutedEventArgs e) {
             LoseFocus((UIElement) sender);
-            await _presenter.DownloadSelection();
+            await this._presenter.DownloadSelection();
         }
 
-        private async void DownloadThisPageButtonClick(object sender, RoutedEventArgs e)
-        {
+        private async void DownloadThisPageButtonClick(object sender, RoutedEventArgs e) {
             LoseFocus((UIElement) sender);
-            await _presenter.DownloadThisPage();
+            await this._presenter.DownloadThisPage();
         }
 
-        private async void DownloadAllPagesButtonClick(object sender, RoutedEventArgs e)
-        {
+        private async void DownloadAllPagesButtonClick(object sender, RoutedEventArgs e) {
             LoseFocus((UIElement) sender);
-            await _presenter.DownloadAllPages();
+            await this._presenter.DownloadAllPages();
         }
 
-        private void LoseFocus(UIElement element)
-        {
+        private void LoseFocus(UIElement element) {
             // http://stackoverflow.com/a/6031393/218882
             DependencyObject scope = FocusManager.GetFocusScope(element);
             FocusManager.SetFocusedElement(scope, null);
             Keyboard.ClearFocus();
-            FocusManager.SetFocusedElement(scope, PagePhotoList);
+            FocusManager.SetFocusedElement(scope, this.PagePhotoList);
         }
 
-        private void SelectAllButtonClick(object sender, RoutedEventArgs e)
-        {
+        private void SelectAllButtonClick(object sender, RoutedEventArgs e) {
             LoseFocus((UIElement) sender);
-            PagePhotoList.SelectAll();
+            this.PagePhotoList.SelectAll();
         }
 
-        private void DeselectAllButtonClick(object sender, RoutedEventArgs e)
-        {
+        private void DeselectAllButtonClick(object sender, RoutedEventArgs e) {
             LoseFocus((UIElement) sender);
-            PagePhotoList.SelectedItems.Clear();
+            this.PagePhotoList.SelectedItems.Clear();
         }
 
-        private void ClearSelectedPhotos()
-        {
+        private void ClearSelectedPhotos() {
             AllSelectedPhotos.Clear();
-            PagePhotoList.SelectedItems.Clear();
+            this.PagePhotoList.SelectedItems.Clear();
             PropertyChanged.Notify(() => SelectedPhotosExist);
             PropertyChanged.Notify(() => SelectedPhotosCountText);
         }
-
     }
 }

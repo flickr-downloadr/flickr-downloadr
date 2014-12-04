@@ -1,30 +1,25 @@
 ﻿using System;
+using System.Linq.Expressions;
 using Castle.DynamicProxy;
 using log4net;
-using StructureMap.Interceptors;
 
-namespace FloydPink.Flickr.Downloadr.Bootstrap
-{
-    public class DynamicProxy
-    {
-        public static EnrichmentHandler<T> LoggingInterceptorFor<T>()
-        {
+namespace FloydPink.Flickr.Downloadr.Bootstrap {
+    public class DynamicProxy {
+        public static Expression<Func<T, T>> LoggingInterceptorFor<T>() {
             return s => CreateInterfaceProxyWithTargetInterface(typeof (T), s);
         }
 
-        private static object CreateInterfaceProxyWithTargetInterface(Type interfaceType, object concreteObject)
-        {
+        private static T CreateInterfaceProxyWithTargetInterface<T>(Type interfaceType, T concreteObject) {
             var proxyGenerator = new ProxyGenerator();
             object result = proxyGenerator.
                 CreateInterfaceProxyWithTargetInterface(interfaceType,
                     concreteObject,
-                    new[]
-                    {
+                    new [] {
                         new LogInterceptor(
                             LogManager.GetLogger(concreteObject.GetType()))
                     });
 
-            return result;
+            return (T) result;
         }
     }
 }

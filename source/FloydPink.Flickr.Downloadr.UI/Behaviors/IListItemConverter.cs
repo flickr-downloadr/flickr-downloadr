@@ -1,11 +1,9 @@
-﻿namespace FloydPink.Flickr.Downloadr.UI.Behaviors
-{
+﻿namespace FloydPink.Flickr.Downloadr.UI.Behaviors {
     // Thanks to http://blog.functionalfun.net/2009/02/how-to-databind-to-selecteditems.html
     /// <summary>
     ///     Converts items in the Master list to Items in the target list, and back again.
     /// </summary>
-    public interface IListItemConverter
-    {
+    public interface IListItemConverter {
         /// <summary>
         ///     Converts the specified master list item.
         /// </summary>

@@ -1,7 +1,5 @@
-namespace FloydPink.Flickr.Downloadr.Model.Constants
-{
-    public static class AppConstants
-    {
+namespace FloydPink.Flickr.Downloadr.Model.Constants {
+    public static class AppConstants {
         public const string FlickrDictionaryContentKey = "_content";
 
         public const string AuthenticatedMessage =
