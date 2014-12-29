@@ -53,6 +53,8 @@ namespace FloydPink.Flickr.Downloadr.UI {
 
             FileCache.AppCacheDirectory = Preferences.CacheLocation;
 
+            FileCache.AppCacheMode = FileCache.CacheMode.Dedicated;
+
             this._presenter = Bootstrapper.GetPresenter<IBrowserView, IBrowserPresenter>(this);
             this._presenter.InitializePhotoset();
         }
